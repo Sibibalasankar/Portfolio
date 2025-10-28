@@ -1,0 +1,114 @@
+/* src/styles/animations.css */
+@keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-100px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(100px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+  
+  @keyframes scrollBounce {
+    0%, 100% { 
+      transform: translateY(0); 
+    }
+    50% { 
+      transform: translateY(10px); 
+    }
+  }
+  
+  .fade-in-up {
+    animation: fadeInUp 1s ease-out;
+  }
+  
+  .slide-in-left {
+    animation: slideInLeft 1s ease-out;
+  }
+  
+  .slide-in-right {
+    animation: slideInRight 1s ease-out;
+  }
+  
+  .float {
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  /* Text reveal animation */
+  .text-reveal {
+    overflow: hidden;
+  }
+  
+  .text-reveal > div {
+    transform: translateY(100%);
+    animation: textReveal 1s ease-out forwards;
+  }
+  
+  @keyframes textReveal {
+    to {
+      transform: translateY(0);
+    }
+  }
+  
+  /* Horizontal scroll animations */
+  @keyframes scrollLeft {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+  
+  @keyframes scrollRight {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+  
+  .scroll-left {
+    animation: scrollLeft 30s linear infinite;
+  }
+  
+  .scroll-right {
+    animation: scrollRight 30s linear infinite;
+  }
+  
+  .scroll-left:hover, .scroll-right:hover {
+    animation-play-state: paused;
+  }

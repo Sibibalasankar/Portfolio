@@ -1,0 +1,29 @@
+/* src/components/CustomCursor.css - Extra Large */
+.cursor {
+    position: fixed;
+    width: 50px; /* Extra large */
+    height: 50px;
+    background: var(--white);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    mix-blend-mode: difference;
+    transform: translate(-50%, -50%);
+    transition: transform 0.3s ease, width 0.3s ease, height 0.3s ease; /* Smooth transition */
+  }
+  
+  .cursor-pointer {
+    transform: translate(-50%, -50%) scale(1.5); /* Huge on hover */
+    width: 55px;
+    height: 55px;
+  }
+  
+  body {
+    cursor: none;
+  }
+  
+  * {
+    cursor: none;
+  }
