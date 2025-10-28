@@ -8,6 +8,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const Contact = () => {
   const contactRef = useRef();
+  const scrollTextRef = useRef();
 
   useEffect(() => {
     const tl = gsap.timeline({
@@ -31,10 +32,36 @@ const Contact = () => {
       { x: 0, opacity: 1, duration: 1 },
       "-=0.5"
     );
+
+    // Very slow infinite scroll animation for "Let's Talk!!"
+    const scrollTl = gsap.timeline({ repeat: -1 });
+    scrollTl.to(scrollTextRef.current, {
+      y: '-100%',
+      duration: 30, // Very slow duration - 30 seconds
+      ease: "none"
+    });
   }, []);
 
   return (
     <section id="contact" ref={contactRef} className="section contact">
+      {/* Scrolling "Let's Talk!!" Section */}
+      <div className="scrolling-talk-section">
+        <div className="scrolling-text-container">
+          <div ref={scrollTextRef} className="scrolling-text">
+            <span className="talk-text">LET'S TALK!!</span>
+            <span className="talk-text">LET'S TALK!!</span>
+            <span className="talk-text">LET'S TALK!!</span>
+            <span className="talk-text">LET'S TALK!!</span>
+            <span className="talk-text">LET'S TALK!!</span>
+            <span className="talk-text">LET'S TALK!!</span>
+            <span className="talk-text">LET'S TALK!!</span>
+            <span className="talk-text">LET'S TALK!!</span>
+            <span className="talk-text">LET'S TALK!!</span>
+            <span className="talk-text">LET'S TALK!!</span>
+          </div>
+        </div>
+      </div>
+
       <div className="container">
         <h2 className="section-title contact-title">Get In Touch</h2>
         
@@ -61,6 +88,12 @@ const Contact = () => {
                   linkedin.com/in/sibib-s-656b30264
                 </a>
               </div>
+              <div className="contact-detail">
+                <strong>GitHub:</strong>
+                <a href="https://github.com/Sibibalasankar" target="_blank" rel="noopener noreferrer" className="clickable">
+                  github.com/Sibibalasankar
+                </a>
+              </div>
             </div>
           </div>
           
@@ -71,14 +104,17 @@ const Contact = () => {
             <a href="https://www.linkedin.com/in/sibib-s-656b30264" target="_blank" rel="noopener noreferrer" className="contact-link clickable">
               <span>LinkedIn</span>
             </a>
-            <a href="/resume.pdf" download className="contact-link clickable">
+            <a href="https://github.com/Sibibalasankar" target="_blank" rel="noopener noreferrer" className="contact-link clickable">
+              <span>GitHub</span>
+            </a>
+            <a href="/Sibi_resume.pdf" download className="contact-link clickable">
               <span>Download Resume</span>
             </a>
           </div>
         </div>
         
         <div className="footer">
-          <p>&copy; 2024 SIBI B S. All rights reserved.</p>
+          <p>&copy; 2025 SIBI B S. All rights reserved.</p>
         </div>
       </div>
     </section>

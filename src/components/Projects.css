@@ -99,6 +99,55 @@
     background-clip: text;
   }
   
+  /* Responsive styles for Projects */
+  @media (max-width: 992px) {
+    .project-item {
+      padding: 2.5rem 3rem;
+    }
+    
+    .project-title {
+      font-size: 3.5rem;
+    }
+    
+    .project-arrow {
+      font-size: 2.5rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .project-item {
+      padding: 2rem;
+    }
+    
+    .project-title {
+      font-size: 2.5rem;
+    }
+    
+    .project-arrow {
+      font-size: 2rem;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .project-item {
+      padding: 1.5rem;
+    }
+    
+    .project-title {
+      font-size: 1.8rem;
+    }
+    
+    .project-arrow {
+      font-size: 1.5rem;
+    }
+    
+    .project-main-info {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+  }
+  
   /* Non-hovered arrows stay hidden */
   .projects-list:hover .project-item:not(:hover) .project-arrow {
     opacity: 0;

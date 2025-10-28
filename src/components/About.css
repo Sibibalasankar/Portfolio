@@ -63,6 +63,29 @@
     padding: 2rem;
   }
   
+  @media (max-width: 992px) {
+    .about-content {
+      gap: 4rem;
+    }
+    
+    .about-description {
+      font-size: 1.3rem;
+    }
+    
+    .about-stats {
+      gap: 3rem;
+    }
+    
+    .stat-number {
+      font-size: 2.5rem;
+    }
+    
+    .image-placeholder {
+      width: 280px;
+      height: 350px;
+    }
+  }
+
   @media (max-width: 768px) {
     .about-content {
       grid-template-columns: 1fr;
@@ -85,5 +108,36 @@
     .image-placeholder {
       width: 250px;
       height: 300px;
+      margin: 0 auto;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .about-description {
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+    
+    .about-stats {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    .stat {
+      flex: 0 0 40%;
+      margin-bottom: 1.5rem;
+    }
+    
+    .stat-number {
+      font-size: 1.8rem;
+    }
+    
+    .stat-label {
+      font-size: 0.9rem;
+    }
+    
+    .image-placeholder {
+      width: 220px;
+      height: 280px;
     }
   }

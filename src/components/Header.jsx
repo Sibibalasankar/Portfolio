@@ -29,7 +29,7 @@ const Header = () => {
           <a href="#skills" onClick={() => setIsMobileMenuOpen(false)}>Skills</a>
           <a href="#achievements" onClick={() => setIsMobileMenuOpen(false)}>Achievements</a>
           <a href="#contact" onClick={() => setIsMobileMenuOpen(false)}>Contact</a>
-          <a href="/resume.pdf" download className="download-btn clickable">
+          <a href="/Sibi_Resume.pdf" download className="download-btn clickable">
             Download CV
           </a>
         </div>

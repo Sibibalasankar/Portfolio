@@ -9,6 +9,7 @@ import Experience from './components/Experience';
 import Skills from './components/Skills';
 import Achievements from './components/Achievements';
 import Contact from './components/Contact';
+import ScrollToTop from './components/ScrollToTop';
 import './styles/globals.css';
 import './styles/animations.css';
 
@@ -38,6 +39,7 @@ function App() {
       <Skills />
       <Achievements />
       <Contact />
+      <ScrollToTop />
     </div>
   );
 }

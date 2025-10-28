@@ -98,7 +98,85 @@
     color: var(--white);
     font-weight: 400;
     max-width: 800px;
+}
+
+/* Responsive styles for Achievements */
+@media (max-width: 992px) {
+  .achievements-main-title {
+    font-size: 3.5rem;
   }
+  
+  .achievement-title {
+    font-size: 3rem;
+  }
+  
+  .achievement-event {
+    font-size: 1.3rem;
+  }
+  
+  .horizontal-achievement {
+    padding: 3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .achievements-main-title {
+    font-size: 3rem;
+  }
+  
+  .achievements-subtitle {
+    font-size: 1.1rem;
+  }
+  
+  .horizontal-achievement {
+    flex: 0 0 95vw;
+    height: 75vh;
+    padding: 2.5rem;
+  }
+  
+  .achievement-title {
+    font-size: 2.5rem;
+  }
+  
+  .achievement-event {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .achievement-description {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .achievements-main-title {
+    font-size: 2.5rem;
+  }
+  
+  .achievements-subtitle {
+    font-size: 1rem;
+  }
+  
+  .horizontal-achievement {
+    padding: 2rem;
+    height: 70vh;
+  }
+  
+  .achievement-title {
+    font-size: 2rem;
+  }
+  
+  .achievement-event {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .achievement-description {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+}
   
   .achievement-linkedin-link {
     display: inline-flex;

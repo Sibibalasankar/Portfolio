@@ -35,7 +35,6 @@ const Hero = () => {
           <div>DEVELOPER &</div>
           <div>BLOCKCHAIN ENGINEER</div>
         </h1>
-        <p className="hero-subtitle">SIBI B S</p>
         <p className="hero-description">
           Creating digital experiences that merge cutting-edge technology with elegant design. 
           Specialized in AI, Blockchain, and Full Stack Development.

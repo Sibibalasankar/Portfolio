@@ -78,6 +78,24 @@
     transition: 0.3s;
   }
   
+  @media (max-width: 992px) {
+    .header {
+      padding: 1.5rem 3rem;
+    }
+    
+    .header.scrolled {
+      padding: 1rem 3rem;
+    }
+    
+    .nav-links {
+      gap: 2rem;
+    }
+    
+    .nav-links a {
+      font-size: 0.8rem;
+    }
+  }
+  
   @media (max-width: 768px) {
     .header {
       padding: 1.5rem 2rem;
@@ -93,23 +111,50 @@
     
     .nav-links {
       position: fixed;
-      top: 100%;
+      top: 0;
       left: 0;
       width: 100%;
-      background: var(--black);
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(10px);
       flex-direction: column;
-      padding: 2rem;
+      padding: 6rem 2rem 2rem;
       gap: 2rem;
-      transform: translateY(-100%);
+      transform: translateX(100%);
       opacity: 0;
       visibility: hidden;
       transition: all 0.3s ease;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: -1;
     }
     
     .nav-links.active {
-      transform: translateY(0);
+      transform: translateX(0);
       opacity: 1;
       visibility: visible;
+      z-index: 999;
+    }
+    
+    .nav-links a {
+      font-size: 1.2rem;
+    }
+    
+    .download-btn {
+      margin-top: 1rem;
+      width: 100%;
+      text-align: center;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .header {
+      padding: 1.2rem 1.5rem;
+    }
+    
+    .header.scrolled {
+      padding: 0.8rem 1.5rem;
+    }
+    
+    .nav-brand {
+      font-size: 1.2rem;
     }
   }

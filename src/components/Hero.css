@@ -98,7 +98,92 @@
   .btn-secondary:hover {
     background: var(--white);
     color: var(--black);
+}
+
+/* Responsive styles for Hero */
+@media (max-width: 1200px) {
+  .hero-title {
+    font-size: 4.5rem;
   }
+  
+  .hero-subtitle {
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .hero {
+    padding: 0 3rem;
+    padding-top: 100px;
+  }
+  
+  .hero-title {
+    font-size: 3.8rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.4rem;
+  }
+  
+  .hero-description {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 0 2rem;
+    padding-top: 80px;
+  }
+  
+  .hero-title {
+    font-size: 3rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+  
+  .hero-description {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .hero-buttons {
+    gap: 1rem;
+  }
+  
+  .btn-primary, .btn-secondary {
+    padding: 1rem 2rem;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero {
+    padding: 0 1.5rem;
+    padding-top: 70px;
+  }
+  
+  .hero-title {
+    font-size: 2.2rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1rem;
+    letter-spacing: 0.2em;
+  }
+  
+  .hero-description {
+    font-size: 1rem;
+  }
+  
+  .btn-primary, .btn-secondary {
+    padding: 0.8rem 1.5rem;
+    min-width: 150px;
+  }
+}
   
   .btn-primary:hover {
     background: transparent;

@@ -1,107 +1,262 @@
 /* src/components/Contact.css */
 .contact {
-    background: var(--black);
-    padding-bottom: 4rem;
+  background: var(--black);
+  padding-bottom: 4rem;
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh; /* Ensure full viewport height */
+}
+
+/* Scrolling "LET'S TALK!!" Section */
+.scrolling-talk-section {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(100% - 100px); /* Stop before copyright section */
+  pointer-events: none;
+  z-index: 1;
+}
+
+.scrolling-text-container {
+  position: absolute;
+  right: 3%;
+  top: 0;
+  height: 100%;
+  width: 180px;
+  overflow: hidden;
+  mask-image: linear-gradient(
+    to bottom, 
+    transparent 0%, 
+    black 5%, 
+    black 95%, 
+    transparent 100%
+  );
+}
+
+.scrolling-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8rem; /* Very large gap for super slow feel */
+}
+
+.talk-text {
+  font-size: 4rem;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.15); /* Slightly more visible */
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  white-space: nowrap;
+  transform: rotate(180deg);
+  line-height: 1.1;
+  font-family: 'Arial Black', 'Helvetica Neue', sans-serif;
+}
+
+.contact-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 6rem;
+  margin-bottom: 4rem;
+  position: relative;
+  z-index: 2;
+}
+
+.contact-subtitle {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+
+.contact-description {
+  font-size: 1.3rem;
+  line-height: 1.7;
+  margin-bottom: 3rem;
+  opacity: 0.9;
+  max-width: 500px;
+}
+
+.contact-details {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.contact-detail {
+  font-size: 1.1rem;
+}
+
+.contact-detail strong {
+  display: block;
+  margin-bottom: 0.5rem;
+  opacity: 0.9;
+}
+
+.contact-detail a {
+  color: var(--white);
+  text-decoration: none;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+
+.contact-detail a:hover {
+  opacity: 1;
+}
+
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  position: relative;
+  z-index: 3;
+}
+
+.contact-link {
+  padding: 1.5rem 2rem;
+  border: 2px solid var(--white);
+  text-decoration: none;
+  color: var(--white);
+  text-align: center;
+  border-radius: 15px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  position: relative;
+  z-index: 4;
+  background: var(--black);
+}
+
+.contact-link:hover {
+  background: var(--white);
+  color: var(--black);
+  transform: translateY(-3px);
+}
+
+.footer {
+  text-align: center;
+  padding-top: 3rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  opacity: 0.7;
+  position: relative;
+  z-index: 2;
+  margin-top: 2rem;
+}
+
+/* Ensure scrolling doesn't interfere with footer */
+.footer::before {
+  content: '';
+  position: absolute;
+  top: -2rem;
+  left: 0;
+  width: 100%;
+  height: 2rem;
+  background: linear-gradient(to bottom, transparent, var(--black));
+  z-index: 1;
+}
+
+@media (max-width: 1200px) {
+  .scrolling-text-container {
+    right: 2%;
+    width: 150px;
   }
   
+  .talk-text {
+    font-size: 3.5rem;
+  }
+}
+
+@media (max-width: 992px) {
   .contact-content {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 6rem;
-    margin-bottom: 4rem;
+    gap: 4rem;
   }
   
   .contact-subtitle {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-    line-height: 1.2;
+    font-size: 2.2rem;
   }
   
   .contact-description {
-    font-size: 1.3rem;
-    line-height: 1.7;
-    margin-bottom: 3rem;
-    opacity: 0.9;
-    max-width: 500px;
+    font-size: 1.2rem;
   }
   
-  .contact-details {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+  .scrolling-text-container {
+    width: 130px;
   }
   
-  .contact-detail {
+  .talk-text {
+    font-size: 3rem;
+  }
+  
+  .scrolling-text {
+    gap: 7rem;
+  }
+}
+
+@media (max-width: 868px) {
+  .scrolling-text-container {
+    right: 1%;
+    width: 110px;
+  }
+  
+  .talk-text {
+    font-size: 2.8rem;
+    letter-spacing: 0.15em;
+  }
+  
+  .scrolling-text {
+    gap: 6rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-content {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  
+  .contact-subtitle {
+    font-size: 2rem;
+  }
+  
+  .contact-description {
     font-size: 1.1rem;
-  }
-  
-  .contact-detail strong {
-    display: block;
-    margin-bottom: 0.5rem;
-    opacity: 0.9;
-  }
-  
-  .contact-detail a {
-    color: var(--white);
-    text-decoration: none;
-    opacity: 0.8;
-    transition: opacity 0.3s ease;
-  }
-  
-  .contact-detail a:hover {
-    opacity: 1;
+    margin-bottom: 2rem;
   }
   
   .contact-links {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  
+  .scrolling-text-container {
+    display: none;
+  }
+}
+
+@media (max-width: 576px) {
+  .contact-subtitle {
+    font-size: 1.8rem;
+  }
+  
+  .contact-description {
+    font-size: 1rem;
+  }
+  
+  .contact-detail {
+    font-size: 1rem;
+  }
+  
+  .contact-links {
+    grid-template-columns: 1fr;
   }
   
   .contact-link {
-    padding: 1.5rem 2rem;
-    border: 2px solid var(--white);
-    text-decoration: none;
-    color: var(--white);
-    text-align: center;
-    border-radius: 15px;
-    font-weight: 600;
-    font-size: 1.1rem;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
+    padding: 1.2rem 1.5rem;
+    font-size: 1rem;
   }
-  
-  .contact-link:hover {
-    background: var(--white);
-    color: var(--black);
-    transform: translateY(-3px);
-  }
-  
-  .footer {
-    text-align: center;
-    padding-top: 3rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    opacity: 0.7;
-  }
-  
-  @media (max-width: 768px) {
-    .contact-content {
-      grid-template-columns: 1fr;
-      gap: 3rem;
-    }
-    
-    .contact-subtitle {
-      font-size: 2rem;
-    }
-    
-    .contact-description {
-      font-size: 1.1rem;
-    }
-    
-    .contact-link {
-      padding: 1.2rem 1.5rem;
-      font-size: 1rem;
-    }
-  }
+}
