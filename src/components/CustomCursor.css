@@ -27,3 +27,14 @@
   * {
     cursor: none;
   }
+  
+  /* Hide custom cursor on mobile devices */
+  @media (max-width: 768px) {
+    .cursor {
+      display: none;
+    }
+    
+    body, * {
+      cursor: auto;
+    }
+  }
