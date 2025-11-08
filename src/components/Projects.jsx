@@ -23,6 +23,16 @@ const Projects = () => {
       type: "website"
     },
     {
+      title: "EDUCERT",
+      preview: "Decentralized certificate issuance & verification platform",
+      company: "Independent Project",
+      year: "2025",
+      description: "Developed a decentralized certificate platform where institutions can approve student certificates, students can mint them as NFTs on Ethereum, and anyone can verify them publicly without wallet access.",
+      tags: ["WEB3", "NFT", "BLOCKCHAIN", "REACT", "NODE.JS"],
+      link: "https://educert25.onrender.com",
+      type: "webapp"
+    },
+    {
       title: "LLS AUDIT APP",
       preview: "Auditing application for streamlined workflow management",
       company: "LLS Coimbatore, India",
@@ -30,6 +40,16 @@ const Projects = () => {
       description: "Developed an auditing application for managing audit plans, observations, and action reports, creating a responsive, user-friendly workflow for auditors and departments.",
       tags: ["FULL STACK", "REACT", "NODE.JS", "DATABASE"],
       link: "https://llsamsystem.netlify.app/",
+      type: "webapp"
+    },
+    {
+      title: "SMART TRIBAL FARMING",
+      preview: "Smart crop planning & transport pooling platform for farmers",
+      company: "Independent Project",
+      year: "2024",
+      description: "Developed an agricultural resource management platform that provides smart crop recommendations based on soil, season, and region data, along with a transport pooling system to help farmers share logistics efficiently and reduce transportation cost.",
+      tags: ["REACT", "VITE", "RESOURCE MANAGEMENT", "AGRICULTURE", "UI/UX"],
+      link: "https://smart-tribal-farming.onrender.com",
       type: "webapp"
     },
     {
@@ -76,27 +96,27 @@ const Projects = () => {
 
   const handleMouseEnter = (index, e) => {
     setActiveCard(index);
-    
+
     const cardWidth = 320;
     const cardHeight = 400;
     const viewportWidth = window.innerWidth;
     const viewportHeight = window.innerHeight;
-    
+
     let x = e.clientX + 20;
     let y = e.clientY - 20;
-    
+
     if (x + cardWidth > viewportWidth - 20) {
       x = e.clientX - cardWidth - 20;
     }
-    
+
     if (y + cardHeight > viewportHeight - 20) {
       y = viewportHeight - cardHeight - 20;
     }
-    
+
     if (y < 20) {
       y = 20;
     }
-    
+
     setCardPosition({ x, y });
   };
 
@@ -110,22 +130,22 @@ const Projects = () => {
       const cardHeight = 400;
       const viewportWidth = window.innerWidth;
       const viewportHeight = window.innerHeight;
-      
+
       let x = e.clientX + 20;
       let y = e.clientY - 20;
-      
+
       if (x + cardWidth > viewportWidth - 20) {
         x = e.clientX - cardWidth - 20;
       }
-      
+
       if (y + cardHeight > viewportHeight - 20) {
         y = viewportHeight - cardHeight - 20;
       }
-      
+
       if (y < 20) {
         y = 20;
       }
-      
+
       setCardPosition({ x, y });
     }
   };
@@ -139,15 +159,15 @@ const Projects = () => {
   };
 
   return (
-    <section 
-      id="projects" 
-      ref={projectsRef} 
+    <section
+      id="projects"
+      ref={projectsRef}
       className="section projects"
       onMouseMove={handleMouseMove}
     >
       <div className="container">
         <h2 className="section-title projects-title">WORKS</h2>
-        
+
         <div className="projects-list">
           {projects.map((project, index) => (
             <a
@@ -170,7 +190,7 @@ const Projects = () => {
         </div>
 
         {activeCard !== null && (
-          <div 
+          <div
             className="project-card active"
             style={{
               left: `${cardPosition.x}px`,
@@ -182,16 +202,16 @@ const Projects = () => {
                 <span className="project-company">{projects[activeCard].company}</span>
                 <span className="project-year">{projects[activeCard].year}</span>
               </div>
-              
+
               <p className="project-description">{projects[activeCard].description}</p>
-              
+
               <div className="project-tags">
                 {projects[activeCard].tags.map((tag, tagIndex) => (
                   <span key={tagIndex} className="project-tag">{tag}</span>
                 ))}
                 <span className="project-tag project-type">
                   {projects[activeCard].type === "website" && "LIVE WEBSITE"}
-                  {projects[activeCard].type === "webapp" && "WEB APPLICATION"} 
+                  {projects[activeCard].type === "webapp" && "WEB APPLICATION"}
                   {projects[activeCard].type === "mobile" && "MOBILE APP"}
                 </span>
               </div>

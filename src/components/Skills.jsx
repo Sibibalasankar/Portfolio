@@ -8,8 +8,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const Skills = () => {
   const skillsRef = useRef();
-  const techScrollLeftRef = useRef();
-  const techScrollRightRef = useRef();
+  const floatingBubblesRef = useRef();
   const skillsGridRef = useRef();
 
   const skillCategories = [
@@ -29,8 +28,11 @@ const Skills = () => {
     }
   ];
 
-  const techStackLeft = ["React", "Node.js", "Blockchain", "AI/ML", "Solidity", "TypeScript", "AWS", "Docker", "MongoDB", "Python", "JavaScript", ".Net"];
-  const techStackRight = ["UI/UX Design", "3D Modeling", "GitHub", "PostgreSQL", "Smart Contracts", "Web3", "GraphQL", "Redis", "Kubernetes", "TensorFlow"];
+  const techSymbols = [
+    "⚛️", "🚀", "🐍", "📊", "🔗", "⚡", "🎨", "🛠️",
+    "💾", "🌐", "🔒", "📱", "🎯", "⚙️", "🔧", "💻",
+    "📡", "🔄", "🎮", "🤖", "☁️", "📈", "🔍", "✨"
+  ];
 
   useEffect(() => {
     const tl = gsap.timeline({
@@ -67,31 +69,86 @@ const Skills = () => {
       }
     );
 
-    // Infinite horizontal scrolling without gaps
-    const createInfiniteScroll = (element, direction = 1) => {
-      if (!element) return;
+    // Floating bubbles animation with proper distribution
+    const bubbles = floatingBubblesRef.current?.children;
+    if (bubbles) {
+      Array.from(bubbles).forEach((bubble, index) => {
+        // Calculate random positions spread across the entire screen
+        const randomX = 5 + Math.random() * 90; // 5% to 95%
+        const randomY = 5 + Math.random() * 90; // 5% to 95%
+        
+        // Set initial random position
+        gsap.set(bubble, {
+          x: randomX + '%',
+          y: randomY + '%'
+        });
 
-      const content = element.children[0];
-      const contentWidth = content.scrollWidth / 2;
-      
-      gsap.to(content, {
-        x: direction > 0 ? `-=${contentWidth}` : `+=${contentWidth}`,
-        duration: 20,
-        ease: "none",
-        repeat: -1,
-        modifiers: {
-          x: gsap.utils.unitize(x => parseFloat(x) % contentWidth)
-        }
+        const duration = 20 + Math.random() * 15;
+        const delay = Math.random() * 3;
+
+        // Vertical floating animation
+        gsap.to(bubble, {
+          y: `+=${15 + Math.random() * 20}`,
+          duration: duration,
+          ease: "sine.inOut",
+          repeat: -1,
+          yoyo: true,
+          delay: delay
+        });
+
+        // Horizontal floating animation
+        gsap.to(bubble, {
+          x: `+=${10 + Math.random() * 15}`,
+          duration: duration * 0.8,
+          ease: "sine.inOut",
+          repeat: -1,
+          yoyo: true,
+          delay: delay
+        });
+
+        // Rotation animation
+        gsap.to(bubble, {
+          rotation: 360,
+          duration: duration * 3,
+          ease: "none",
+          repeat: -1,
+          delay: delay
+        });
+
+        // Scale animation
+        gsap.to(bubble, {
+          scale: 1.2,
+          duration: duration * 0.7,
+          ease: "sine.inOut",
+          repeat: -1,
+          yoyo: true,
+          delay: delay
+        });
       });
-    };
-
-    createInfiniteScroll(techScrollLeftRef.current, 1);
-    createInfiniteScroll(techScrollRightRef.current, -1);
+    }
   }, []);
 
   return (
     <section id="skills" ref={skillsRef} className="section skills">
       <div className="skills-bg-grid"></div>
+      
+      {/* Floating Tech Bubbles Background */}
+      <div ref={floatingBubblesRef} className="floating-bubbles">
+        {techSymbols.map((symbol, index) => (
+          <div 
+            key={index} 
+            className="tech-bubble"
+            style={{
+              left: `${5 + Math.random() * 90}%`,
+              top: `${5 + Math.random() * 90}%`,
+              animationDelay: `${Math.random() * 20}s`,
+              fontSize: `${12 + Math.random() * 8}px`
+            }}
+          >
+            {symbol}
+          </div>
+        ))}
+      </div>
       
       <div className="container">
         <h2 className="section-title skills-title">Technical Expertise</h2>
@@ -112,34 +169,6 @@ const Skills = () => {
               </div>
             </div>
           ))}
-        </div>
-
-        {/* Enhanced Infinite Tech Stack Scroller */}
-        <div className="tech-stack-section">
-          <h3 className="tech-stack-title">Tech Stack</h3>
-          <div className="tech-scroll-container">
-            <div ref={techScrollLeftRef} className="tech-scroll-wrapper">
-              <div className="tech-scroll-track">
-                {[...techStackLeft, ...techStackLeft].map((tech, index) => (
-                  <div key={index} className="tech-item">
-                    <div className="tech-glow"></div>
-                    {tech}
-                  </div>
-                ))}
-              </div>
-            </div>
-            
-            <div ref={techScrollRightRef} className="tech-scroll-wrapper">
-              <div className="tech-scroll-track reverse">
-                {[...techStackRight, ...techStackRight].map((tech, index) => (
-                  <div key={index} className="tech-item">
-                    <div className="tech-glow"></div>
-                    {tech}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </section>

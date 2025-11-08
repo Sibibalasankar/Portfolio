@@ -40,7 +40,7 @@ const Hero = () => {
           Specialized in AI, Blockchain, and Full Stack Development.
         </p>
         <div className="hero-buttons">
-          <a href="#projects" className="btn-primary clickable">View Projects</a>
+          <a href="#projects" className="btn-primary clickable">View Works</a>
           <a href="#contact" className="btn-secondary clickable">Get In Touch</a>
         </div>
       </div>
