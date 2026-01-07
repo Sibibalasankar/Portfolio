@@ -289,3 +289,48 @@
       transform: translateY(10px); 
     }
   }
+
+  /* ================= ID CARD HANGING ================= */
+
+.id-card-wrapper {
+  position: absolute;
+  top: 0;                /* 🔥 IMPORTANT */
+  left: 80%;
+  transform: translateX(-50%);
+  z-index: 10;
+  pointer-events: none;
+}
+
+
+.id-string {
+  width: 2px;
+  height: 240px;
+  background: rgba(255, 255, 255, 0.6);
+  margin: 0 auto;
+}
+
+.id-card {
+  width: 140px;
+  margin: 0 auto;
+  transform-origin: top center;
+}
+
+.id-card img {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.5),
+    inset 0 0 0 1px rgba(255,255,255,0.15);
+  background: #111;
+}
+
+/* Mobile adjustment */
+@media (max-width: 768px) {
+  .id-card {
+    width: 110px;
+  }
+
+  .id-string {
+    height: 110px;
+  }
+}
