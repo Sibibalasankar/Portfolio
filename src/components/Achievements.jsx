@@ -20,7 +20,7 @@ const Achievements = () => {
       title: "Best Paper Award",
       event: "Smart Tribal Farming Expo - KGCAS",
       description: "Awarded Best Paper Award for showcasing an innovative and well-executed project at the KGCAS STF Project Expo. Recognized for outstanding research methodology and technical innovation.",
-      linkedin: "https://linkedin.com/posts/your-linkedin-post-1",
+      linkedin: "https://www.linkedin.com/posts/sibi-b-s-656b30264_smartfarming-ai-innovation-activity-7378811811011227648-9JbD?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEDzeqIBwqAZrPqUXNgMMItFqNNEJvb5LYM",
       image: "/api/placeholder/600/300",
     },
     {
@@ -48,7 +48,7 @@ const Achievements = () => {
       title: "Project Expo Recognition",
       event: "Polyfest Project Expo - SRE College",
       description: "Recognized with 2nd prize for showcasing an innovative and well-executed project that demonstrated technical excellence and practical implementation.",
-      linkedin: "https://linkedin.com/posts/your-linkedin-post-5",
+      linkedin: "https://www.linkedin.com/posts/sibi-b-s-656b30264_innovation-firstprize-projectpresentation-activity-7378785626101493760-A6Bi?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEDzeqIBwqAZrPqUXNgMMItFqNNEJvb5LYM",
       image: "/api/placeholder/600/300",
     }
   ], []);

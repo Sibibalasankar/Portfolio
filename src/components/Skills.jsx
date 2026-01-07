@@ -15,15 +15,15 @@ const Skills = () => {
     {
       title: "Technical Skills",
       skills: [
-        "Full Stack Development", "Blockchain", "Smart Contract", 
-        "AI/ML", ".Net Framework", "3D Modeling", "UI/UX Design", "GitHub"
+        "Generative AI", "Blockchain", "Smart Contract", 
+        "Data Science", "Full Stack Development", "3D Modeling", "UI/UX Design", "GitHub"
       ]
     },
     {
-      title: "Technologies",
+      title: "Tools & FrameWorks",
       skills: [
-        "React", "Node.js", "Solidity", "Python", "JavaScript",
-        "TypeScript", "MongoDB", "PostgreSQL"
+        "Java", "Node.js", "Solidity", "Python", "JavaScript",
+        "TypeScript", "MongoDB", "React"
       ]
     }
   ];
