@@ -107,7 +107,7 @@ const Contact = () => {
             <a href="https://github.com/Sibibalasankar" target="_blank" rel="noopener noreferrer" className="contact-link clickable">
               <span>GitHub</span>
             </a>
-            <a href="/Sibi_resume.pdf" download className="contact-link clickable">
+            <a href="/Sibi_Resume_Renwed.pdf" download className="contact-link clickable">
               <span>Download Resume</span>
             </a>
           </div>
