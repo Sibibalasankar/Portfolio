@@ -12,8 +12,26 @@ const Experience = () => {
 
   const experiences = [
     {
+      company: "Rinex Education",
+      role: "GenAI Internship",
+      period: "Nov 2025 – Dec 2025",
+      description: "Successfully completed the Generative Artificial Intelligence, Machine Learning & Data Science program through live sessions and hands-on practical learning. Strengthened core concepts in AI, ML, and data analysis while working on real-world problem scenarios and projects.",
+      location: "Coimbatore, India",
+      type: "internship",
+      tech: ["Generative AI", "Data Science", "Machine Learning"]
+    },
+    {
+      company: "Rinex Education",
+      role: "Web Development Intern",
+      period: "Nov 2025 – Dec 2025",
+      description: "Successfully completed a Web Development Course and Internship Program conducted from November to December 2025. Gained strong practical experience in building real-world web applications, strengthening core web technologies, and improving development workflows through hands-on projects and mentorship.",
+      location: "Coimbatore, India",
+      type: "internship",
+      tech: ["React.js", "MongoDB", "Express.js", "Node.js", "Css", "JavaScript"]
+    },
+    {
       company: "Ascentz Technology",
-      role: "Internship",
+      role: "Python Internship",
       period: "2023",
       description: "Gained hands-on experience in modern web development technologies and participated in real-world projects, enhancing technical skills and industry knowledge.",
       location: "Coimbatore, India",
@@ -27,11 +45,11 @@ const Experience = () => {
       description: "Developed applications and managed backend systems, implementing efficient solutions to support business processes and optimize operational workflows.",
       location: "Coimbatore, India",
       type: "job",
-      tech: ["Backend", "APIs", "System Design", "Database"]
+      tech: ["APIs", "System Design", "MS Sql Database", "Node.js", "React.js", "Express.js"]
     },
     {
       company: "SRI Valves",
-      role: "Administrator",
+      role: "Administration",
       period: "2022",
       description: "Handled administrative tasks and supported day-to-day operations to ensure smooth functioning of the organization and maintain operational efficiency.",
       location: "Coimbatore, India",
@@ -54,18 +72,18 @@ const Experience = () => {
       { y: 50, opacity: 0 },
       { y: 0, opacity: 1, duration: 1, ease: "power3.out" }
     ).fromTo('.experience-item',
-      { 
-        x: -100, 
-        opacity: 0, 
-        scale: 0.9 
+      {
+        x: -100,
+        opacity: 0,
+        scale: 0.9
       },
-      { 
-        x: 0, 
-        opacity: 1, 
-        scale: 1, 
-        duration: 1, 
+      {
+        x: 0,
+        opacity: 1,
+        scale: 1,
+        duration: 1,
         stagger: 0.2,
-        ease: "back.out(1.7)" 
+        ease: "back.out(1.7)"
       },
       "-=0.5"
     );
@@ -115,27 +133,29 @@ const Experience = () => {
         <div className="shape shape-2"></div>
         <div className="shape shape-3"></div>
       </div>
-      
+
       <div className="container">
         <h2 className="section-title experience-title">
-          <span className="title-text">Experience</span>
+          <span className="title-text">Interships</span>
           <span className="title-underline"></span>
         </h2>
-        
+
         <div className="experience-list">
           {experiences.map((exp, index) => (
-            <div 
-              key={index} 
+            <div
+              key={index}
               ref={addToRefs}
               className={`experience-item ${exp.type}`}
             >
               {/* Glass morphic effect */}
               <div className="glass-effect"></div>
+
               
+
               {/* Timeline connector */}
               <div className="timeline-dot"></div>
               <div className="timeline-line"></div>
-              
+
               <div className="experience-content">
                 <div className="experience-header">
                   <div className="company-info">
@@ -148,12 +168,12 @@ const Experience = () => {
                     </div>
                   </div>
                 </div>
-                
+
                 <div className="experience-role">{exp.role}</div>
                 <div className="experience-location">📍 {exp.location}</div>
-                
+
                 <p className="experience-description">{exp.description}</p>
-                
+
                 {/* Tech Stack */}
                 <div className="tech-stack">
                   {exp.tech.map((tech, techIndex) => (
