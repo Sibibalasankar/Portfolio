@@ -1,204 +1,100 @@
 // src/components/Experience.jsx
-import React, { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import './Experience.css';
+import React, { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import "./Experience.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Experience = () => {
-  const experienceRef = useRef();
-  const itemsRef = useRef([]);
+  const sectionRef = useRef(null);
 
   const experiences = [
     {
-      company: "Rinex Education",
-      role: "GenAI Internship",
-      period: "Nov 2025 – Dec 2025",
-      description: "Successfully completed the Generative Artificial Intelligence, Machine Learning & Data Science program through live sessions and hands-on practical learning. Strengthened core concepts in AI, ML, and data analysis while working on real-world problem scenarios and projects.",
-      location: "Coimbatore, India",
-      type: "internship",
-      tech: ["Generative AI", "Data Science", "Machine Learning"]
-    },
-    {
-      company: "Rinex Education",
-      role: "Web Development Intern",
-      period: "Nov 2025 – Dec 2025",
-      description: "Successfully completed a Web Development Course and Internship Program conducted from November to December 2025. Gained strong practical experience in building real-world web applications, strengthening core web technologies, and improving development workflows through hands-on projects and mentorship.",
-      location: "Coimbatore, India",
-      type: "internship",
-      tech: ["React.js", "MongoDB", "Express.js", "Node.js", "Css", "JavaScript"]
-    },
-    {
-      company: "Ascentz Technology",
-      role: "Python Internship",
-      period: "2023",
-      description: "Gained hands-on experience in modern web development technologies and participated in real-world projects, enhancing technical skills and industry knowledge.",
-      location: "Coimbatore, India",
-      type: "internship",
-      tech: ["React", "Node.js", "MongoDB", "JavaScript"]
-    },
-    {
-      company: "Lakshmi Life Sciences",
-      role: "App Development & Backend Engineering",
-      period: "2022",
-      description: "Developed applications and managed backend systems, implementing efficient solutions to support business processes and optimize operational workflows.",
-      location: "Coimbatore, India",
-      type: "job",
-      tech: ["APIs", "System Design", "MS Sql Database", "Node.js", "React.js", "Express.js"]
-    },
-    {
+      year: "2022",
       company: "SRI Valves",
       role: "Administration",
-      period: "2022",
-      description: "Handled administrative tasks and supported day-to-day operations to ensure smooth functioning of the organization and maintain operational efficiency.",
-      location: "Coimbatore, India",
-      type: "job",
-      tech: ["Management", "Operations", "Coordination", "Support"]
+      description:
+        "Built strong operational and organizational foundations by managing administrative tasks and supporting daily business activities.",
+      tech: ["Operations", "Coordination", "Management"]
+    },
+    {
+      year: "2022",
+      company: "Lakshmi Life Sciences",
+      role: "App Development & Backend Engineering",
+      description:
+        "Developed business applications and backend systems, gaining hands-on exposure to real-world software workflows.",
+      tech: ["Node.js", "React.js", "Express.js", "MS SQL"]
+    },
+    {
+      year: "2023",
+      company: "Ascentz Technology",
+      role: "Python Internship",
+      description:
+        "Entered the tech industry through Python development, strengthening programming logic and backend fundamentals.",
+      tech: ["Python", "APIs", "JavaScript"]
+    },
+    {
+      year: "2025",
+      company: "Rinex Education",
+      role: "Web Development Intern",
+      description:
+        "Built full-stack web applications and learned modern development practices through structured projects.",
+      tech: ["React.js", "Node.js", "MongoDB", "Express.js"]
+    },
+    {
+      year: "2025",
+      company: "Rinex Education",
+      role: "GenAI Internship",
+      description:
+        "Specialized in Generative AI, Machine Learning, and Data Science through hands-on projects and real-world problem solving.",
+      tech: ["Generative AI", "Machine Learning", "Data Science"]
     }
   ];
 
   useEffect(() => {
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: experienceRef.current,
-        start: "top 80%",
-        end: "bottom 20%",
-        toggleActions: "play none none reverse"
-      }
-    });
-
-    tl.fromTo('.experience-title',
-      { y: 50, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1, ease: "power3.out" }
-    ).fromTo('.experience-item',
+    gsap.fromTo(
+      ".timeline-item",
+      { opacity: 0, y: 60 },
       {
-        x: -100,
-        opacity: 0,
-        scale: 0.9
-      },
-      {
-        x: 0,
         opacity: 1,
-        scale: 1,
-        duration: 1,
+        y: 0,
+        duration: 0.8,
         stagger: 0.2,
-        ease: "back.out(1.7)"
-      },
-      "-=0.5"
-    );
-
-    // Add hover animations
-    itemsRef.current.forEach((item, index) => {
-      if (item) {
-        item.addEventListener('mouseenter', () => {
-          gsap.to(item, {
-            y: -8,
-            duration: 0.4,
-            ease: "power2.out"
-          });
-          gsap.to(item.querySelector('.glass-effect'), {
-            opacity: 1,
-            duration: 0.3
-          });
-        });
-
-        item.addEventListener('mouseleave', () => {
-          gsap.to(item, {
-            y: 0,
-            duration: 0.4,
-            ease: "power2.out"
-          });
-          gsap.to(item.querySelector('.glass-effect'), {
-            opacity: 0,
-            duration: 0.3
-          });
-        });
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+        },
       }
-    });
+    );
   }, []);
 
-  const addToRefs = (el) => {
-    if (el && !itemsRef.current.includes(el)) {
-      itemsRef.current.push(el);
-    }
-  };
-
   return (
-    <section id="experience" ref={experienceRef} className="section experience">
-      {/* Animated Background */}
-      <div className="experience-bg-pattern"></div>
-      <div className="floating-shapes">
-        <div className="shape shape-1"></div>
-        <div className="shape shape-2"></div>
-        <div className="shape shape-3"></div>
-      </div>
-
+    <section id="experience" className="experience" ref={sectionRef}>
       <div className="container">
-        <h2 className="section-title experience-title">
-          <span className="title-text">Interships</span>
-          <span className="title-underline"></span>
-        </h2>
+        <h2 className="section-title">Career Journey</h2>
 
-        <div className="experience-list">
+        <div className="timeline">
           {experiences.map((exp, index) => (
-            <div
-              key={index}
-              ref={addToRefs}
-              className={`experience-item ${exp.type}`}
-            >
-              {/* Glass morphic effect */}
-              <div className="glass-effect"></div>
+            <div className="timeline-item" key={index}>
+              <div className="timeline-year">{exp.year}</div>
 
-              
+              <div className="timeline-content">
+                <h3 className="timeline-role">{exp.role}</h3>
+                <span className="timeline-company">{exp.company}</span>
 
-              {/* Timeline connector */}
-              <div className="timeline-dot"></div>
-              <div className="timeline-line"></div>
+                <p className="timeline-description">
+                  {exp.description}
+                </p>
 
-              <div className="experience-content">
-                <div className="experience-header">
-                  <div className="company-info">
-                    <h3 className="experience-company">{exp.company}</h3>
-                    <div className="experience-badge">
-                      <span className={`badge ${exp.type}`}>
-                        {exp.type === 'internship' ? 'Internship' : 'Full-time'}
-                      </span>
-                      <span className="experience-period">{exp.period}</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="experience-role">{exp.role}</div>
-                <div className="experience-location">📍 {exp.location}</div>
-
-                <p className="experience-description">{exp.description}</p>
-
-                {/* Tech Stack */}
-                <div className="tech-stack">
-                  {exp.tech.map((tech, techIndex) => (
-                    <span key={techIndex} className="tech-tag">
-                      {tech}
-                    </span>
+                <div className="timeline-tech">
+                  {exp.tech.map((t, i) => (
+                    <span key={i} className="tech-pill">{t}</span>
                   ))}
                 </div>
               </div>
             </div>
           ))}
-        </div>
-
-        {/* Career Progress Bar */}
-        <div className="career-progress">
-          <div className="glass-card">
-            <div className="progress-bar">
-              <div className="progress-fill"></div>
-            </div>
-            <div className="progress-labels">
-              <span>2022</span>
-              <span>2023</span>
-              <span>Present</span>
-            </div>
-          </div>
         </div>
       </div>
     </section>

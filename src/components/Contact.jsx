@@ -64,15 +64,15 @@ const Contact = () => {
 
       <div className="container">
         <h2 className="section-title contact-title">Get In Touch</h2>
-        
+
         <div className="contact-content">
           <div className="contact-info">
             <h3 className="contact-subtitle">Let's create something amazing together</h3>
             <p className="contact-description">
-              I'm always open to discussing new opportunities, innovative projects, 
+              I'm always open to discussing new opportunities, innovative projects,
               and creative ideas. Feel free to reach out if you want to collaborate!
             </p>
-            
+
             <div className="contact-details">
               <div className="contact-detail">
                 <strong>Email:</strong>
@@ -96,7 +96,7 @@ const Contact = () => {
               </div>
             </div>
           </div>
-          
+
           <div className="contact-links">
             <a href="mailto:sibisbs5161@gmail.com" className="contact-link clickable">
               <span>Send Email</span>
@@ -107,12 +107,17 @@ const Contact = () => {
             <a href="https://github.com/Sibibalasankar" target="_blank" rel="noopener noreferrer" className="contact-link clickable">
               <span>GitHub</span>
             </a>
-            <a href="/Sibi_Resume_Renwed.pdf" download className="contact-link clickable">
+            <a
+              href="/Sibi_Resume_edited.pdf"
+              download="SibiBalasankar_Resume.pdf"
+              className="contact-link clickable"
+            >
               <span>Download Resume</span>
             </a>
+
           </div>
         </div>
-        
+
         <div className="footer">
           <p>&copy; 2025 SIBI B S. All rights reserved.</p>
         </div>
