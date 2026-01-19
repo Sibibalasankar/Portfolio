@@ -108,8 +108,8 @@ const Contact = () => {
               <span>GitHub</span>
             </a>
             <a
-              href="/Sibi_Resume_edited.pdf"
-              download="SibiBalasankar_Resume.pdf"
+              href="/Sibi_Resume.pdf"
+              download="Sibi_Resume.pdf"
               className="contact-link clickable"
             >
               <span>Download Resume</span>
