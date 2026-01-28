@@ -84,7 +84,7 @@ const Contact = () => {
               </div>
               <div className="contact-detail">
                 <strong>LinkedIn:</strong>
-                <a href="https://www.linkedin.com/in/sibib-s-656b30264" target="_blank" rel="noopener noreferrer" className="clickable">
+                <a href="https://www.linkedin.com/in/sibi-b-s-656b30264" target="_blank" rel="noopener noreferrer" className="clickable">
                   linkedin.com/in/sibib-s-656b30264
                 </a>
               </div>
@@ -101,7 +101,7 @@ const Contact = () => {
             <a href="mailto:sibisbs5161@gmail.com" className="contact-link clickable">
               <span>Send Email</span>
             </a>
-            <a href="https://www.linkedin.com/in/sibib-s-656b30264" target="_blank" rel="noopener noreferrer" className="contact-link clickable">
+            <a href="https://www.linkedin.com/in/sibi-b-s-656b30264" target="_blank" rel="noopener noreferrer" className="contact-link clickable">
               <span>LinkedIn</span>
             </a>
             <a href="https://github.com/Sibibalasankar" target="_blank" rel="noopener noreferrer" className="contact-link clickable">
