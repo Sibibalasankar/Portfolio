@@ -13,15 +13,37 @@ const Projects = () => {
 
   const projects = [
     {
+      title: "SWAP SAGA (AMM DEX)",
+      preview: "Uniswap-style AMM DEX with swaps, liquidity pools & live analytics",
+      company: "Independent Web3 Project",
+      year: "2026",
+      description:
+        "Developed a Uniswap-style Automated Market Maker (AMM) DEX on Base Sepolia with token swaps, liquidity pools, real-time price discovery, TVL tracking, and MetaMask integration.",
+      tags: [
+        "WEB3",
+        "DEFI",
+        "AMM",
+        "DEX",
+        "SOLIDITY",
+        "ETHERS.JS",
+        "REACT",
+        "BASE"
+      ],
+      link: "https://swap-saga.onrender.com/",
+      type: "webapp"
+    },
+    {
       title: "ARCANE GEN",
       preview: "Secure BTC & EVM wallet generator built for Web3 learning",
       company: "Independent Project",
       year: "2026",
-      description: "Developed a secure cryptocurrency wallet generator that supports Bitcoin (BTC) and EVM-compatible wallets. The project focuses on wallet generation fundamentals, privacy-first design, and a clean user experience. BTC wallets are generated via backend using BIP-39/BIP-44, while EVM wallets are generated client-side and are MetaMask compatible.",
+      description:
+        "Built a secure cryptocurrency wallet generator supporting Bitcoin (BTC) and EVM-compatible wallets, focusing on wallet generation fundamentals, privacy-first design, and MetaMask-compatible EVM wallets.",
       tags: ["WEB3", "CRYPTO", "BITCOIN", "ETHEREUM", "REACT", "NODE.JS"],
       link: "https://arcane-gen.onrender.com",
       type: "webapp"
-    },
+    }
+    ,
     {
       title: "AUDITSMARTAI",
       preview: "AI-powered smart contract auditing tool for secure blockchain deployments",
