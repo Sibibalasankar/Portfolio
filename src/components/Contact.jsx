@@ -85,7 +85,7 @@ const Contact = () => {
               <div className="contact-detail">
                 <strong>LinkedIn:</strong>
                 <a href="https://www.linkedin.com/in/sibi-b-s-656b30264" target="_blank" rel="noopener noreferrer" className="clickable">
-                  linkedin.com/in/sibib-s-656b30264
+                  linkedin.com/in/sibi-b-s-656b30264
                 </a>
               </div>
               <div className="contact-detail">
