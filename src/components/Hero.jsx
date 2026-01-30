@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import "./Hero.css";
 import Lanyard from "./Lanyard";
+import RotatingText from "./RotatingText";
 
 const Hero = () => {
   const heroRef = useRef(null);
@@ -10,38 +11,41 @@ const Hero = () => {
     const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
 
     tl.fromTo(
-      ".hero-title div",
-      { y: 120, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1.1, stagger: 0.12 }
+      ".hero-rotating",
+      { y: 80, opacity: 0 },
+      { y: 0, opacity: 1, duration: 1 }
     )
       .fromTo(
         ".hero-description",
-        { y: 40, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.8 },
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.6 },
         "-=0.4"
       )
       .fromTo(
         ".hero-buttons a",
-        { y: 30, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.7, stagger: 0.15 },
-        "-=0.4"
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.6, stagger: 0.15 },
+        "-=0.3"
       );
   }, []);
 
   return (
     <section className="hero" ref={heroRef}>
-      {/* TEXT CONTENT */}
-      <div className="hero-content">
-        <h1 className="hero-title">
-          <div>FULL STACK</div>
-          <div>DEVELOPER &</div>
-          <div>BLOCKCHAIN ENGINEER</div>
-        </h1>
+      {/* LEFT CONTENT */}
+      <div className="hero-content hero-left">
+        <div className="hero-rotating">
+          <span className="hero-static">Developer in</span>
+
+          <RotatingText
+            texts={["Blockchain", "MERN", "AI"]}
+            rotationInterval={2200}
+            className="hero-rotating-text"
+          />
+        </div>
 
         <p className="hero-description">
-          Creating digital experiences that merge cutting-edge technology with
-          elegant design. Specialized in AI, Blockchain, and Full Stack
-          Development.
+          Building scalable web, blockchain, and AI-powered solutions with clean
+          architecture and real-world impact.
         </p>
 
         <div className="hero-buttons">
@@ -50,12 +54,11 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* 🔥 FOREGROUND LANYARD (NO SPACE TAKEN) */}
+      {/* RIGHT – LANYARD */}
       <div className="hero-lanyard-overlay">
         <Lanyard position={[0, 0, 15]} gravity={[0, -40, 0]} />
       </div>
 
-      {/* SCROLL INDICATOR */}
       <div className="hero-scroll">
         <div className="scroll-indicator"></div>
       </div>
