@@ -1,55 +1,68 @@
 // src/components/Achievements.jsx
-import React, { useEffect, useRef, useState, useMemo } from 'react';
+import React, { useMemo, useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import CardSwap, { Card } from './CardSwap'; // Use the MODIFIED CardSwap
 import './Achievements.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Achievements = () => {
   const achievementsRef = useRef();
-  const horizontalContainerRef = useRef();
-  const horizontalSectionRef = useRef();
   const titleRef = useRef();
-  const [currentAchievement, setCurrentAchievement] = useState(0);
-  const [isInView, setIsInView] = useState(false);
+  const containerRef = useRef();
 
   // Professional achievements data
   const achievements = useMemo(() => [
     {
+      id: 1,
       title: "Best Paper Award",
       event: "Smart Tribal Farming Expo - KGCAS",
       description: "Awarded Best Paper Award for showcasing an innovative and well-executed project at the KGCAS STF Project Expo. Recognized for outstanding research methodology and technical innovation.",
       linkedin: "https://www.linkedin.com/posts/sibi-b-s-656b30264_smartfarming-ai-innovation-activity-7378811811011227648-9JbD?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEDzeqIBwqAZrPqUXNgMMItFqNNEJvb5LYM",
-      image: "/api/placeholder/600/300",
+      date: "2023",
+      category: "Academic Excellence",
+      icon: "🏆"
     },
     {
+      id: 2,
       title: "National Level 1st Prize",
       event: "Technical Symposium - SSEC College",
       description: "Secured 1st prize at national-level technical symposium for presenting an innovative project with exceptional technical execution and comprehensive solution architecture.",
-      linkedin: "https://linkedin.com/posts/your-linkedin-post-2",
-      image: "/api/placeholder/600/300",
+      linkedin: "#",
+      date: "2023",
+      category: "Technical Competition",
+      icon: "🥇"
     },
     {
+      id: 3,
       title: "Technical Paper 1st Place",
       event: "Paper Presentation - SRIP College",
       description: "Achieved 1st place by presenting a well-researched technical paper demonstrating deep expertise and innovative solutions in the field of study.",
-      linkedin: "https://linkedin.com/posts/your-linkedin-post-3",
-      image: "/api/placeholder/600/300",
+      linkedin: "#",
+      date: "2022",
+      category: "Research Excellence",
+      icon: "📄"
     },
     {
+      id: 4,
       title: "Web Development Award",
       event: "Infest Competition - INFO College",
       description: "Awarded 2nd place for developing an innovative and functional web solution that demonstrated superior user experience and technical robustness.",
-      linkedin: "https://linkedin.com/posts/your-linkedin-post-4",
-      image: "/api/placeholder/600/300",
+      linkedin: "#",
+      date: "2022",
+      category: "Web Development",
+      icon: "💻"
     },
     {
+      id: 5,
       title: "Project Expo Recognition",
       event: "Polyfest Project Expo - SRE College",
       description: "Recognized with 2nd prize for showcasing an innovative and well-executed project that demonstrated technical excellence and practical implementation.",
       linkedin: "https://www.linkedin.com/posts/sibi-b-s-656b30264_innovation-firstprize-projectpresentation-activity-7378785626101493760-A6Bi?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEDzeqIBwqAZrPqUXNgMMItFqNNEJvb5LYM",
-      image: "/api/placeholder/600/300",
+      date: "2021",
+      category: "Project Exhibition",
+      icon: "✨"
     }
   ], []);
 
@@ -70,77 +83,28 @@ const Achievements = () => {
       }
     );
 
-    // Progress indicator visibility
-    ScrollTrigger.create({
-      trigger: achievementsRef.current,
-      start: "top 70%",
-      end: "bottom 30%",
-      onEnter: () => setIsInView(true),
-      onLeave: () => setIsInView(false),
-      onEnterBack: () => setIsInView(true),
-      onLeaveBack: () => setIsInView(false)
-    });
-
-    // Horizontal scroll animation
-    const horizontalScroll = gsap.to(horizontalContainerRef.current, {
-      x: () => {
-        const container = horizontalContainerRef.current;
-        const section = horizontalSectionRef.current;
-        if (!container || !section) return 0;
-        
-        const containerWidth = container.scrollWidth;
-        const sectionWidth = section.offsetWidth;
-        return -(containerWidth - sectionWidth);
-      },
-      ease: "none",
-      scrollTrigger: {
-        trigger: horizontalSectionRef.current,
-        start: "top top",
-        end: "+=400%",
-        scrub: 1.5,
-        pin: true,
-        anticipatePin: 1,
-        onUpdate: (self) => {
-          const progress = self.progress;
-          const achievementIndex = Math.floor(progress * achievements.length);
-          setCurrentAchievement(achievementIndex);
-        }
-      }
-    });
-
-    // Individual card animations
-    achievements.forEach((_, index) => {
-      gsap.fromTo(`.horizontal-achievement:nth-child(${index + 1})`,
-        { x: 100, opacity: 0 },
+    // Card container animation
+    if (containerRef.current) {
+      gsap.fromTo(containerRef.current,
+        { opacity: 0, y: 50 },
         {
-          x: 0,
           opacity: 1,
-          duration: 1,
+          y: 0,
+          duration: 1.5,
           scrollTrigger: {
-            trigger: `.horizontal-achievement:nth-child(${index + 1})`,
-            start: "left 90%",
-            end: "left 20%",
-            toggleActions: "play none none reverse",
-            containerAnimation: horizontalScroll
+            trigger: containerRef.current,
+            start: "top 85%",
+            toggleActions: "play none none reverse"
           }
         }
       );
-    });
+    }
 
+    // Cleanup
     return () => {
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
-  }, [achievements]);
-
-  const scrollToAchievement = (index) => {
-    if (horizontalContainerRef.current) {
-      const slideWidth = window.innerWidth * 0.9 + 64; // card width + gap
-      horizontalContainerRef.current.scrollTo({
-        left: index * slideWidth,
-        behavior: 'smooth'
-      });
-    }
-  };
+  }, []);
 
   return (
     <section id="achievements" ref={achievementsRef} className="section achievements">
@@ -150,59 +114,56 @@ const Achievements = () => {
         <p className="achievements-subtitle">Recognitions and accomplishments throughout my journey</p>
       </div>
 
-      <div className="achievements-container">
-        <div 
-          ref={horizontalSectionRef}
-          className="achievements-horizontal-section"
+      {/* Card Container */}
+      <div ref={containerRef} className="achievements-cards-container">
+        <CardSwap
+          width={550}
+          height={450}
+          cardDistance={50}
+          verticalDistance={60}
+          delay={5000}
+          pauseOnHover={false}
+          skewAmount={6}
+          easing="elastic"
         >
-          <div 
-            ref={horizontalContainerRef}
-            className="horizontal-scroll-container"
-          >
-            {achievements.map((achievement, index) => (
-              <div key={index} className="horizontal-achievement">
-                <div className="section-counter">
-                  {String(index + 1).padStart(2, '0')} / {String(achievements.length).padStart(2, '0')}
-                </div>
-
-                <h3 className="achievement-title">{achievement.title}</h3>
-                <div className="achievement-event">{achievement.event}</div>
-                
-                <div className="achievement-image">
-                  <div className="image-placeholder">
-                    Achievement Documentation
+          {achievements.map((achievement) => (
+            <Card 
+              key={achievement.id}
+              customClass="achievement-card"
+            >
+              <div className="card-content">
+                {/* Card Header */}
+                <div className="card-header">
+                  <div className="achievement-icon">{achievement.icon}</div>
+                  <div className="achievement-meta">
+                    <span className="achievement-category">{achievement.category}</span>
+                    <span className="achievement-date">{achievement.date}</span>
                   </div>
                 </div>
-                
-                <p className="achievement-description">{achievement.description}</p>
-                
-                <a 
-                  href={achievement.linkedin} 
-                  className="achievement-linkedin-link clickable"
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                >
-                  <span>View on LinkedIn</span>
-                  <span>→</span>
-                </a>
-              </div>
-            ))}
-          </div>
-        </div>
 
-        {/* Professional Progress Indicator - Only shows when in section */}
-        <div className={`progress-indicator ${isInView ? 'visible' : 'hidden'}`}>
-          <div className="progress-text">Achievements</div>
-          <div className="progress-dots">
-            {achievements.map((_, index) => (
-              <div
-                key={index}
-                className={`progress-dot ${currentAchievement === index ? 'active' : ''}`}
-                onClick={() => scrollToAchievement(index)}
-              />
-            ))}
-          </div>
-        </div>
+                {/* Card Title */}
+                <h3 className="card-title">{achievement.title}</h3>
+                <div className="card-event">{achievement.event}</div>
+
+                {/* Card Description */}
+                <p className="card-description">{achievement.description}</p>
+
+                {/* Card Footer */}
+                <div className="card-footer">
+                  <a 
+                    href={achievement.linkedin} 
+                    className="achievement-linkedin-link"
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                  >
+                    <span>View on LinkedIn</span>
+                    <span className="link-arrow">→</span>
+                  </a>
+                </div>
+              </div>
+            </Card>
+          ))}
+        </CardSwap>
       </div>
     </section>
   );

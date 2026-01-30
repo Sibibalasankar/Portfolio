@@ -10,7 +10,8 @@ const About = () => {
       <div className="white-grid-bg" />
 
       <div className="container">
-        <h2 className="section-title about-title"> <ScrollFloat
+        <h2 className="section-title about-title"> 
+          <ScrollFloat
           animationDuration={0.1}
           ease='back.inOut(2)'
           scrollStart='center bottom+=50%'
