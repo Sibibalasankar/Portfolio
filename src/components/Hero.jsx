@@ -33,6 +33,8 @@ const Hero = () => {
     <section className="hero" ref={heroRef}>
       {/* LEFT CONTENT */}
       <div className="hero-content hero-left">
+
+        {/* ROTATING TEXT */}
         <div className="hero-rotating">
           <span className="hero-static">Developer in</span>
 
@@ -41,24 +43,28 @@ const Hero = () => {
             rotationInterval={2200}
             className="hero-rotating-text"
           />
+
         </div>
 
+        {/* SMALL DESCRIPTION */}
         <p className="hero-description">
           Building scalable web, blockchain, and AI-powered solutions with clean
           architecture and real-world impact.
         </p>
 
+        {/* BUTTONS */}
         <div className="hero-buttons">
           <a href="#projects" className="btn-primary">View Works</a>
           <a href="#contact" className="btn-secondary">Get In Touch</a>
         </div>
       </div>
 
-      {/* RIGHT – LANYARD */}
+      {/* RIGHT – FOREGROUND LANYARD */}
       <div className="hero-lanyard-overlay">
         <Lanyard position={[0, 0, 15]} gravity={[0, -40, 0]} />
       </div>
 
+      {/* SCROLL */}
       <div className="hero-scroll">
         <div className="scroll-indicator"></div>
       </div>
