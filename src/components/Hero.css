@@ -1,3 +1,6 @@
+/* =========================
+   HERO ROOT
+========================= */
 .hero {
   min-height: 100vh;
   display: flex;
@@ -5,70 +8,98 @@
   justify-content: space-between;
   position: relative;
   padding: 0 4rem;
-  overflow: hidden;
+  overflow: visible;
+
+  color: var(--white);
+  background-color: #0b0b0b;
 }
 
-/* LEFT CONTENT */
-.hero-left {
-  text-align: left;
-  max-width: 600px;
+/* =========================
+   DOT GRID BACKGROUND
+========================= */
+.hero-dotgrid-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
 }
 
-/* TEXT LAYER */
+/* =========================
+   OVERLAY
+========================= */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.55),
+    rgba(0, 0, 0, 0.25),
+    rgba(0, 0, 0, 0.55)
+  );
+}
+
+/* =========================
+   CONTENT LAYER
+========================= */
 .hero-content {
   z-index: 2;
   position: relative;
 }
 
-/* RIGHT – LANYARD */
-.hero-lanyard-overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 4;
-  pointer-events: auto;
-  transform: translateX(30vw);
+/* LEFT CONTENT */
+.hero-left {
+  max-width: 600px;
 }
 
-/* ROTATING LINE */
+/* =========================
+   ROTATING TITLE (ALL SCREENS)
+========================= */
 .hero-rotating {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 1rem;
+
+  max-width: min(900px, 90vw);
+  width: max-content;
 
   font-size: 4rem;
   font-weight: 800;
   margin-bottom: 2rem;
 
   white-space: nowrap;
-  flex-wrap: nowrap;
+  overflow: visible;
+
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .hero-static {
   opacity: 0.9;
 }
 
-/* ROTATING WORD — CLEAN TEXT ONLY */
 .hero-rotating-text {
-  display: inline-block;
-
-  width: 11ch;          /* keeps width stable */
-  text-align: left;
-
+  width: auto;
   font-weight: 900;
   letter-spacing: 0.02em;
   color: var(--white);
 }
 
-/* DESCRIPTION */
+/* =========================
+   DESCRIPTION
+========================= */
 .hero-description {
   font-size: 1.15rem;
-  max-width: 600px;
   margin-bottom: 2.8rem;
   opacity: 0.85;
   line-height: 1.6;
 }
 
-/* BUTTONS */
+/* =========================
+   BUTTONS
+========================= */
 .hero-buttons {
   display: flex;
   gap: 2rem;
@@ -79,10 +110,12 @@
   padding: 1.2rem 2.8rem;
   border-radius: 40px;
   border: 2px solid var(--white);
+
   text-decoration: none;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+
   transition: all 0.3s ease;
 }
 
@@ -105,7 +138,9 @@
   color: var(--black);
 }
 
-/* SCROLL */
+/* =========================
+   SCROLL
+========================= */
 .hero-scroll {
   position: absolute;
   bottom: 3rem;
@@ -126,14 +161,28 @@
   50% { transform: translateY(10px); }
 }
 
-/* RESPONSIVE */
+/* =========================
+   RIGHT SIDE CANVAS (ID CARD)
+========================= */
+.hero-lanyard-overlay {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 40vw;
+  height: 100%;
+  z-index: 4;
+  pointer-events: auto;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
 @media (max-width: 768px) {
-  .hero-left {
-    text-align: center;
+  .hero {
+    padding: 0 1.5rem;
   }
 
   .hero-rotating {
-    justify-content: center;
     font-size: 2.4rem;
   }
 
@@ -143,13 +192,19 @@
     gap: 1rem;
   }
 
+  /* Keep ID card on RIGHT even on mobile */
   .hero-lanyard-overlay {
-    transform: translateX(0);
+    width: 50vw;
+    right: -10vw;        /* slight push to avoid overlap */
+    transform: scale(0.9);
   }
 }
 
-/* LANYARD ROOT */
+/* =========================
+   LANYARD ROOT
+========================= */
 .lanyard-root {
   width: 100%;
   height: 100vh;
+  overflow:visible;
 }

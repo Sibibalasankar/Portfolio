@@ -1,8 +1,10 @@
 import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import "./Hero.css";
+
 import Lanyard from "./Lanyard";
-import RotatingText from "./RotatingText";
+import DotGrid from "@/components/DotGrid";
+import RotatingText from "@/components/RotatingText";
 
 const Hero = () => {
   const heroRef = useRef(null);
@@ -31,35 +33,58 @@ const Hero = () => {
 
   return (
     <section className="hero" ref={heroRef}>
+      {/* DOT GRID BACKGROUND */}
+      <div className="hero-dotgrid-bg">
+        <DotGrid
+          dotSize={7}
+          gap={11}
+          baseColor="#271E37"
+          activeColor="#e7e7e7"
+          proximity={190}
+          shockRadius={250}
+          shockStrength={5}
+          resistance={750}
+          returnDuration={1.5}
+        />
+      </div>
+
+      {/* OVERLAY */}
+      <div className="hero-overlay" />
+
       {/* LEFT CONTENT */}
       <div className="hero-content hero-left">
-
-        {/* ROTATING TEXT */}
+        {/* SINGLE-LINE CENTERED ROTATING TITLE */}
         <div className="hero-rotating">
           <span className="hero-static">Developer in</span>
 
           <RotatingText
             texts={["Blockchain", "MERN", "AI"]}
             rotationInterval={2200}
-            className="hero-rotating-text"
+            staggerFrom="last"
+            staggerDuration={0.03}
+            initial={{ y: "100%", opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: "-120%", opacity: 0 }}
+            transition={{ type: "spring", damping: 30, stiffness: 400 }}
+            splitBy="characters"
+            mainClassName="hero-rotating-text"
+            splitLevelClassName="overflow-hidden"
+            elementLevelClassName="inline-block text-white"
           />
-
         </div>
 
-        {/* SMALL DESCRIPTION */}
         <p className="hero-description">
           Building scalable web, blockchain, and AI-powered solutions with clean
           architecture and real-world impact.
         </p>
 
-        {/* BUTTONS */}
         <div className="hero-buttons">
           <a href="#projects" className="btn-primary">View Works</a>
           <a href="#contact" className="btn-secondary">Get In Touch</a>
         </div>
       </div>
 
-      {/* RIGHT – FOREGROUND LANYARD */}
+      {/* RIGHT SIDE – ID CARD / CANVAS */}
       <div className="hero-lanyard-overlay">
         <Lanyard position={[0, 0, 15]} gravity={[0, -40, 0]} />
       </div>
