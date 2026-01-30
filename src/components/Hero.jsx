@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import "./Hero.css";
+import Lanyard from "./Lanyard";
 
 const Hero = () => {
   const heroRef = useRef(null);
@@ -29,6 +30,7 @@ const Hero = () => {
 
   return (
     <section className="hero" ref={heroRef}>
+      {/* TEXT CONTENT */}
       <div className="hero-content">
         <h1 className="hero-title">
           <div>FULL STACK</div>
@@ -48,7 +50,12 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Scroll Indicator */}
+      {/* 🔥 FOREGROUND LANYARD (NO SPACE TAKEN) */}
+      <div className="hero-lanyard-overlay">
+        <Lanyard position={[0, 0, 15]} gravity={[0, -40, 0]} />
+      </div>
+
+      {/* SCROLL INDICATOR */}
       <div className="hero-scroll">
         <div className="scroll-indicator"></div>
       </div>
