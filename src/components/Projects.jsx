@@ -106,25 +106,33 @@ const Projects = () => {
     }
   ];
 
-  useEffect(() => {
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: projectsRef.current,
-        start: "top 80%",
-        end: "bottom 20%",
-        toggleActions: "play none none reverse"
-      }
-    });
+useEffect(() => {
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: projectsRef.current,
+      start: "top 80%",
+      end: "bottom 20%",
+      toggleActions: "play none none reverse",
+      invalidateOnRefresh: true,
+    },
+  });
 
-    tl.fromTo('.projects-title',
-      { y: 50, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1 }
-    ).fromTo('.project-item',
-      { y: 40, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.8, stagger: 0.15 },
-      "-=0.5"
-    );
-  }, []);
+  tl.fromTo(
+    ".projects-title",
+    { y: 50, opacity: 0 },
+    { y: 0, opacity: 1, duration: 1 }
+  ).fromTo(
+    ".project-item",
+    { y: 40, opacity: 0 },
+    { y: 0, opacity: 1, duration: 0.8, stagger: 0.15 },
+    "-=0.5"
+  );
+
+  // ✅ THIS FIXES IT
+  ScrollTrigger.refresh();
+
+}, []);
+
 
   const handleMouseEnter = (index, e) => {
     setActiveCard(index);

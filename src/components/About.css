@@ -1,4 +1,6 @@
-/* src/components/About.css */
+/* =========================
+   ABOUT SECTION ROOT
+========================= */
 .about {
   background: var(--black);
   position: relative;
@@ -8,388 +10,150 @@
   align-items: center;
 }
 
-
-/* Elegant fading grid background */
+/* =========================
+   WHITE GRID BACKGROUND
+========================= */
 .white-grid-bg {
   position: absolute;
   inset: 0;
   background-color: #000;
   background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.15) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.15) 1px, transparent 1px);
-  background-size: 80px 80px; /* grid box size */
-  opacity: 0.35; /* make grid clearly visible */
+    linear-gradient(to right, rgba(255,255,255,0.15) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,0.15) 1px, transparent 1px);
+  background-size: 80px 80px;
+  opacity: 0.35;
   z-index: 0;
 
-  /* smooth fading edges */
   mask-image: radial-gradient(
     circle at center,
-    rgba(255, 255, 255, 1) 60%,
-    rgba(255, 255, 255, 0.7) 80%,
-    rgba(255, 255, 255, 0.2) 95%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  -webkit-mask-image: radial-gradient(
-    circle at center,
-    rgba(255, 255, 255, 1) 60%,
-    rgba(255, 255, 255, 0.7) 80%,
-    rgba(255, 255, 255, 0.2) 95%,
-    rgba(255, 255, 255, 0) 100%
+    rgba(255,255,255,1) 60%,
+    rgba(255,255,255,0.7) 80%,
+    rgba(255,255,255,0) 100%
   );
 }
 
-
-
-
-@keyframes boxMove {
-  0% {
-    background-position: 0 0, 0 0;
-  }
-  100% {
-    background-position: 60px 60px, 60px 60px;
-  }
-}
-
-.white-grid-bg::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: 
-    radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
-    radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
-  pointer-events: none;
-  mix-blend-mode: overlay;
-}
-
-.white-grid-bg::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: 
-    radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
-    radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.03) 0%, transparent 50%);
-  pointer-events: none;
-}
-
-@keyframes gridMove {
-  0% {
-    transform: translate(0, 0);
-  }
-  100% {
-    transform: translate(50px, 50px);
-  }
-}
-
+/* =========================
+   CONTAINER
+========================= */
 .container {
   position: relative;
   z-index: 2;
   width: 100%;
 }
 
+/* =========================
+   TITLE
+========================= */
 .about-title {
-  position: relative;
-  z-index: 3;
+  margin-bottom: 3rem;
 }
 
-.about-content {
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 6rem;
-  align-items: center;
-  position: relative;
-  z-index: 2;
+/* =========================
+   CONTENT
+========================= */
+.about-content.no-image {
+  display: flex;
+  justify-content: center;
 }
 
 .about-text {
-  position: relative;
-  z-index: 2;
+  max-width: 950px;
+  margin: 0 auto;
 }
 
-.about-description {
-  font-size: 1.3rem;
-  line-height: 1.7;
-  margin-bottom: 2rem;
-  opacity: 0.9;
-  color: var(--white);
-  position: relative;
-  z-index: 2;
+/* =========================
+   SCROLL REVEAL PARAGRAPHS
+   ⚠️ DO NOT CENTER DESKTOP TEXT
+========================= */
+.about-text p {
+  font-size: clamp(1.6rem, 2.6vw, 1.9rem);
+  line-height: 1.9;
+  margin-bottom: 3rem;
+  color: #ffffff;
+  font-weight: 500;
+  text-align: left;
 }
 
-/* Freelance Badge */
+/* REQUIRED FOR ScrollReveal */
+.word {
+  display: inline;
+  will-change: opacity, filter;
+}
+
+/* =========================
+   FREELANCE BADGE
+========================= */
 .freelance-badge {
   display: inline-flex;
   align-items: center;
-  gap: 0.8rem;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  padding: 0.8rem 1.5rem;
+  justify-content: center;
+
+  margin: 3rem auto;
+  padding: 1rem 2rem;
+
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.35);
   border-radius: 50px;
-  margin: 2rem 0;
+
   backdrop-filter: blur(10px);
-  transition: all 0.3s ease;
-  position: relative;
-  z-index: 2;
 }
 
-.freelance-badge:hover {
-  background: rgba(255, 255, 255, 0.15);
-  border-color: rgba(255, 255, 255, 0.5);
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(255, 255, 255, 0.1);
-}
-
-.badge-icon {
-  font-size: 1.2rem;
-}
-
+.badge-icon,
 .badge-text {
-  font-size: 0.9rem;
+  color: #ffffff;
   font-weight: 600;
-  color: var(--white);
   letter-spacing: 0.05em;
 }
 
+/* =========================
+   STATS
+========================= */
 .about-stats {
   display: flex;
-  gap: 3rem;
-  margin-top: 2rem;
-  position: relative;
-  z-index: 2;
+  justify-content: center;
+  align-items: center;
+  gap: 4rem;
+  margin-top: 3rem;
 }
 
 .stat {
   text-align: center;
-  position: relative;
-}
-
-.stat::before {
-  content: '';
-  position: absolute;
-  top: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 2px;
-  height: 20px;
-  background: linear-gradient(to bottom, transparent, var(--white), transparent);
-  opacity: 0.5;
 }
 
 .stat-number {
-  font-size: 2.5rem;
+  font-size: 2.6rem;
   font-weight: 900;
-  margin-bottom: 0.5rem;
-  color: var(--white);
-  text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+  color: #ffffff;
 }
 
 .stat-label {
   font-size: 0.9rem;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  opacity: 0.8;
-  font-weight: 600;
-  color: var(--white);
+  letter-spacing: 0.12em;
+  opacity: 0.85;
+  color: #ffffff;
 }
 
-/* Image Styles */
-.about-image {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  z-index: 2;
-}
-
-.about-image-container {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.image-wrapper {
-  position: relative;
-  width: 320px;
-  height: 420px;
-  border-radius: 25px;
-  overflow: hidden;
-  box-shadow: 
-    0 20px 40px rgba(0, 0, 0, 0.5),
-    0 0 0 1px rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.02);
-  backdrop-filter: blur(10px);
-  transition: all 0.3s ease;
-}
-
-.image-wrapper:hover {
-  box-shadow: 
-    0 25px 50px rgba(0, 0, 0, 0.6),
-    0 0 0 1px rgba(255, 255, 255, 0.2);
-  transform: translateY(-5px);
-}
-
-.profile-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top center;
-  transition: transform 0.5s ease;
-}
-
-.image-wrapper:hover .profile-image {
-  transform: scale(1.05);
-}
-
-.image-border {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border: 2px solid transparent;
-  border-radius: 25px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.3)) border-box;
-  -webkit-mask: 
-    linear-gradient(#fff 0 0) padding-box, 
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
-}
-
-.image-wrapper:hover .image-border {
-  opacity: 1;
-}
-
-/* Responsive Design */
-@media (max-width: 1200px) {
-  .about-content {
-    gap: 4rem;
-  }
-  
-  .image-wrapper {
-    width: 280px;
-    height: 370px;
-  }
-}
-
-@media (max-width: 992px) {
-  .about-content {
-    gap: 3rem;
-  }
-  
-  .about-description {
-    font-size: 1.2rem;
-  }
-  
-  .image-wrapper {
-    width: 260px;
-    height: 340px;
-  }
-  
-  .about-stats {
-    gap: 2rem;
-  }
-  
-  .stat-number {
-    font-size: 2.2rem;
-  }
-}
-
+/* =========================
+   RESPONSIVE
+========================= */
 @media (max-width: 768px) {
   .about {
     min-height: auto;
     padding: 4rem 0;
   }
 
-  .about-content {
-    grid-template-columns: 1fr;
-    gap: 3rem;
+  .about-text p {
     text-align: center;
+    font-size: 1.45rem;
   }
-  
-  .about-description {
-    font-size: 1.1rem;
-    line-height: 1.7;
-  }
-  
-  .image-wrapper {
-    width: 240px;
-    height: 320px;
-    margin: 0 auto;
-  }
-  
-  .about-stats {
-    gap: 1.5rem;
-    justify-content: center;
-  }
-  
-  .stat-number {
-    font-size: 2rem;
-  }
-}
 
-@media (max-width: 576px) {
-  .about-description {
-    font-size: 1rem;
-    line-height: 1.6;
-  }
-  
   .about-stats {
+    gap: 2rem;
     flex-wrap: wrap;
-    gap: 1rem;
   }
-  
+
   .stat {
     flex: 0 0 45%;
-  }
-  
-  .stat-number {
-    font-size: 1.8rem;
-  }
-  
-  .stat-label {
-    font-size: 0.8rem;
-  }
-  
-  .freelance-badge {
-    padding: 0.6rem 1.2rem;
-  }
-  
-  .badge-text {
-    font-size: 0.8rem;
-  }
-  
-  .image-wrapper {
-    width: 220px;
-    height: 300px;
-  }
-}
-
-/* Reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  .white-grid-bg {
-    animation: none;
-  }
-  
-  .about-image-container {
-    animation: none;
-  }
-  
-  .profile-image {
-    transition: none;
-  }
-  
-  .image-wrapper:hover {
-    transform: none;
-  }
-  
-  .freelance-badge:hover {
-    transform: none;
   }
 }
