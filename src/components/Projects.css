@@ -38,9 +38,9 @@
 .project-hover-img {
   position: absolute;
   z-index: 0;
-  width: 260px;
+  width: 280px;
   height: 180px;
-  object-fit: cover;
+  object-fit: fit;
   border-radius: 14px;
   pointer-events: none;
 }

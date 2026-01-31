@@ -79,7 +79,7 @@ const Experience = () => {
             ease='back.inOut(2)'
             scrollStart='center bottom+=50%'
             scrollEnd='bottom bottom-=40%'
-            stagger={0.05}
+            stagger={0.5}
           >Career Journey</ScrollFloat></h2>
 
         <div className="timeline">
