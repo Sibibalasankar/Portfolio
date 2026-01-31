@@ -1,275 +1,188 @@
-// src/components/Projects.jsx
-import React, { useEffect, useRef, useState } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import './Projects.css';
-import ScrollFloat from './ScrollFloat';
+import React, { useRef } from "react";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import "./Projects.css";
+import ScrollFloat from "./ScrollFloat";
 
+const projects = [
+  {
+    title: "SWAP SAGA (AMM DEX)",
+    preview: "Uniswap-style AMM DEX with swaps, liquidity pools & live analytics",
+    description:
+      "Developed a Uniswap-style Automated Market Maker (AMM) DEX on Base Sepolia with token swaps, liquidity pools, real-time price discovery, TVL tracking, and MetaMask integration.",
+    company: "Independent Web3 Project",
+    year: "2026",
+    tags: ["WEB3", "DEFI", "AMM", "DEX", "SOLIDITY", "REACT"],
+    img: "/projects/swap-saga.png",
+    link: "https://swap-saga.onrender.com/",
+    type: "WEB APPLICATION",
+  },
+  {
+    title: "ARCANE GEN",
+    preview: "Secure BTC & EVM wallet generator built for Web3 learning",
+    description:
+      "Built a secure cryptocurrency wallet generator supporting Bitcoin (BTC) and EVM-compatible wallets.",
+    company: "Independent Project",
+    year: "2026",
+    tags: ["WEB3", "CRYPTO", "BITCOIN", "ETHEREUM"],
+    img: "/projects/arcane-gen.png",
+    link: "https://arcane-gen.onrender.com",
+    type: "WEB APPLICATION",
+  },
+  {
+    title: "AUDITSMARTAI",
+    preview: "AI-powered smart contract auditing tool",
+    description:
+      "AI-powered tool that analyzes Solidity contracts for vulnerabilities and security issues.",
+    company: "LayerOneX, Australia",
+    year: "2025",
+    tags: ["AI", "BLOCKCHAIN", "SECURITY"],
+    img: "/projects/auditsmartai.png",
+    link: "https://auditsmartai.xyz/",
+    type: "WEBSITE",
+  },
+  {
+    title: "EDUCERT",
+    preview: "Decentralized certificate issuance & verification platform",
+    description:
+      "Decentralized certificate platform where institutions approve certificates and students mint them as NFTs.",
+    company: "Independent Project",
+    year: "2025",
+    tags: ["WEB3", "NFT", "BLOCKCHAIN"],
+    img: "/projects/educert.png",
+    link: "https://educert25.onrender.com",
+    type: "WEB APPLICATION",
+  },
+  {
+    title: "LLS AUDIT APP",
+    preview: "Auditing workflow management system",
+    description:
+      "Audit management system for handling plans, observations, and action reports.",
+    company: "LLS Coimbatore, India",
+    year: "2025",
+    tags: ["FULL STACK", "REACT", "NODE"],
+    img: "/projects/lls.png",
+    link: "https://llsamsystem.netlify.app/",
+    type: "WEB APPLICATION",
+  },
+  {
+    title: "SMART TRIBAL FARMING",
+    preview: "Smart crop planning & transport pooling platform",
+    description:
+      "Agricultural platform providing crop recommendations and transport pooling.",
+    company: "Independent Project",
+    year: "2024",
+    tags: ["AGRICULTURE", "REACT", "UI/UX"],
+    img: "/projects/tribal.png",
+    link: "https://smart-tribal-farming.onrender.com",
+    type: "WEB APPLICATION",
+  },
+  {
+    title: "GREEN WHEELS WEBSITE",
+    preview: "Official business website",
+    description:
+      "Built and launched the official website for Green Wheels Supply Chain Solutions.",
+    company: "GWSCS Coimbatore",
+    year: "2023",
+    tags: ["WEB DESIGN", "RESPONSIVE"],
+    img: "/projects/greenwheels.png",
+    link: "https://www.greenwheelscs.in/",
+    type: "WEBSITE",
+  },
+  {
+    title: "CHITFUND APP",
+    preview: "Chit fund community mobile application",
+    description:
+      "Mobile application for chit fund communities with secure transactions.",
+    company: "Coimbatore, India",
+    year: "2025",
+    tags: ["MOBILE", "FINTECH"],
+    img: "/projects/chitfund.png",
+    link: "#",
+    type: "MOBILE APP",
+  },
+];
 
-gsap.registerPlugin(ScrollTrigger);
+const ProjectLink = ({ project }) => {
+  const ref = useRef(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
 
-const Projects = () => {
-  const projectsRef = useRef();
-  const [activeCard, setActiveCard] = useState(null);
-  const [cardPosition, setCardPosition] = useState({ x: 0, y: 0 });
+  const mouseX = useSpring(x, { stiffness: 120, damping: 20 });
+  const mouseY = useSpring(y, { stiffness: 120, damping: 20 });
 
-  const projects = [
-    {
-      title: "SWAP SAGA (AMM DEX)",
-      preview: "Uniswap-style AMM DEX with swaps, liquidity pools & live analytics",
-      company: "Independent Web3 Project",
-      year: "2026",
-      description:
-        "Developed a Uniswap-style Automated Market Maker (AMM) DEX on Base Sepolia with token swaps, liquidity pools, real-time price discovery, TVL tracking, and MetaMask integration.",
-      tags: [
-        "WEB3",
-        "DEFI",
-        "AMM",
-        "DEX",
-        "SOLIDITY",
-        "ETHERS.JS",
-        "REACT",
-        "BASE"
-      ],
-      link: "https://swap-saga.onrender.com/",
-      type: "webapp"
-    },
-    {
-      title: "ARCANE GEN",
-      preview: "Secure BTC & EVM wallet generator built for Web3 learning",
-      company: "Independent Project",
-      year: "2026",
-      description:
-        "Built a secure cryptocurrency wallet generator supporting Bitcoin (BTC) and EVM-compatible wallets, focusing on wallet generation fundamentals, privacy-first design, and MetaMask-compatible EVM wallets.",
-      tags: ["WEB3", "CRYPTO", "BITCOIN", "ETHEREUM", "REACT", "NODE.JS"],
-      link: "https://arcane-gen.onrender.com",
-      type: "webapp"
-    }
-    ,
-    {
-      title: "AUDITSMARTAI",
-      preview: "AI-powered smart contract auditing tool for secure blockchain deployments",
-      company: "LayerOneX, Australia",
-      year: "2025",
-      description: "Developed an AI-powered smart contract auditing tool that analyzes Solidity contracts for vulnerabilities, provides detailed security reports, and suggests improvements to ensure safe and reliable blockchain deployments.",
-      tags: ["AI", "BLOCKCHAIN", "SOLIDITY", "SECURITY"],
-      link: "https://auditsmartai.xyz/",
-      type: "website"
-    },
-    {
-      title: "EDUCERT",
-      preview: "Decentralized certificate issuance & verification platform",
-      company: "Independent Project",
-      year: "2025",
-      description: "Developed a decentralized certificate platform where institutions can approve student certificates, students can mint them as NFTs on Ethereum, and anyone can verify them publicly without wallet access.",
-      tags: ["WEB3", "NFT", "BLOCKCHAIN", "REACT", "NODE.JS"],
-      link: "https://educert25.onrender.com",
-      type: "webapp"
-    },
-    {
-      title: "LLS AUDIT APP",
-      preview: "Auditing application for streamlined workflow management",
-      company: "LLS Coimbatore, India",
-      year: "2025",
-      description: "Developed an auditing application for managing audit plans, observations, and action reports, creating a responsive, user-friendly workflow for auditors and departments.",
-      tags: ["FULL STACK", "REACT", "NODE.JS", "DATABASE"],
-      link: "https://llsamsystem.netlify.app/",
-      type: "webapp"
-    },
-    {
-      title: "SMART TRIBAL FARMING",
-      preview: "Smart crop planning & transport pooling platform for farmers",
-      company: "Independent Project",
-      year: "2024",
-      description: "Developed an agricultural resource management platform that provides smart crop recommendations based on soil, season, and region data, along with a transport pooling system to help farmers share logistics efficiently and reduce transportation cost.",
-      tags: ["REACT", "VITE", "RESOURCE MANAGEMENT", "AGRICULTURE", "UI/UX"],
-      link: "https://smart-tribal-farming.onrender.com",
-      type: "webapp"
-    },
-    {
-      title: "GREEN WHEELS WEBSITE",
-      preview: "Official website for Green Wheels Supply Chain Solutions",
-      company: "GWSCS Coimbatore, India",
-      year: "2023",
-      description: "Built and launched the official website for Green Wheels Supply Chain Solutions to showcase services and improve client reach with modern design and optimal performance.",
-      tags: ["WEB DEVELOPMENT", "UI/UX", "RESPONSIVE DESIGN"],
-      link: "https://www.greenwheelscs.in/",
-      type: "website"
-    },
-    {
-      title: "CHITFUND APP",
-      preview: "Chit fund community app with secure transaction features",
-      company: "Coimbatore, India",
-      year: "2025",
-      description: "Developing a Mobile Application for Local Chit Fund Communities with modern features, secure transactions, and intuitive user experience for financial management.",
-      tags: ["MOBILE", "REACT NATIVE", "FINTECH"],
-      link: "#mobile",
-      type: "mobile"
-    }
-  ];
+  const top = useTransform(mouseY, [0.5, -0.5], ["45%", "55%"]);
+  const left = useTransform(mouseX, [0.5, -0.5], ["60%", "70%"]);
 
-  useEffect(() => {
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: projectsRef.current,
-        start: "top 80%",
-        end: "bottom 20%",
-        toggleActions: "play none none reverse",
-        invalidateOnRefresh: true,
-      },
-    });
-
-    tl.fromTo(
-      ".projects-title",
-      { y: 50, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1 }
-    ).fromTo(
-      ".project-item",
-      { y: 40, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.8, stagger: 0.15 },
-      "-=0.5"
-    );
-
-    // ✅ THIS FIXES IT
-    ScrollTrigger.refresh();
-
-  }, []);
-
-
-  const handleMouseEnter = (index, e) => {
-    setActiveCard(index);
-
-    const cardWidth = 320;
-    const cardHeight = 400;
-    const viewportWidth = window.innerWidth;
-    const viewportHeight = window.innerHeight;
-
-    let x = e.clientX + 20;
-    let y = e.clientY - 20;
-
-    if (x + cardWidth > viewportWidth - 20) {
-      x = e.clientX - cardWidth - 20;
-    }
-
-    if (y + cardHeight > viewportHeight - 20) {
-      y = viewportHeight - cardHeight - 20;
-    }
-
-    if (y < 20) {
-      y = 20;
-    }
-
-    setCardPosition({ x, y });
-  };
-
-  const handleMouseLeave = () => {
-    setActiveCard(null);
-  };
-
-  const handleMouseMove = (e) => {
-    if (activeCard !== null) {
-      const cardWidth = 320;
-      const cardHeight = 400;
-      const viewportWidth = window.innerWidth;
-      const viewportHeight = window.innerHeight;
-
-      let x = e.clientX + 20;
-      let y = e.clientY - 20;
-
-      if (x + cardWidth > viewportWidth - 20) {
-        x = e.clientX - cardWidth - 20;
-      }
-
-      if (y + cardHeight > viewportHeight - 20) {
-        y = viewportHeight - cardHeight - 20;
-      }
-
-      if (y < 20) {
-        y = 20;
-      }
-
-      setCardPosition({ x, y });
-    }
-  };
-
-  const handleProjectClick = (project, e) => {
-    if (project.type === "mobile") {
-      e.preventDefault();
-      alert("Mobile APK available for download - Contact for details");
-      return;
-    }
+  const onMove = (e) => {
+    const rect = ref.current.getBoundingClientRect();
+    x.set((e.clientX - rect.left) / rect.width - 0.5);
+    y.set((e.clientY - rect.top) / rect.height - 0.5);
   };
 
   return (
-    <section
-      id="projects"
-      ref={projectsRef}
-      className="section projects"
-      onMouseMove={handleMouseMove}
+    <motion.a
+      href={project.link}
+      target={project.type !== "MOBILE APP" ? "_blank" : "_self"}
+      rel="noopener noreferrer"
+      ref={ref}
+      onMouseMove={onMove}
+      initial="initial"
+      whileHover="hover"
+      className="project-row group"
     >
-      <div className="container">
-        <h2 className="section-title projects-title">
-          <ScrollFloat
-            animationDuration={0.1}
-            ease='back.inOut(2)'
-            scrollStart='center bottom+=50%'
-            scrollEnd='bottom bottom-=40%'
-            stagger={0.05}
-          >WORKS</ScrollFloat></h2>
-
-        <div className="projects-list">
-          {projects.map((project, index) => (
-            <a
-              key={index}
-              href={project.link}
-              className={`project-item clickable ${activeCard === index ? 'active-hover' : ''}`}
-              onMouseEnter={(e) => handleMouseEnter(index, e)}
-              onMouseLeave={handleMouseLeave}
-              onClick={(e) => handleProjectClick(project, e)}
-              target={project.type !== "mobile" ? "_blank" : "_self"}
-              rel={project.type !== "mobile" ? "noopener noreferrer" : ""}
-            >
-              <div className="project-main-info">
-                <h3 className="project-title">{project.title}</h3>
-                <div className="project-arrow">→</div>
-              </div>
-              <p className="project-preview">{project.preview}</p>
-            </a>
-          ))}
-        </div>
-
-        {activeCard !== null && (
-          <div
-            className="project-card active"
-            style={{
-              left: `${cardPosition.x}px`,
-              top: `${cardPosition.y}px`,
-            }}
-          >
-            <div className="project-content">
-              <div className="project-meta">
-                <span className="project-company">{projects[activeCard].company}</span>
-                <span className="project-year">{projects[activeCard].year}</span>
-              </div>
-
-              <p className="project-description">{projects[activeCard].description}</p>
-
-              <div className="project-tags">
-                {projects[activeCard].tags.map((tag, tagIndex) => (
-                  <span key={tagIndex} className="project-tag">{tag}</span>
-                ))}
-                <span className="project-tag project-type">
-                  {projects[activeCard].type === "website" && "LIVE WEBSITE"}
-                  {projects[activeCard].type === "webapp" && "WEB APPLICATION"}
-                  {projects[activeCard].type === "mobile" && "MOBILE APP"}
-                </span>
-              </div>
-            </div>
-          </div>
-        )}
+      <div>
+        <motion.h3
+          variants={{ initial: { x: 0 }, hover: { x: -16 } }}
+          transition={{ type: "spring" }}
+          className="project-title"
+        >
+          {project.title}
+        </motion.h3>
+        <p className="project-preview">{project.preview}</p>
       </div>
-    </section>
+
+      <motion.img
+        src={project.img}
+        alt={project.title}
+        style={{ top, left, translateX: "-50%", translateY: "-50%" }}
+        variants={{ initial: { scale: 0 }, hover: { scale: 1 } }}
+        transition={{ type: "spring" }}
+        className="project-hover-img"
+      />
+
+      <motion.div
+        variants={{ initial: { x: "25%", opacity: 0 }, hover: { x: 0, opacity: 1 } }}
+        transition={{ type: "spring" }}
+        className="project-arrow"
+      >
+        →
+      </motion.div>
+    </motion.a>
   );
 };
+
+const Projects = () => (
+  <section id="projects" className="projects section">
+    <div className="container">
+      <h2 className="section-title projects-title">
+        <ScrollFloat
+          animationDuration={0.1}
+          ease="back.inOut(2)"
+          scrollStart="center bottom+=50%"
+          scrollEnd="bottom bottom-=40%"
+          stagger={0.05}
+        >
+          WORKS
+        </ScrollFloat>
+      </h2>
+
+      <div className="projects-list">
+        {projects.map((p, i) => (
+          <ProjectLink key={i} project={p} />
+        ))}
+      </div>
+    </div>
+  </section>
+);
 
 export default Projects;

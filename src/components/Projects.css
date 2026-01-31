@@ -1,472 +1,51 @@
-/* src/components/Projects.css */
 .projects {
-    background: var(--black);
-    position: relative;
-  }
-  
-  .projects-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-  
-  .project-item {
-    padding: 3rem 4rem;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.15);
-    cursor: none;
-    position: relative;
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    background: transparent;
-    z-index: 1;
-    text-decoration: none; /* Move this here */
-    color: inherit; /* Move this here */
-    display: block; /* Move this here */
-  }
-  
-  .project-item:first-child {
-    border-top: 2px solid rgba(255, 255, 255, 0.15);
-  }
-  
-  .project-item:last-child {
-    border-bottom: 2px solid rgba(255, 255, 255, 0.15);
-  }
-  
-  /* When any item is hovered, fade out all non-hovered items */
-  .projects-list:hover .project-item:not(:hover) {
-    opacity: 0.3; /* Much lower opacity for non-hovered */
-    transform: scale(0.98); /* Slightly shrink non-hovered */
-    filter: blur(1px); /* Subtle blur effect */
-  }
-  
-  /* Hovered item stands out */
-  .project-item:hover {
-    background: rgba(255, 255, 255, 0.05);
-    opacity: 1 !important; /* Override the faded state */
-    transform: scale(1.02) !important; /* Slight scale up */
-    filter: blur(0px) !important; /* Remove blur */
-    z-index: 2; /* Bring to front */
-    text-decoration: none; /* Ensure no underline on hover */
-    color: inherit; /* Maintain color on hover */
-  }
-  
-  .project-main-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.5rem;
-  }
-  
-  .project-title {
-    font-size: 4rem;
-    font-weight: 900;
-    margin: 0;
-    line-height: 1.1;
-    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    letter-spacing: -0.02em;
-    transform-origin: left center;
-    background: linear-gradient(45deg, #ffffff, #aaaaaa);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  
-  /* Non-hovered items have more subtle gradients */
-  .projects-list:hover .project-item:not(:hover) .project-title {
-    background: linear-gradient(45deg, #666666, #888888);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  
-  .project-item:hover .project-title {
-    transform: scale(1.05);
-    background: linear-gradient(45deg, #ffffff, #ffffff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
-  }
-  
-  .project-arrow {
-    font-size: 3rem;
-    opacity: 0;
-    transform: translateX(-20px) scale(0.8);
-    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    font-weight: 300;
-    background: linear-gradient(45deg, #ffffff, #cccccc);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  
-.projects {
-  position: relative;
-  background: radial-gradient(
-    circle at center,
-    #0a0a0a 0%,
-    #000000 80%
-  );
-  overflow: hidden;
+  background: #000;
+  padding: 6rem 0;
 }
 
-.projects {
-  position: relative;
-  background: radial-gradient(
-    circle at center,
-    #0a0a0a 0%,
-    #000000 80%
-  );
-  overflow: hidden;
+.projects-list {
+  max-width: 900px;
+  margin: 0 auto;
 }
 
-/* White Line Grid Background */
-.projects::before {
-  content: '';
+.project-row {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid rgba(255,255,255,0.15);
+  padding: 2rem 0;
+  text-decoration: none;
+}
+
+.project-title {
+  font-size: 3rem;
+  font-weight: 800;
+  color: rgba(255,255,255,0.6);
+  transition: color 0.4s;
+}
+
+.project-row:hover .project-title {
+  color: #fff;
+}
+
+.project-preview {
+  margin-top: 0.6rem;
+  color: rgba(255,255,255,0.6);
+  max-width: 420px;
+}
+
+.project-hover-img {
   position: absolute;
-  inset: 0;
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.07) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
-  background-size: 60px 60px; /* adjust spacing */
-  opacity: 0.15; /* subtle */
   z-index: 0;
-  animation: slowPan 60s linear infinite;
-  mask-image: radial-gradient(circle at center, rgba(255,255,255,1) 50%, transparent 100%);
-  -webkit-mask-image: radial-gradient(circle at center, rgba(255,255,255,1) 50%, transparent 100%);
+  width: 260px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 14px;
+  pointer-events: none;
 }
 
-/* Slow drifting effect */
-@keyframes slowPan {
-  0% {
-    background-position: 0 0;
-  }
-  100% {
-    background-position: 200px 200px;
-  }
+.project-arrow {
+  font-size: 3rem;
+  color: #fff;
 }
-
-
-/* Slow drifting effect */
-@keyframes slowPan {
-  0% {
-    background-position: 0 0;
-  }
-  100% {
-    background-position: 200px 200px;
-  }
-}
-  /* Responsive styles for Projects */
-  @media (max-width: 992px) {
-    .project-item {
-      padding: 2.5rem 3rem;
-    }
-    
-    .project-title {
-      font-size: 3.5rem;
-    }
-    
-    .project-arrow {
-      font-size: 2.5rem;
-    }
-  }
-  
-  @media (max-width: 768px) {
-    .project-item {
-      padding: 2rem;
-    }
-    
-    .project-title {
-      font-size: 2.5rem;
-    }
-    
-    .project-arrow {
-      font-size: 2rem;
-    }
-  }
-  
-  @media (max-width: 576px) {
-    .project-item {
-      padding: 1.5rem;
-    }
-    
-    .project-title {
-      font-size: 1.8rem;
-    }
-    
-    .project-arrow {
-      font-size: 1.5rem;
-    }
-    
-    .project-main-info {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.5rem;
-    }
-  }
-  
-  /* Non-hovered arrows stay hidden */
-  .projects-list:hover .project-item:not(:hover) .project-arrow {
-    opacity: 0;
-  }
-  
-  .project-item:hover .project-arrow {
-    opacity: 1;
-    transform: translateX(0) scale(1.2);
-    background: linear-gradient(45deg, #ffffff, #ffffff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  
-  .project-preview {
-    font-size: 1.4rem;
-    opacity: 0.5; /* Start subtle */
-    margin: 0;
-    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    font-weight: 500;
-    letter-spacing: -0.01em;
-    transform-origin: left center;
-  }
-  
-  /* Non-hovered previews become almost invisible */
-  .projects-list:hover .project-item:not(:hover) .project-preview {
-    opacity: 0.2;
-    transform: scale(0.95);
-  }
-  
-  .project-item:hover .project-preview {
-    opacity: 0.9;
-    transform: scale(1.03);
-    color: rgba(255, 255, 255, 0.95);
-  }
-  
-  /* Hover Card - 3D Scaling Effect */
-  .project-card {
-    position: fixed;
-    width: 320px;
-    max-height: 400px;
-    background: rgba(0, 0, 0, 0.98);
-    backdrop-filter: blur(40px);
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    border-radius: 20px;
-    padding: 1.5rem;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    z-index: 1000;
-    box-shadow: 
-      0 25px 50px rgba(0, 0, 0, 0.6),
-      0 10px 30px rgba(255, 255, 255, 0.1);
-    pointer-events: none;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    
-    transform: 
-      scale3d(0.9, 0.9, 0.9)
-      rotateX(5deg)
-      translateZ(-50px);
-    transform-style: preserve-3d;
-    perspective: 1000px;
-  }
-  
-  .project-card.active {
-    opacity: 1;
-    visibility: visible;
-    transform: 
-      scale3d(1, 1, 1)
-      rotateX(0deg)
-      translateZ(0px);
-  }
-  
-  .project-content {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    flex: 1;
-    overflow: hidden;
-    transform-style: preserve-3d;
-  }
-  
-  .project-meta {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
-    opacity: 0.9;
-    flex-shrink: 0;
-    transform: translateZ(20px);
-  }
-  
-  .project-company {
-    font-size: 1rem;
-    font-weight: 700;
-  }
-  
-  .project-year {
-    font-size: 0.8rem;
-    background: rgba(255, 255, 255, 0.25);
-    padding: 0.3rem 0.8rem;
-    border-radius: 12px;
-    backdrop-filter: blur(10px);
-    font-weight: 600;
-    transform: translateZ(10px);
-  }
-  
-  .project-description {
-    font-size: 0.85rem;
-    line-height: 1.4;
-    opacity: 0.9;
-    margin: 0;
-    font-weight: 400;
-    flex: 1;
-    overflow-y: auto;
-    max-height: 120px;
-    padding-right: 5px;
-    transform: translateZ(15px);
-  }
-  
-  /* Custom scrollbar for description */
-  .project-description::-webkit-scrollbar {
-    width: 3px;
-  }
-  
-  .project-description::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 3px;
-  }
-  
-  .project-description::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 3px;
-  }
-  
-  .project-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    flex-shrink: 0;
-    margin-top: auto;
-    transform: translateZ(25px);
-  }
-  
-  .project-tag {
-    padding: 0.3rem 0.7rem;
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 10px;
-    font-size: 0.65rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(10px);
-    font-weight: 600;
-    transition: all 0.3s ease;
-    transform-style: preserve-3d;
-  }
-  
-  .project-tag:hover {
-    background: rgba(255, 255, 255, 0.25);
-    transform: translateY(-2px) translateZ(10px);
-    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
-  }
-  
-  .project-type {
-    background: rgba(255, 255, 255, 0.3) !important;
-    border-color: rgba(255, 255, 255, 0.5) !important;
-  }
-  
-  /* Ensure card stays within viewport */
-  .project-card {
-    max-width: calc(100vw - 2rem);
-    max-height: 80vh;
-  }
-  
-  /* Responsive adjustments */
-  @media (max-width: 1024px) {
-    .project-title {
-      font-size: 3.5rem;
-    }
-    
-    .project-preview {
-      font-size: 1.2rem;
-    }
-  }
-  
-  @media (max-width: 768px) {
-    .project-item {
-      padding: 2.5rem 2rem;
-    }
-    
-    .project-title {
-      font-size: 2.8rem;
-    }
-    
-    .project-item:hover .project-title {
-      transform: scale(1.03);
-    }
-    
-    .project-arrow {
-      font-size: 2.2rem;
-    }
-    
-    .project-preview {
-      font-size: 1.1rem;
-    }
-    
-    .project-item:hover .project-preview {
-      transform: scale(1.02);
-    }
-    
-    /* Less dramatic fade on mobile */
-    .projects-list:hover .project-item:not(:hover) {
-      opacity: 0.5;
-      filter: blur(0.5px);
-    }
-    
-    .project-card {
-      position: fixed;
-      top: 50% !important;
-      left: 50% !important;
-      transform: 
-        translate(-50%, -50%) 
-        scale3d(0.8, 0.8, 0.8)
-        rotateX(5deg)
-        translateZ(-50px) !important;
-      width: 85vw;
-      max-width: 300px;
-      max-height: 350px;
-    }
-    
-    .project-card.active {
-      transform: 
-        translate(-50%, -50%) 
-        scale3d(1, 1, 1)
-        rotateX(0deg)
-        translateZ(0px) !important;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .project-item {
-      padding: 2rem 1.5rem;
-    }
-    
-    .project-title {
-      font-size: 2.2rem;
-    }
-    
-    .project-main-info {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.5rem;
-    }
-    
-    .project-arrow {
-      display: none;
-    }
-    
-    /* Even less fade on very small screens */
-    .projects-list:hover .project-item:not(:hover) {
-      opacity: 0.6;
-      filter: blur(0px);
-    }
-  }

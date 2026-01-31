@@ -146,14 +146,14 @@ const Achievements = () => {
         style={{ opacity: ready ? 1 : 0 }} // ✅ hide until ready
       >
         <CardSwap
-          width={550}
+          width={750}
           height={450}
-          cardDistance={50}
-          verticalDistance={60}
-          delay={5000}
+          cardDistance={20}
+          verticalDistance={30}
+          delay={4000}
           pauseOnHover={false}
-          skewAmount={6}
-          easing="elastic"
+          skewAmount={0}
+          easing="linear"
         >
           {achievements.map((achievement) => (
             <Card key={achievement.id} customClass="achievement-card">
