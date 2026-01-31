@@ -86,3 +86,11 @@ code {
     @apply bg-background text-foreground;
   }
 }
+/* Fix scroll white flash */
+.section,
+.achievement-card,
+.freelance-badge,
+.white-grid-bg {
+  transform: translateZ(0);
+  will-change: transform;
+}
