@@ -58,7 +58,7 @@ const Hero = () => {
           <span className="hero-static">Developer in</span>
 
           <RotatingText
-            texts={["Blockchain", "MERN", "AI"]}
+            texts={["Web3", "MERN", "AI"]}
             rotationInterval={2200}
             staggerFrom="last"
             staggerDuration={0.03}

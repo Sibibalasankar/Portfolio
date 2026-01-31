@@ -8,7 +8,7 @@
   justify-content: space-between;
   position: relative;
   padding: 0 4rem;
-  overflow: visible;
+  overflow: hidden;
 
   color: var(--white);
   background-color: #0b0b0b;
@@ -157,8 +157,13 @@
 }
 
 @keyframes scrollBounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(10px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(10px);
+  }
 }
 
 /* =========================
@@ -168,7 +173,7 @@
   position: absolute;
   right: 0;
   top: 0;
-  width: 40vw;
+  width: 100vw;
   height: 100%;
   z-index: 4;
   pointer-events: auto;
@@ -195,8 +200,11 @@
   /* Keep ID card on RIGHT even on mobile */
   .hero-lanyard-overlay {
     width: 50vw;
-    right: -10vw;        /* slight push to avoid overlap */
+    right: -10vw; /* slight push to avoid overlap */
     transform: scale(0.9);
+  }
+  .lanyard-root {
+    visible: none;
   }
 }
 
@@ -206,5 +214,5 @@
 .lanyard-root {
   width: 100%;
   height: 100vh;
-  overflow:visible;
+  margin-left: 400px;
 }
