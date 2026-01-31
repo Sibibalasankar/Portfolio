@@ -1,17 +1,29 @@
+/* =========================
+   EXPERIENCE SECTION (SHADCN SAFE)
+========================= */
 .experience {
-  background: var(--black);
+  /* Force dark theme locally */
+  --background: 0 0% 3.9%;
+  --foreground: 0 0% 98%;
+
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+
   padding: 6rem 0;
 }
 
-.section-title {
+/* SECTION TITLE */
+.experience .section-title {
   text-align: center;
   font-size: 3rem;
   font-weight: 800;
   margin-bottom: 5rem;
-  color: var(--white);
+  color: hsl(var(--foreground));
 }
 
-/* TIMELINE */
+/* =========================
+   TIMELINE
+========================= */
 .timeline {
   max-width: 900px;
   margin: 0 auto;
@@ -20,7 +32,9 @@
   gap: 3.5rem;
 }
 
-/* ITEM */
+/* =========================
+   TIMELINE ITEM
+========================= */
 .timeline-item {
   display: grid;
   grid-template-columns: 80px 1fr;
@@ -32,22 +46,21 @@
 .timeline-year {
   font-size: 1.4rem;
   font-weight: 800;
-  color: var(--white);
-  opacity: 0.6;
+  color: hsl(var(--foreground) / 0.6);
   text-align: right;
 }
 
 /* CONTENT */
 .timeline-content {
   padding-left: 2rem;
-  border-left: 2px solid rgba(255,255,255,0.2);
+  border-left: 2px solid hsl(var(--foreground) / 0.2);
 }
 
 .timeline-role {
   font-size: 1.6rem;
   font-weight: 700;
   margin-bottom: 0.3rem;
-  color: var(--white);
+  color: hsl(var(--foreground));
 }
 
 .timeline-company {
@@ -55,16 +68,19 @@
   opacity: 0.8;
   display: block;
   margin-bottom: 1rem;
+  color: hsl(var(--foreground));
 }
 
 .timeline-description {
   font-size: 1.05rem;
   line-height: 1.7;
-  opacity: 0.9;
+  color: hsl(var(--foreground) / 0.9);
   margin-bottom: 1.2rem;
 }
 
-/* TECH */
+/* =========================
+   TECH STACK PILLS
+========================= */
 .timeline-tech {
   display: flex;
   flex-wrap: wrap;
@@ -75,11 +91,14 @@
   padding: 0.45rem 0.9rem;
   border-radius: 20px;
   font-size: 0.8rem;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.15);
+  background: hsl(var(--foreground) / 0.08);
+  border: 1px solid hsl(var(--foreground) / 0.15);
+  color: hsl(var(--foreground));
 }
 
-/* RESPONSIVE */
+/* =========================
+   RESPONSIVE
+========================= */
 @media (max-width: 768px) {
   .timeline-item {
     grid-template-columns: 60px 1fr;

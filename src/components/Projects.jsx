@@ -3,6 +3,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './Projects.css';
+import ScrollFloat from './ScrollFloat';
+
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -106,32 +108,32 @@ const Projects = () => {
     }
   ];
 
-useEffect(() => {
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: projectsRef.current,
-      start: "top 80%",
-      end: "bottom 20%",
-      toggleActions: "play none none reverse",
-      invalidateOnRefresh: true,
-    },
-  });
+  useEffect(() => {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: projectsRef.current,
+        start: "top 80%",
+        end: "bottom 20%",
+        toggleActions: "play none none reverse",
+        invalidateOnRefresh: true,
+      },
+    });
 
-  tl.fromTo(
-    ".projects-title",
-    { y: 50, opacity: 0 },
-    { y: 0, opacity: 1, duration: 1 }
-  ).fromTo(
-    ".project-item",
-    { y: 40, opacity: 0 },
-    { y: 0, opacity: 1, duration: 0.8, stagger: 0.15 },
-    "-=0.5"
-  );
+    tl.fromTo(
+      ".projects-title",
+      { y: 50, opacity: 0 },
+      { y: 0, opacity: 1, duration: 1 }
+    ).fromTo(
+      ".project-item",
+      { y: 40, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.8, stagger: 0.15 },
+      "-=0.5"
+    );
 
-  // ✅ THIS FIXES IT
-  ScrollTrigger.refresh();
+    // ✅ THIS FIXES IT
+    ScrollTrigger.refresh();
 
-}, []);
+  }, []);
 
 
   const handleMouseEnter = (index, e) => {
@@ -206,7 +208,14 @@ useEffect(() => {
       onMouseMove={handleMouseMove}
     >
       <div className="container">
-        <h2 className="section-title projects-title">WORKS</h2>
+        <h2 className="section-title projects-title">
+          <ScrollFloat
+            animationDuration={0.1}
+            ease='back.inOut(2)'
+            scrollStart='center bottom+=50%'
+            scrollEnd='bottom bottom-=40%'
+            stagger={0.05}
+          >WORKS</ScrollFloat></h2>
 
         <div className="projects-list">
           {projects.map((project, index) => (

@@ -3,6 +3,7 @@ import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./Experience.css";
+import ScrollFloat from './ScrollFloat';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -72,7 +73,14 @@ const Experience = () => {
   return (
     <section id="experience" className="experience" ref={sectionRef}>
       <div className="container">
-        <h2 className="section-title">Career Journey</h2>
+        <h2 className="section-title">
+          <ScrollFloat
+            animationDuration={0.1}
+            ease='back.inOut(2)'
+            scrollStart='center bottom+=50%'
+            scrollEnd='bottom bottom-=40%'
+            stagger={0.05}
+          >Career Journey</ScrollFloat></h2>
 
         <div className="timeline">
           {experiences.map((exp, index) => (

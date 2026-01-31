@@ -1,4 +1,3 @@
-// src/components/Contact.jsx
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -7,114 +6,172 @@ import './Contact.css';
 gsap.registerPlugin(ScrollTrigger);
 
 const Contact = () => {
-  const contactRef = useRef();
-  const scrollTextRef = useRef();
+  const contactRef = useRef(null);
+  const scrollTextRef = useRef(null);
+
+  const titleRef = useRef(null);
+  const infoRef = useRef(null);
+  const linksRef = useRef(null);
 
   useEffect(() => {
+    /* =========================
+       MAIN CONTACT ANIMATION
+    ========================= */
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: contactRef.current,
-        start: "top 80%",
-        end: "bottom 20%",
-        toggleActions: "play none none reverse"
-      }
+        start: 'top 80%',
+        end: 'bottom 20%',
+        toggleActions: 'play none none reverse',
+      },
     });
 
-    tl.fromTo('.contact-title',
-      { y: 50, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1 }
-    ).fromTo('.contact-info',
-      { x: -50, opacity: 0 },
-      { x: 0, opacity: 1, duration: 1 },
-      "-=0.5"
-    ).fromTo('.contact-links',
-      { x: 50, opacity: 0 },
-      { x: 0, opacity: 1, duration: 1 },
-      "-=0.5"
-    );
+    tl.fromTo(
+      titleRef.current,
+      { y: 50 },
+      { y: 0, duration: 1, ease: 'power3.out' }
+    )
+      .fromTo(
+        infoRef.current,
+        { x: -50 },
+        { x: 0, duration: 1, ease: 'power3.out' },
+        '-=0.6'
+      )
+      .fromTo(
+        linksRef.current,
+        { x: 50 },
+        { x: 0, duration: 1, ease: 'power3.out' },
+        '-=0.6'
+      );
 
-    // Very slow infinite scroll animation for "Let's Talk!!"
+    /* =========================
+       INFINITE SCROLL TEXT
+    ========================= */
     const scrollTl = gsap.timeline({ repeat: -1 });
+
     scrollTl.to(scrollTextRef.current, {
       y: '-100%',
-      duration: 30, // Very slow duration - 30 seconds
-      ease: "none"
+      duration: 30,
+      ease: 'none',
     });
+
+    return () => {
+      tl.kill();
+      scrollTl.kill();
+      ScrollTrigger.getAll().forEach((t) => t.kill());
+    };
   }, []);
 
   return (
     <section id="contact" ref={contactRef} className="section contact">
-      {/* Scrolling "Let's Talk!!" Section */}
+      {/* SCROLLING TEXT */}
       <div className="scrolling-talk-section">
         <div className="scrolling-text-container">
-          <div ref={scrollTextRef} className="scrolling-text">
-            <span className="talk-text">LET'S TALK!!</span>
-            <span className="talk-text">LET'S TALK!!</span>
-            <span className="talk-text">LET'S TALK!!</span>
-            <span className="talk-text">LET'S TALK!!</span>
-            <span className="talk-text">LET'S TALK!!</span>
-            <span className="talk-text">LET'S TALK!!</span>
-            <span className="talk-text">LET'S TALK!!</span>
-            <span className="talk-text">LET'S TALK!!</span>
-            <span className="talk-text">LET'S TALK!!</span>
-            <span className="talk-text">LET'S TALK!!</span>
+          <div
+            ref={scrollTextRef}
+            className="scrolling-text"
+            style={{ transform: 'translateZ(0)' }} // GPU lock
+          >
+            {Array.from({ length: 10 }).map((_, i) => (
+              <span key={i} className="talk-text">
+                LET&apos;S TALK!!
+              </span>
+            ))}
           </div>
         </div>
       </div>
 
       <div className="container">
-        <h2 className="section-title contact-title">Get In Touch</h2>
+        <h2 ref={titleRef} className="section-title contact-title">
+          Get In Touch
+        </h2>
 
         <div className="contact-content">
-          <div className="contact-info">
-            <h3 className="contact-subtitle">Let's create something amazing together</h3>
+          <div ref={infoRef} className="contact-info">
+            <h3 className="contact-subtitle">
+              Let&apos;s create something amazing together
+            </h3>
             <p className="contact-description">
-              I'm always open to discussing new opportunities, innovative projects,
-              and creative ideas. Feel free to reach out if you want to collaborate!
+              I&apos;m always open to discussing new opportunities, innovative
+              projects, and creative ideas. Feel free to reach out if you want to
+              collaborate!
             </p>
 
             <div className="contact-details">
               <div className="contact-detail">
-                <strong>Email:</strong>
-                <a href="mailto:sibisbs5161@gmail.com" className="clickable">sibisbs5161@gmail.com</a>
+                <strong>Email:</strong>{' '}
+                <a
+                  href="mailto:sibisbs5161@gmail.com"
+                  className="clickable"
+                >
+                  sibisbs5161@gmail.com
+                </a>
               </div>
+
               <div className="contact-detail">
-                <strong>Location:</strong>
+                <strong>Location:</strong>{' '}
                 <span>Coimbatore, India</span>
               </div>
+
               <div className="contact-detail">
-                <strong>LinkedIn:</strong>
-                <a href="https://www.linkedin.com/in/sibi-b-s-656b30264" target="_blank" rel="noopener noreferrer" className="clickable">
+                <strong>LinkedIn:</strong>{' '}
+                <a
+                  href="https://www.linkedin.com/in/sibi-b-s-656b30264"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="clickable"
+                >
                   linkedin.com/in/sibi-b-s-656b30264
                 </a>
               </div>
+
               <div className="contact-detail">
-                <strong>GitHub:</strong>
-                <a href="https://github.com/Sibibalasankar" target="_blank" rel="noopener noreferrer" className="clickable">
+                <strong>GitHub:</strong>{' '}
+                <a
+                  href="https://github.com/Sibibalasankar"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="clickable"
+                >
                   github.com/Sibibalasankar
                 </a>
               </div>
             </div>
           </div>
 
-          <div className="contact-links">
-            <a href="mailto:sibisbs5161@gmail.com" className="contact-link clickable">
-              <span>Send Email</span>
+          <div ref={linksRef} className="contact-links">
+            <a
+              href="mailto:sibisbs5161@gmail.com"
+              className="contact-link clickable"
+            >
+              Send Email
             </a>
-            <a href="https://www.linkedin.com/in/sibi-b-s-656b30264" target="_blank" rel="noopener noreferrer" className="contact-link clickable">
-              <span>LinkedIn</span>
+
+            <a
+              href="https://www.linkedin.com/in/sibi-b-s-656b30264"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="contact-link clickable"
+            >
+              LinkedIn
             </a>
-            <a href="https://github.com/Sibibalasankar" target="_blank" rel="noopener noreferrer" className="contact-link clickable">
-              <span>GitHub</span>
+
+            <a
+              href="https://github.com/Sibibalasankar"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="contact-link clickable"
+            >
+              GitHub
             </a>
+
             <a
               href="/Sibi_Resume.pdf"
               download="Sibi_Resume.pdf"
               className="contact-link clickable"
             >
-              <span>Download Resume</span>
+              Download Resume
             </a>
-
           </div>
         </div>
 
