@@ -99,7 +99,7 @@
 .btn-secondary {
   padding: 1.2rem 2.8rem;
   border-radius: 40px;
-  border: 2px solid var(--white);
+  border: 2px solid #44a02c;
   text-decoration: none;
   font-weight: 600;
   letter-spacing: 0.1em;
@@ -108,8 +108,8 @@
 }
 
 .btn-primary {
-  background: var(--white);
-  color: var(--black);
+  background: #44a02c;
+  color: var(--white);
 }
 
 .btn-secondary {
@@ -123,7 +123,7 @@
 
 .btn-secondary:hover {
   background: var(--white);
-  color: var(--black);
+  color: #44a02c;
 }
 
 /* =========================
@@ -164,7 +164,7 @@
 }
 
 /* =========================
-   RESPONSIVE
+   RESPONSIVE - HIDE CANVAS ON MOBILE
 ========================= */
 @media (max-width: 768px) {
   .hero {
@@ -180,10 +180,9 @@
     gap: 1rem;
   }
 
+  /* Hide the canvas on mobile */
   .hero-lanyard-overlay {
-    width: 50vw;
-    right: -10vw;
-    transform: scale(0.9);
+    display: none;
   }
 }
 

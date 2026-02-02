@@ -1,24 +1,23 @@
 import React from 'react';
 import './Pages.css';
 
-const ResumePage = () => {
+const GalleryPage = () => {
   return (
     <div className="page-container">
       <div className="page-content">
-        <h1 className="page-title">Resume</h1>
+        <h1 className="page-title">Gallery</h1>
         <p className="page-description">
-          Coming soon - Interactive resume with detailed experience, 
-          skills, and achievements. Downloadable PDF version available.
+          Coming soon - Visual showcase of UI designs, code snippets, 
+          and development process documentation.
         </p>
-        <div className="resume-preview">
-          <div className="resume-header"></div>
-          <div className="resume-section"></div>
-          <div className="resume-section"></div>
-          <div className="resume-section"></div>
+        <div className="gallery-grid">
+          {[...Array(6)].map((_, i) => (
+            <div key={i} className="gallery-item"></div>
+          ))}
         </div>
       </div>
     </div>
   );
 };
 
-export default ResumePage;
+export default GalleryPage;

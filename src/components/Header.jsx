@@ -49,10 +49,12 @@ const Header = () => {
           menuButtonColor="#ffffff"
           openMenuButtonColor="#ffffff"
           changeMenuColorOnOpen
-          colors={["#111111", "#000000"]}
+          colors={["#616163", "#000000"]}
           logoUrl="/title.png"
           accentColor="#ffffff"
+          isFixed   // 🔥 THIS IS REQUIRED
         />
+
       </div>
     </>
   );
