@@ -18,7 +18,7 @@ const About = () => {
           scrollEnd='bottom bottom-=40%'
           stagger={0.05}
         >
-          About Me
+          <span className="my-5 overflow-hidden">About Me</span>
         </ScrollFloat></h2>
 
         <div className="about-content no-image">

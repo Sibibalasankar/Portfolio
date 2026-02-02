@@ -1,38 +1,52 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
 
-import LoadingScreen from './components/LoadingScreen';
-import CustomCursor from './components/CustomCursor';
-import Header from './components/Header';
-import Hero from './components/Hero';
-import About from './components/About';
-import Projects from './components/Projects';
-import Experience from './components/Experience';
-import Skills from './components/Skills';
-import Achievements from './components/Achievements';
-import Contact from './components/Contact';
-import ScrollToTop from './components/ScrollToTop';
+/* components */
+import LoadingScreen from "./components/LoadingScreen";
+import CustomCursor from "./components/CustomCursor";
+import Header from "./components/Header";
+import ScrollToTop from "./components/ScrollToTop";
 
-import './styles/globals.css';
-import './styles/animations.css';
+/* pages & sections */
+import Hero from "./components/Hero";
+import About from "./components/About";
+import Projects from "./components/Projects";
+import Experience from "./components/Experience";
+import Skills from "./components/Skills";
+import Achievements from "./components/Achievements";
+import Contact from "./components/Contact";
+
+import Works from "./pages/Works";
+import Gallery from "./pages/Gallery";
+import Resume from "./pages/Resume";
+
+import "./styles/globals.css";
+import "./styles/animations.css";
+
+const Home = () => (
+  <>
+    <Hero />
+    <About />
+    <Projects />
+    <Experience />
+    <Skills />
+    <Achievements />
+    <Contact />
+  </>
+);
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
 
-  // Loader timing
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 4000);
-
-    return () => clearTimeout(timer);
+    const t = setTimeout(() => setIsLoading(false), 4000);
+    return () => clearTimeout(t);
   }, []);
 
-  // 🔥 GSAP ScrollTrigger refresh AFTER loader
   useEffect(() => {
     if (!isLoading) {
-      // Give DOM a moment to fully paint
       setTimeout(() => {
-        import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
+        import("gsap/ScrollTrigger").then(({ ScrollTrigger }) => {
           ScrollTrigger.refresh();
         });
       }, 100);
@@ -41,26 +55,22 @@ function App() {
 
   return (
     <div className="app">
-      {/* Loading Screen (overlay, not blocking mount logic) */}
       {isLoading && (
         <LoadingScreen onLoadingComplete={() => setIsLoading(false)} />
       )}
 
-
-      {/* Main App Content */}
       {!isLoading && (
         <>
-          {/* Cursor should start ONLY after loading */}
           <CustomCursor />
-
           <Header />
-          <Hero />
-          <About />
-          <Projects />
-          <Experience />
-          <Skills />
-          <Achievements />
-          <Contact />
+
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/works" element={<Works />} />
+            <Route path="/gallery" element={<Gallery />} />
+            <Route path="/resume" element={<Resume />} />
+          </Routes>
+
           <ScrollToTop />
         </>
       )}

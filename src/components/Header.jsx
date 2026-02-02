@@ -1,63 +1,60 @@
 // src/components/Header.jsx
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import "./Header.css";
+import { StaggeredMenu } from "./StaggeredMenu";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 100);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const onScroll = () => setIsScrolled(window.scrollY > 80);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  return (
-    <header className={`header ${isScrolled ? "scrolled" : ""}`}>
-      <nav className="nav">
+  const menuItems = [
+    { label: "Works", ariaLabel: "View works", link: "/works" },
+    { label: "Gallery", ariaLabel: "View gallery", link: "/gallery" },
+    { label: "Resume", ariaLabel: "View resume", link: "/resume" },
+  ];
 
-        {/* BRAND */}
-        <div className="nav-brand">
-          <a href="#home" className="brand-link">
+  return (
+    <>
+      {/* DESKTOP NAV */}
+      <header className={`header ${isScrolled ? "scrolled" : ""}`}>
+        <nav className="nav">
+          <Link to="/" className="brand-link">
             <img src="/title.png" alt="Logo" />
             <span>SIBI B S</span>
-          </a>
-        </div>
+          </Link>
 
-        {/* NAV LINKS (DESKTOP ONLY) */}
-        <div className={`nav-links ${isMobileMenuOpen ? "active" : ""}`}>
-          <a href="#about" onClick={() => setIsMobileMenuOpen(false)}>About</a>
-          <a href="#projects" onClick={() => setIsMobileMenuOpen(false)}>Works</a>
-          <a href="#experience" onClick={() => setIsMobileMenuOpen(false)}>Experience</a>
-          <a href="#skills" onClick={() => setIsMobileMenuOpen(false)}>Skills</a>
-          <a href="#achievements" onClick={() => setIsMobileMenuOpen(false)}>Achievements</a>
-          <a href="#contact" onClick={() => setIsMobileMenuOpen(false)}>Contact</a>
-          <a
-            href="/Sibi_Resume.pdf"
-            download="Sibi_Resume.pdf"
-            className="download-btn"
-          >
-            Download CV
-          </a>
+          <div className="nav-links">
+            <Link to="/works">Works</Link>
+            <Link to="/gallery">Gallery</Link>
+            <Link to="/resume" className="resume-btn">
+              Resume
+            </Link>
+          </div>
+        </nav>
+      </header>
 
-        </div>
-
-        {/* HAMBURGER (TABLET + MOBILE) */}
-        <button
-          className="mobile-menu-btn"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          aria-label="Toggle menu"
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-
-      </nav>
-    </header>
+      {/* MOBILE STAGGERED MENU */}
+      <div className="mobile-staggered-menu">
+        <StaggeredMenu
+          position="right"
+          items={menuItems}
+          displaySocials={false}
+          displayItemNumbering
+          menuButtonColor="#ffffff"
+          openMenuButtonColor="#ffffff"
+          changeMenuColorOnOpen
+          colors={["#111111", "#000000"]}
+          logoUrl="/title.png"
+          accentColor="#ffffff"
+        />
+      </div>
+    </>
   );
 };
 

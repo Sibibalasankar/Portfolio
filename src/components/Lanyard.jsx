@@ -8,7 +8,7 @@ import { MeshLineGeometry, MeshLineMaterial } from 'meshline';
 
 // replace with your own imports, see the usage snippet for details
 import cardGLB from '../assets/lanyard/card.glb';
-import lanyard from '../assets/lanyard/lanyard.png';
+import lanyard from '../assets/lanyard/band.png';
 
 import * as THREE from 'three';
 
@@ -186,7 +186,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }) {
           useMap
           map={texture}
           repeat={[-4, 1]}
-          lineWidth={1}
+          lineWidth={.5}
         />
       </mesh>
     </>
