@@ -44,7 +44,7 @@
    CONTENT
 ========================= */
 .hero-content {
-  z-index: 2;
+  z-index: 5;
   position: relative;
 }
 
@@ -87,7 +87,7 @@
 }
 
 /* =========================
-   BUTTONS
+   BUTTONS - ENHANCED
 ========================= */
 .hero-buttons {
   display: flex;
@@ -104,26 +104,46 @@
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  z-index: 10;
+  cursor: pointer;
+  display: inline-block;
+  overflow: hidden;
 }
 
 .btn-primary {
-  background: #44a02c;
+  background: linear-gradient(135deg, #44a02c 0%, #2d6a1f 100%);
   color: var(--white);
+  box-shadow: 0 4px 15px rgba(68, 160, 44, 0.3);
 }
 
 .btn-secondary {
-  color: var(--white);
-}
-
-.btn-primary:hover {
   background: transparent;
   color: var(--white);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+}
+
+/* Button hover effects */
+.btn-primary:hover {
+  background: linear-gradient(135deg, #4db42d 0%, #357a24 100%);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(68, 160, 44, 0.4);
 }
 
 .btn-secondary:hover {
-  background: var(--white);
-  color: #44a02c;
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #44a02c;
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(68, 160, 44, 0.2);
+}
+
+/* Button active/pressed effect */
+.btn-primary:active,
+.btn-secondary:active {
+  transform: translateY(-2px);
+  transition: transform 0.1s ease;
 }
 
 /* =========================
@@ -134,13 +154,13 @@
   bottom: 3rem;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 3;
+  z-index: 6;
 }
 
 .scroll-indicator {
   width: 2px;
   height: 60px;
-  background: var(--white);
+  background: linear-gradient(to bottom, #44a02c, transparent);
   animation: scrollBounce 2s infinite;
 }
 
@@ -154,43 +174,244 @@
 ========================= */
 .hero-lanyard-overlay {
   position: absolute;
-  right: 0;
-  top: 0;
-  width: 100vw;
-  height: 100%;
+  right: -10%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 70vw;
+  height: 100vh;
   z-index: 4;
-  pointer-events: auto;
-  will-change: transform;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.lanyard-root {
+  width: 100% !important;
+  height: 100% !important;
+  margin-left: 0 !important;
+  pointer-events: none;
+}
+
+.lanyard-root canvas {
+  width: 100% !important;
+  height: 100% !important;
+  pointer-events: none !important;
 }
 
 /* =========================
-   RESPONSIVE - HIDE CANVAS ON MOBILE
+   RESPONSIVE DESIGN
 ========================= */
+
+/* Tablet (768px - 1024px) */
+@media (max-width: 1024px) {
+  .hero {
+    padding: 0 2.5rem;
+  }
+  
+  .hero-rotating {
+    font-size: 3.2rem;
+  }
+  
+  .hero-description {
+    font-size: 1.1rem;
+  }
+  
+  .hero-lanyard-overlay {
+    width: 50vw;
+    height: 70vh;
+  }
+}
+
+/* Mobile (481px - 767px) */
 @media (max-width: 768px) {
   .hero {
     padding: 0 1.5rem;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    min-height: 100vh;
+    overflow-y: auto;
   }
-
+  
+  .hero-content {
+    width: 100%;
+    text-align: center;
+    margin-top: 2rem;
+  }
+  
+  .hero-left {
+    max-width: 100%;
+  }
+  
   .hero-rotating {
-    font-size: 2.4rem;
+    font-size: 2.8rem;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
   }
-
+  
+  .hero-static {
+    font-size: 2.2rem;
+  }
+  
+  .hero-rotating-text {
+    font-size: 3rem;
+  }
+  
+  .hero-description {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+    padding: 0 0.5rem;
+  }
+  
+  /* Enhanced mobile buttons */
   .hero-buttons {
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.2rem;
+    align-items: center;
+    width: 100%;
   }
-
-  /* Hide the canvas on mobile */
+  
+  .btn-primary,
+  .btn-secondary {
+    padding: 1.4rem 3rem;
+    width: 100%;
+    max-width: 280px;
+    font-size: 1rem;
+    border-radius: 50px;
+    position: relative;
+  }
+  
+  /* Cool button effects for mobile */
+  .btn-primary {
+    background: linear-gradient(135deg, #44a02c 0%, #2d6a1f 100%);
+    box-shadow: 
+      0 6px 20px rgba(68, 160, 44, 0.4),
+      inset 0 1px 1px rgba(255, 255, 255, 0.3);
+  }
+  
+  .btn-secondary {
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  .btn-primary:hover,
+  .btn-secondary:hover {
+    transform: translateY(-3px);
+  }
+  
+  .btn-primary:active,
+  .btn-secondary:active {
+    transform: translateY(0);
+  }
+  
+  /* Hide canvas on mobile */
   .hero-lanyard-overlay {
     display: none;
   }
+  
+  .hero-scroll {
+    bottom: 2rem;
+  }
+  
+  .scroll-indicator {
+    height: 50px;
+  }
 }
 
-/* =========================
-   LANYARD ROOT
-========================= */
-.lanyard-root {
-  width: 100%;
-  height: 100vh;
-  margin-left: 400px;
+/* Small Mobile (320px - 480px) */
+@media (max-width: 480px) {
+  .hero {
+    padding: 0 1rem;
+    min-height: 100svh; /* Use small viewport height for mobile */
+  }
+  
+  .hero-rotating {
+    font-size: 2.2rem;
+  }
+  
+  .hero-static {
+    font-size: 1.8rem;
+  }
+  
+  .hero-rotating-text {
+    font-size: 2.4rem;
+  }
+  
+  .hero-description {
+    font-size: 1rem;
+    padding: 0;
+    margin-bottom: 2.2rem;
+  }
+  
+  .hero-buttons {
+    gap: 1rem;
+  }
+  
+  .btn-primary,
+  .btn-secondary {
+    padding: 1.2rem 2.5rem;
+    max-width: 260px;
+    font-size: 0.95rem;
+  }
+  
+  /* Enhanced touch feedback */
+  .btn-primary:active {
+    background: linear-gradient(135deg, #3a8c26 0%, #255a18 100%);
+  }
+  
+  .btn-secondary:active {
+    background: rgba(255, 255, 255, 0.15);
+  }
+  
+  .scroll-indicator {
+    height: 40px;
+  }
+}
+
+/* Extra small devices */
+@media (max-width: 360px) {
+  .hero-rotating {
+    font-size: 1.9rem;
+  }
+  
+  .hero-static {
+    font-size: 1.6rem;
+  }
+  
+  .hero-rotating-text {
+    font-size: 2.1rem;
+  }
+  
+  .hero-description {
+    font-size: 0.95rem;
+  }
+  
+  .btn-primary,
+  .btn-secondary {
+    padding: 1.1rem 2rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Desktop large screens */
+@media (min-width: 1440px) {
+  .hero {
+    padding: 0 6rem;
+  }
+  
+  .hero-left {
+    max-width: 700px;
+  }
+  
+  .hero-rotating {
+    font-size: 4.5rem;
+  }
+  
+  .hero-description {
+    font-size: 1.25rem;
+  }
 }
