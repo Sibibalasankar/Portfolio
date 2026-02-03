@@ -128,7 +128,7 @@ const ProjectLink = ({ project }) => {
       onMouseMove={onMove}
       initial="initial"
       whileHover="hover"
-      className="project-row group"
+      className="project-row"
     >
       <div>
         <motion.h3

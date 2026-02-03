@@ -108,8 +108,8 @@ const ScrollTimeline = ({
                   ? "lg:pr-12 lg:mr-[50%]"
                   : "lg:pl-12 lg:ml-[50%]"
                 : cardAlignment === "left"
-                ? "lg:pr-12 lg:mr-[50%]"
-                : "lg:pl-12 lg:ml-[50%]";
+                  ? "lg:pr-12 lg:mr-[50%]"
+                  : "lg:pl-12 lg:ml-[50%]";
 
             return (
               <motion.div
@@ -157,7 +157,7 @@ const ScrollTimeline = ({
                 ">
                   {/* Inner glow effect */}
                   <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent rounded-2xl pointer-events-none" />
-                  
+
                   {/* Card content */}
                   <div className="relative z-10">
                     <div className="flex items-center gap-2 mb-3">
@@ -168,10 +168,13 @@ const ScrollTimeline = ({
                         {event.year}
                       </span>
                     </div>
-
-                    <h3 className="text-lg md:text-xl font-bold mb-1 text-white">
+                    <h3
+                      className="timeline-shiny-title text-lg md:text-xl font-bold mb-1"
+                      data-text={event.title}
+                    >
                       {event.title}
                     </h3>
+
 
                     {event.subtitle && (
                       <p className="text-sm text-white/70 mb-3">

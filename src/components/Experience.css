@@ -1,10 +1,14 @@
 /* =========================
-   EXPERIENCE SECTION (SHADCN SAFE)
+   EXPERIENCE SECTION (GREEN WEB3 THEME)
 ========================= */
 .experience {
   /* Force dark theme locally */
   --background: 0 0% 3.9%;
   --foreground: 0 0% 98%;
+
+  --green-primary: #00ff88;
+  --green-mid: #2dff9a;
+  --green-soft: rgba(0, 255, 136, 0.25);
 
   background: hsl(var(--background));
   color: hsl(var(--foreground));
@@ -12,7 +16,9 @@
   padding: 6rem 0;
 }
 
-/* SECTION TITLE */
+/* =========================
+   SECTION TITLE
+========================= */
 .experience .section-title {
   text-align: center;
   font-size: 3rem;
@@ -42,27 +48,81 @@
   align-items: flex-start;
 }
 
-/* YEAR */
+/* =========================
+   YEAR (SUBTLE GREEN)
+========================= */
 .timeline-year {
   font-size: 1.4rem;
   font-weight: 800;
-  color: hsl(var(--foreground) / 0.6);
+  color: hsl(var(--foreground) / 0.55);
   text-align: right;
+
+  transition: color 0.25s ease;
 }
 
-/* CONTENT */
+.timeline-item:hover .timeline-year {
+  color: var(--green-primary);
+}
+
+/* =========================
+   CONTENT
+========================= */
 .timeline-content {
   padding-left: 2rem;
   border-left: 2px solid hsl(var(--foreground) / 0.2);
 }
 
+/* =========================
+   ROLE TITLE (GREEN SHINY)
+========================= */
 .timeline-role {
   font-size: 1.6rem;
   font-weight: 700;
   margin-bottom: 0.3rem;
-  color: hsl(var(--foreground));
+
+  color: hsl(var(--foreground) / 0.85);
+  position: relative;
 }
 
+/* Shiny green overlay */
+.timeline-role::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+
+  background: linear-gradient(
+    110deg,
+    #00ff88 0%,
+    #2dff9a 30%,
+    #aaffd6 50%,
+    #2dff9a 70%,
+    #00ff88 100%
+  );
+
+  background-size: 250% 100%;
+  background-position: 0% center;
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Hover = green shiny text */
+.timeline-item:hover .timeline-role {
+  color: transparent;
+}
+
+.timeline-item:hover .timeline-role::after {
+  opacity: 1;
+  animation: green-shine 1s ease forwards;
+}
+
+/* =========================
+   COMPANY
+========================= */
 .timeline-company {
   font-size: 1rem;
   opacity: 0.8;
@@ -71,6 +131,9 @@
   color: hsl(var(--foreground));
 }
 
+/* =========================
+   DESCRIPTION
+========================= */
 .timeline-description {
   font-size: 1.05rem;
   line-height: 1.7;
@@ -91,9 +154,22 @@
   padding: 0.45rem 0.9rem;
   border-radius: 20px;
   font-size: 0.8rem;
-  background: hsl(var(--foreground) / 0.08);
-  border: 1px solid hsl(var(--foreground) / 0.15);
+
+  background: hsl(var(--foreground) / 0.06);
+  border: 1px solid var(--green-soft);
   color: hsl(var(--foreground));
+}
+
+/* =========================
+   SHINE ANIMATION
+========================= */
+@keyframes green-shine {
+  from {
+    background-position: 0% center;
+  }
+  to {
+    background-position: 100% center;
+  }
 }
 
 /* =========================
@@ -125,5 +201,152 @@
   .timeline-content {
     padding-left: 0;
     border-left: none;
+  }
+}
+/* =========================
+   GREEN TIMELINE PROGRESS DOT (MINIMAL)
+========================= */
+.timeline-progress-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: #00ff88;
+  position: relative;
+  animation: pulse-green 1.6s ease-in-out infinite;
+}
+
+.timeline-progress-dot::before {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 255, 136, 0.45);
+  animation: ring-pulse 1.6s ease-in-out infinite;
+}
+
+/* =========================
+   SHINY TITLE (REUSED)
+========================= */
+.timeline-shiny-title {
+  position: relative;
+  color: rgba(234, 255, 234, 0.75);
+}
+
+.timeline-shiny-title::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+
+  background: linear-gradient(
+    110deg,
+    #00ff88 0%,
+    #2dff9a 30%,
+    #aaffd6 50%,
+    #2dff9a 70%,
+    #00ff88 100%
+  );
+
+  background-size: 250% 100%;
+  background-position: 0% center;
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+
+  opacity: 0;
+  pointer-events: none;
+}
+
+.timeline-shiny-title:hover {
+  color: transparent;
+}
+
+.timeline-shiny-title:hover::after {
+  opacity: 1;
+  animation: green-shine 1s ease forwards;
+}
+
+/* =========================
+   ANIMATIONS
+========================= */
+@keyframes pulse-green {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.15); opacity: 0.85; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes ring-pulse {
+  0% { transform: scale(0.9); opacity: 0.7; }
+  100% { transform: scale(1.4); opacity: 0; }
+}
+
+@keyframes green-shine {
+  from { background-position: 0% center; }
+  to { background-position: 100% center; }
+}
+/* =========================
+   CENTER TIMELINE DOT (DEFAULT)
+========================= */
+.timeline-progress-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.55);
+  position: relative;
+  transition: background 0.3s ease;
+}
+
+/* Ring (hidden by default) */
+.timeline-progress-dot::before {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 255, 136, 0.45);
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all 0.4s ease;
+}
+
+/* =========================
+   CARD HOVER → ACTIVATE GREEN
+========================= */
+.timeline-scope:hover .timeline-progress-dot {
+  background: #00ff88;
+  animation: pulse-green 1.6s ease-in-out infinite;
+}
+
+.timeline-scope:hover .timeline-progress-dot::before {
+  opacity: 1;
+  transform: scale(1.35);
+  animation: ring-pulse 1.6s ease-in-out infinite;
+}
+
+/* =========================
+   ANIMATIONS (MINIMAL)
+========================= */
+@keyframes pulse-green {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 0.85;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes ring-pulse {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
   }
 }

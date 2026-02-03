@@ -1,5 +1,21 @@
+/* =========================
+   THEME VARIABLES
+========================= */
+:root {
+  --bg-black: #000000;
+
+  --green-primary: #00ff88;
+  --green-soft: rgba(0, 255, 136, 0.25);
+
+  --text-dim: rgba(234, 255, 234, 0.6);
+  --text-white: #ffffff;
+}
+
+/* =========================
+   PROJECTS SECTION
+========================= */
 .projects {
-  background: #000;
+  background: var(--bg-black);
   padding: 6rem 0;
 }
 
@@ -8,44 +24,118 @@
   margin: 0 auto;
 }
 
+/* =========================
+   PROJECT ROW
+========================= */
 .project-row {
   position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 2px solid rgba(255,255,255,0.15);
+
   padding: 2rem 0;
   text-decoration: none;
+
+  border-bottom: 1.5px solid var(--green-soft);
 }
 
+/* =========================
+   PROJECT TITLE
+   White on hover + Green shine
+========================= */
 .project-title {
   font-size: 3rem;
   font-weight: 800;
-  color: rgba(255,255,255,0.6);
-  transition: color 0.4s;
+
+  color: var(--text-dim);
+  position: relative;
+
+  transition: color 0.25s ease;
 }
 
-.project-row:hover .project-title {
-  color: #fff;
-}
-
-.project-preview {
-  margin-top: 0.6rem;
-  color: rgba(255,255,255,0.6);
-  max-width: 420px;
-}
-
-.project-hover-img {
+/* Green shine layer */
+.project-title::after {
+  content: attr(data-text);
   position: absolute;
-  z-index: 0;
-  width: 280px;
-  height: 180px;
-  object-fit: fit;
-  border-radius: 14px;
+  inset: 0;
+  z-index: 2;
+
+  background: linear-gradient(
+    120deg,
+    transparent 0%,
+    rgba(0,255,136,0) 38%,
+    rgba(0,255,136,1) 50%,
+    rgba(0,255,136,0) 62%,
+    transparent 100%
+  );
+
+  background-size: 300% 100%;
+  background-position: -150% center;
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+
+  opacity: 0;
   pointer-events: none;
 }
 
+/* Hover = white text */
+.project-row:hover .project-title {
+  color: var(--text-white);
+  text-shadow:
+    0 0 8px rgba(0, 255, 136, 0.25),
+    0 0 16px rgba(0, 255, 136, 0.15);
+}
+
+/* Hover = visible green shine sweep */
+.project-row:hover .project-title::after {
+  opacity: 1;
+  animation: green-shine 0.9s ease forwards;
+}
+
+/* =========================
+   PREVIEW TEXT
+========================= */
+.project-preview {
+  margin-top: 0.6rem;
+  max-width: 420px;
+  color: var(--text-dim);
+}
+
+/* =========================
+   HOVER IMAGE
+========================= */
+.project-hover-img {
+  position: absolute;
+  z-index: 0;
+
+  width: 280px;
+  height: 180px;
+  object-fit: cover;
+
+  border-radius: 14px;
+  pointer-events: none;
+
+  box-shadow: 0 0 40px rgba(0, 255, 136, 0.25);
+}
+
+/* =========================
+   ARROW
+========================= */
 .project-arrow {
   font-size: 3rem;
-  color: #fff;
+  color: var(--green-primary);
+}
+
+/* =========================
+   SHINE ANIMATION
+========================= */
+@keyframes green-shine {
+  from {
+    background-position: -150% center;
+  }
+  to {
+    background-position: 150% center;
+  }
 }

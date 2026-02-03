@@ -1,8 +1,22 @@
 /* =========================
+   THEME VARIABLES
+========================= */
+:root {
+  --bg-black: #000000;
+
+  --text-primary: #eaffea;
+  --text-secondary: rgba(234, 255, 234, 0.85);
+
+  --green-primary: #00ff88;
+  --green-soft: rgba(0, 255, 136, 0.25);
+  --green-border: rgba(0, 255, 136, 0.45);
+}
+
+/* =========================
    ABOUT SECTION ROOT
 ========================= */
 .about {
-  background: var(--black);
+  background: var(--bg-black);
   position: relative;
   overflow: hidden;
   min-height: 100vh;
@@ -11,17 +25,17 @@
 }
 
 /* =========================
-   WHITE GRID BACKGROUND
+   GREEN GRID BACKGROUND
 ========================= */
 .white-grid-bg {
   position: absolute;
   inset: 0;
-  background-color: #000;
+  background-color: var(--bg-black);
   background-image:
-    linear-gradient(to right, rgba(255,255,255,0.15) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255,255,255,0.15) 1px, transparent 1px);
+    linear-gradient(to right, #ffffff23 1px, transparent 1px),
+    linear-gradient(to bottom, #ffffff3b 1px, transparent 1px);
   background-size: 80px 80px;
-  opacity: 0.35;
+  opacity: 0.4;
   z-index: 0;
 
   mask-image: radial-gradient(
@@ -62,14 +76,13 @@
 }
 
 /* =========================
-   SCROLL REVEAL PARAGRAPHS
-   ⚠️ DO NOT CENTER DESKTOP TEXT
+   SCROLL REVEAL TEXT
 ========================= */
 .about-text p {
   font-size: clamp(1.6rem, 2.6vw, 1.9rem);
   line-height: 1.9;
   margin-bottom: 3rem;
-  color: #ffffff;
+  color: white;
   font-weight: 500;
   text-align: left;
 }
@@ -91,16 +104,20 @@
   margin: 3rem auto;
   padding: 1rem 2rem;
 
-  background: rgba(255,255,255,0.12);
-  border: 1px solid rgba(255,255,255,0.35);
+  background: rgba(0, 255, 136, 0.08);
+  border: 1px solid var(--green-border);
   border-radius: 50px;
 
   backdrop-filter: blur(10px);
 }
 
-.badge-icon,
+.badge-icon {
+  color: var(--green-primary);
+  margin-right: 0.5rem;
+}
+
 .badge-text {
-  color: #ffffff;
+  color: var(--text-primary);
   font-weight: 600;
   letter-spacing: 0.05em;
 }
@@ -123,7 +140,7 @@
 .stat-number {
   font-size: 2.6rem;
   font-weight: 900;
-  color: #ffffff;
+  color: var(--green-primary);
 }
 
 .stat-label {
@@ -131,7 +148,7 @@
   text-transform: uppercase;
   letter-spacing: 0.12em;
   opacity: 0.85;
-  color: #ffffff;
+  color: var(--text-secondary);
 }
 
 /* =========================

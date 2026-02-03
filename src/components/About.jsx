@@ -2,7 +2,7 @@ import React from "react";
 import "./About.css";
 
 import ScrollReveal from "./ScrollReveal";
-import ScrollFloat from './ScrollFloat';
+import ScrollFloat from "./ScrollFloat";
 
 const About = () => {
   return (
@@ -10,20 +10,20 @@ const About = () => {
       <div className="white-grid-bg" />
 
       <div className="container">
-        <h2 className="section-title about-title"> 
+        <h2 className="section-title about-title">
           <ScrollFloat
-          animationDuration={0.1}
-          ease='back.inOut(2)'
-          scrollStart='center bottom+=50%'
-          scrollEnd='bottom bottom-=40%'
-          stagger={0.05}
-        >
-          About Me
-        </ScrollFloat></h2>
+            animationDuration={0.1}
+            ease="back.inOut(2)"
+            scrollStart="center bottom+=50%"
+            scrollEnd="bottom bottom-=40%"
+            stagger={0.05}
+          >
+            About Me
+          </ScrollFloat>
+        </h2>
 
         <div className="about-content no-image">
           <div className="about-text">
-
             <ScrollReveal
               baseOpacity={0.1}
               enableBlur
@@ -69,7 +69,6 @@ const About = () => {
                 <div className="stat-label">Happy Clients</div>
               </div>
             </div>
-
           </div>
         </div>
       </div>

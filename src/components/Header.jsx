@@ -14,7 +14,7 @@ const Header = () => {
   }, []);
 
   const menuItems = [
-    { label: "Works", ariaLabel: "View works", link: "/works" },
+    { label: "Certifications", ariaLabel: "View works", link: "/works" },
     { label: "Gallery", ariaLabel: "View gallery", link: "/gallery" },
     { label: "Resume", ariaLabel: "View resume", link: "/resume" },
   ];
@@ -30,7 +30,7 @@ const Header = () => {
           </Link>
 
           <div className="nav-links">
-            <Link to="/works">Works</Link>
+            <Link to="/works">Certifications</Link>
             <Link to="/gallery">Gallery</Link>
             <Link to="/resume" className="resume-btn">
               Resume
@@ -49,7 +49,7 @@ const Header = () => {
           menuButtonColor="#ffffff"
           openMenuButtonColor="#ffffff"
           changeMenuColorOnOpen
-          colors={["#616163", "#000000"]}
+          colors={["#44a02c", "#38682c"]}
           logoUrl="/title.png"
           accentColor="#ffffff"
           isFixed   // 🔥 THIS IS REQUIRED
