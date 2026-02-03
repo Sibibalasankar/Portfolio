@@ -103,7 +103,7 @@ const Contact = () => {
         </div>
 
         <footer className="contact-footer">
-          © 2025 SIBI B S — All rights reserved
+          © 2026 SIBI B S — All rights reserved
         </footer>
       </div>
     </section>
