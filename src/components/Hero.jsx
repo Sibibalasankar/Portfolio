@@ -10,26 +10,34 @@ const Hero = () => {
   const heroRef = useRef(null);
 
   useEffect(() => {
-    const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
+    const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
 
     tl.fromTo(
       ".hero-rotating",
-      { y: 80, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1 }
+      { y: 30, opacity: 0 },
+      { y: 0, opacity: 1, duration: 1.5, delay: 0.5 }
     )
       .fromTo(
         ".hero-description",
-        { y: 30, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.6 },
-        "-=0.4"
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1 },
+        "-=1.2"
       )
       .fromTo(
         ".hero-buttons a",
-        { y: 20, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.6, stagger: 0.15 },
-        "-=0.3"
+        { y: 15, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1, stagger: 0.15 },
+        "-=0.8"
+      )
+      .fromTo(
+        ".hero-lanyard-overlay",
+        { opacity: 0, scale: 0.95 },
+        { opacity: 1, scale: 1, duration: 2 },
+        "-=1.5"
       );
   }, []);
+
+
 
   return (
     <section className="hero" ref={heroRef}>

@@ -1,12 +1,11 @@
 /* eslint-disable react/no-unknown-property */
 'use client';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, Suspense } from 'react';
 import { Canvas, extend, useFrame } from '@react-three/fiber';
-import { useGLTF, useTexture, Environment, Lightformer } from '@react-three/drei';
+import { useGLTF, useTexture, Environment, Lightformer, PerspectiveCamera } from '@react-three/drei';
 import { BallCollider, CuboidCollider, Physics, RigidBody, useRopeJoint, useSphericalJoint } from '@react-three/rapier';
 import { MeshLineGeometry, MeshLineMaterial } from 'meshline';
 
-// replace with your own imports, see the usage snippet for details
 import cardGLB from '../assets/lanyard/card.glb';
 import lanyard from '../assets/lanyard/lanyard.png';
 
@@ -14,61 +13,94 @@ import * as THREE from 'three';
 
 extend({ MeshLineGeometry, MeshLineMaterial });
 
-export default function Lanyard({ position = [0, 0, 30], gravity = [0, -40, 0], fov = 20, transparent = true }) {
+// WebGL Support Check
+const isWebGLAvailable = () => {
+  try {
+    const canvas = document.createElement('canvas');
+    return !!(window.WebGLRenderingContext && (canvas.getContext('webgl') || canvas.getContext('experimental-webgl')));
+  } catch (e) {
+    return false;
+  }
+};
+
+export default function Lanyard({ position = [0, 0, 15], gravity = [0, -40, 0], fov = 20, transparent = true }) {
   const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 768);
+  const [hasWebGL, setHasWebGL] = useState(true);
 
   useEffect(() => {
+    setHasWebGL(isWebGLAvailable());
     const handleResize = () => setIsMobile(window.innerWidth < 768);
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  if (!hasWebGL) {
+    return (
+      <div className="lanyard-fallback">
+        <div className="fallback-card">
+          <span>PORTFOLIO ID</span>
+        </div>
+      </div>
+    );
+  }
+
   return (
-<div className="lanyard-root">
+    <div className="lanyard-root">
       <Canvas
         camera={{ position: position, fov: fov }}
-        dpr={[1, isMobile ? 1.5 : 2]}
-        gl={{ alpha: transparent }}
+        dpr={[1, isMobile ? 1.2 : 1.5]} // Lowered slightly for better performance
+        gl={{ 
+          alpha: transparent,
+          antialias: !isMobile,
+          powerPreference: "high-performance"
+        }}
         onCreated={({ gl }) => gl.setClearColor(new THREE.Color(0x000000), transparent ? 0 : 1)}
       >
-        <ambientLight intensity={Math.PI} />
-        <Physics gravity={gravity} timeStep={isMobile ? 1 / 30 : 1 / 60}>
-          <Band isMobile={isMobile} />
-        </Physics>
-        <Environment blur={0.75}>
-          <Lightformer
-            intensity={2}
-            color="white"
-            position={[0, -1, 5]}
-            rotation={[0, 0, Math.PI / 3]}
-            scale={[100, 0.1, 1]}
-          />
-          <Lightformer
-            intensity={3}
-            color="white"
-            position={[-1, -1, 1]}
-            rotation={[0, 0, Math.PI / 3]}
-            scale={[100, 0.1, 1]}
-          />
-          <Lightformer
-            intensity={3}
-            color="white"
-            position={[1, 1, 1]}
-            rotation={[0, 0, Math.PI / 3]}
-            scale={[100, 0.1, 1]}
-          />
-          <Lightformer
-            intensity={10}
-            color="white"
-            position={[-10, 0, 14]}
-            rotation={[0, Math.PI / 2, Math.PI / 3]}
-            scale={[100, 10, 1]}
-          />
-        </Environment>
+        <Suspense fallback={null}>
+          <ambientLight intensity={Math.PI / 2} />
+          <Physics gravity={gravity} timeStep={isMobile ? 1 / 40 : 1 / 60}>
+            <Band isMobile={isMobile} />
+          </Physics>
+          <Environment blur={0.75}>
+            <Lightformer
+              intensity={2}
+              color="white"
+              position={[0, -1, 5]}
+              rotation={[0, 0, Math.PI / 3]}
+              scale={[100, 0.1, 1]}
+            />
+            {!isMobile && (
+              <>
+                <Lightformer
+                  intensity={3}
+                  color="white"
+                  position={[-1, -1, 1]}
+                  rotation={[0, 0, Math.PI / 3]}
+                  scale={[100, 0.1, 1]}
+                />
+                <Lightformer
+                  intensity={3}
+                  color="white"
+                  position={[1, 1, 1]}
+                  rotation={[0, 0, Math.PI / 3]}
+                  scale={[100, 0.1, 1]}
+                />
+              </>
+            )}
+            <Lightformer
+              intensity={8}
+              color="white"
+              position={[-10, 0, 14]}
+              rotation={[0, Math.PI / 2, Math.PI / 3]}
+              scale={[100, 10, 1]}
+            />
+          </Environment>
+        </Suspense>
       </Canvas>
     </div>
   );
 }
+
 function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }) {
   const band = useRef(),
     fixed = useRef(),
@@ -76,17 +108,28 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }) {
     j2 = useRef(),
     j3 = useRef(),
     card = useRef();
+  
   const vec = new THREE.Vector3(),
     ang = new THREE.Vector3(),
     rot = new THREE.Vector3(),
     dir = new THREE.Vector3();
-  const segmentProps = { type: 'dynamic', canSleep: true, colliders: false, angularDamping: 4, linearDamping: 4 };
+    
+  const segmentProps = { 
+    type: 'dynamic', 
+    canSleep: true, 
+    colliders: false, 
+    angularDamping: isMobile ? 6 : 4, 
+    linearDamping: isMobile ? 6 : 4 
+  };
+  
   const { nodes, materials } = useGLTF(cardGLB);
   const texture = useTexture(lanyard);
+  
   const [curve] = useState(
     () =>
       new THREE.CatmullRomCurve3([new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()])
   );
+  
   const [dragged, drag] = useState(false);
   const [hovered, hover] = useState(false);
 
@@ -113,6 +156,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }) {
       [card, j1, j2, j3, fixed].forEach(ref => ref.current?.wakeUp());
       card.current?.setNextKinematicTranslation({ x: vec.x - dragged.x, y: vec.y - dragged.y, z: vec.z - dragged.z });
     }
+    
     if (fixed.current) {
       [j1, j2].forEach(ref => {
         if (!ref.current.lerped) ref.current.lerped = new THREE.Vector3().copy(ref.current.translation());
@@ -122,11 +166,13 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }) {
           delta * (minSpeed + clampedDistance * (maxSpeed - minSpeed))
         );
       });
+      
       curve.points[0].copy(j3.current.translation());
       curve.points[1].copy(j2.current.lerped);
       curve.points[2].copy(j1.current.lerped);
       curve.points[3].copy(fixed.current.translation());
-      band.current.geometry.setPoints(curve.getPoints(isMobile ? 16 : 32));
+      band.current.geometry.setPoints(curve.getPoints(isMobile ? 12 : 24));
+      
       ang.copy(card.current.angvel());
       rot.copy(card.current.rotation());
       card.current.setAngvel({ x: ang.x, y: ang.y - rot.y * 0.25, z: ang.z });
@@ -165,7 +211,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }) {
             <mesh geometry={nodes.card.geometry}>
               <meshPhysicalMaterial
                 map={materials.base.map}
-                map-anisotropy={16}
+                map-anisotropy={isMobile ? 4 : 16}
                 clearcoat={isMobile ? 0 : 1}
                 clearcoatRoughness={0.15}
                 roughness={0.9}
@@ -182,13 +228,14 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }) {
         <meshLineMaterial
           color="white"
           depthTest={false}
-          resolution={isMobile ? [1000, 2000] : [1000, 1000]}
+          resolution={isMobile ? [640, 640] : [1000, 1000]}
           useMap
           map={texture}
           repeat={[-4, 1]}
-          lineWidth={.5}
+          lineWidth={0.5}
         />
       </mesh>
     </>
   );
 }
+

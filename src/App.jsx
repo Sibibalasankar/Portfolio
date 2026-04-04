@@ -1,27 +1,32 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense, lazy } from "react";
 import { Routes, Route } from "react-router-dom";
+import { useProgress, useGLTF, useTexture } from "@react-three/drei";
 
 /* components */
 import LoadingScreen from "./components/LoadingScreen";
-import CustomCursor from "./components/CustomCursor";
-import Header from "./components/Header";
-import ScrollToTop from "./components/ScrollToTop";
+const CustomCursor = lazy(() => import("./components/CustomCursor"));
+const Header = lazy(() => import("./components/Header"));
+const ScrollToTop = lazy(() => import("./components/ScrollToTop"));
 
 /* pages & sections */
-import Hero from "./components/Hero";
-import About from "./components/About";
-import Projects from "./components/Projects";
-import Experience from "./components/Experience";
-import Skills from "./components/Skills";
-import Achievements from "./components/Achievements";
-import Contact from "./components/Contact";
+const Hero = lazy(() => import("./components/Hero"));
+const About = lazy(() => import("./components/About"));
+const Projects = lazy(() => import("./components/Projects"));
+const Experience = lazy(() => import("./components/Experience"));
+const Skills = lazy(() => import("./components/Skills"));
+const Achievements = lazy(() => import("./components/Achievements"));
+const Contact = lazy(() => import("./components/Contact"));
 
-import Works from "./pages/Works";
-import Gallery from "./pages/Gallery";
-import Resume from "./pages/Resume";
+const Works = lazy(() => import("./pages/Works"));
+const Gallery = lazy(() => import("./pages/Gallery"));
+const Resume = lazy(() => import("./pages/Resume"));
 
 import "./styles/globals.css";
 import "./styles/animations.css";
+
+// Assets for Lanyard (Preload)
+import cardGLB from './assets/lanyard/card.glb';
+import lanyardTexture from './assets/lanyard/lanyard.png';
 
 const Home = () => (
   <>
@@ -36,31 +41,39 @@ const Home = () => (
 );
 
 function App() {
+  const { progress } = useProgress();
   const [isLoading, setIsLoading] = useState(true);
 
+  // Preload Lanyard Assets
   useEffect(() => {
-    const t = setTimeout(() => setIsLoading(false), 4000);
-    return () => clearTimeout(t);
+    useGLTF.preload(cardGLB);
+    useTexture.preload(lanyardTexture);
   }, []);
 
+  // Handle GSAP refresh when loading is done
   useEffect(() => {
     if (!isLoading) {
       setTimeout(() => {
         import("gsap/ScrollTrigger").then(({ ScrollTrigger }) => {
           ScrollTrigger.refresh();
         });
-      }, 100);
+      }, 500);
     }
   }, [isLoading]);
+
+
 
   return (
     <div className="app">
       {isLoading && (
-        <LoadingScreen onLoadingComplete={() => setIsLoading(false)} />
+        <LoadingScreen 
+          progress={progress} 
+          onLoadingComplete={() => setIsLoading(false)} 
+        />
       )}
 
       {!isLoading && (
-        <>
+        <Suspense fallback={null}>
           <CustomCursor />
           <Header />
 
@@ -72,10 +85,11 @@ function App() {
           </Routes>
 
           <ScrollToTop />
-        </>
+        </Suspense>
       )}
     </div>
   );
 }
 
 export default App;
+
