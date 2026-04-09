@@ -2,10 +2,10 @@
    THEME VARIABLES
 ========================= */
 :root {
-  --bg-black: #000000;
+  --bg-black: var(--black);
 
-  --green-primary: #00ff88;
-  --green-soft: rgba(0, 255, 136, 0.25);
+  --green-primary: var(--accent);
+  --green-soft: var(--accent-glow);
 
   --text-dim: rgba(234, 255, 234, 0.6);
   --text-white: #ffffff;

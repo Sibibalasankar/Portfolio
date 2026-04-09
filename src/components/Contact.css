@@ -2,7 +2,7 @@
    CONTACT BASE
 ========================= */
 .contact {
-  background: #000;
+  background: var(--black);
   color: #fff;
   position: relative;
   min-height: 100vh;
@@ -28,6 +28,11 @@
   font-weight: 800;
   margin-bottom: 4rem;
   text-align: left;
+  color: var(--white);
+}
+
+.contact-title span {
+  color: var(--accent);
 }
 
 /* =========================
@@ -81,7 +86,8 @@
 }
 
 .contact-details a:hover {
-  color: #888;
+  color: var(--accent);
+  text-shadow: 0 0 8px var(--accent-glow);
 }
 
 /* =========================
@@ -143,7 +149,8 @@
   font-size: 3rem;
   font-weight: 900;
   letter-spacing: 0.25em;
-  color: rgba(255,255,255,0.08);
+  color: var(--accent-glow);
+  opacity: 0.15;
 }
 
 /* =========================

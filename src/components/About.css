@@ -2,14 +2,14 @@
    THEME VARIABLES
 ========================= */
 :root {
-  --bg-black: #000000;
+  --bg-black: #0b0b0b;
 
   --text-primary: #eaffea;
   --text-secondary: rgba(234, 255, 234, 0.85);
 
-  --green-primary: #00ff88;
-  --green-soft: rgba(0, 255, 136, 0.25);
-  --green-border: rgba(0, 255, 136, 0.45);
+  --green-primary: var(--accent);
+  --green-soft: rgba(68, 160, 44, 0.25);
+  --green-border: rgba(68, 160, 44, 0.45);
 }
 
 /* =========================

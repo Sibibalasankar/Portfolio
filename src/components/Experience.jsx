@@ -37,6 +37,13 @@ const events = [
     description:
       "Worked on Generative AI, Machine Learning, and Data Science projects.",
   },
+  {
+    year: "2025 - Present",
+    title: "Full Stack Intern",
+    subtitle: "SelsoftInc",
+    description: 
+      "Developing scalable full-stack solutions and contributing to enterprise-level web applications.",
+  },
 ];
 
 const Experience = () => {

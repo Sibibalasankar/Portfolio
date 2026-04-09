@@ -6,7 +6,7 @@
 /* ── PAGE SHELL ──────────────────────────────────────── */
 .rp-shell {
   min-height: 100vh;
-  background: #111;
+  background: var(--black);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -63,7 +63,7 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.65rem 1.4rem;
-  background: #44a02c;
+  background: var(--accent);
   color: white;
   border-radius: 8px;
   font-size: 0.78rem;
@@ -131,7 +131,7 @@
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #44a02c, #2d6a1f);
+  background: linear-gradient(135deg, var(--accent), #2d6a1f);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -157,7 +157,7 @@
 
 .rp-avatar-role {
   font-size: 0.6rem;
-  color: #44a02c;
+  color: var(--accent);
   letter-spacing: 0.2em;
   text-transform: uppercase;
   text-align: center;
@@ -168,7 +168,7 @@
   font-size: 0.55rem;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: #44a02c;
+  color: var(--accent);
   font-weight: 700;
   border-bottom: 1px solid rgba(255,255,255,0.06);
   padding-bottom: 0.4rem;
@@ -187,7 +187,7 @@
 .rp-contact-item:hover { opacity: 0.85; }
 
 .rp-contact-icon {
-  color: #44a02c;
+  color: var(--accent);
   flex-shrink: 0;
   font-size: 0.7rem;
   margin-top: 1px;
@@ -221,7 +221,7 @@
 }
 
 .rp-skill-pct {
-  color: #44a02c;
+  color: var(--accent);
   font-size: 0.6rem;
   font-weight: 600;
 }
@@ -235,7 +235,7 @@
 
 .rp-skill-fill {
   height: 100%;
-  background: linear-gradient(90deg, #2d6a1f, #44a02c, #6bc94a);
+  background: linear-gradient(90deg, #2d6a1f, var(--accent), #6bc94a);
   border-radius: 2px;
   width: 0%;
   transition: width 1.4s cubic-bezier(0.4,0,0.2,1), filter 0.3s;
@@ -267,7 +267,7 @@
 
 /* Education sidebar */
 .rp-edu-item { margin-bottom: 1.1rem; }
-.rp-edu-year { font-size: 0.58rem; color: #44a02c; letter-spacing: 0.1em; margin-bottom: 0.2rem; }
+.rp-edu-year { font-size: 0.58rem; color: var(--accent); letter-spacing: 0.1em; margin-bottom: 0.2rem; }
 .rp-edu-deg  { font-size: 0.72rem; color: rgba(255,255,255,0.75); font-weight: 600; margin-bottom: 0.1rem; }
 .rp-edu-inst { font-size: 0.63rem; color: rgba(255,255,255,0.3); margin-bottom: 0.25rem; }
 
@@ -275,7 +275,7 @@
   display: inline-block;
   padding: 0.1rem 0.5rem;
   background: rgba(68,160,44,0.12);
-  color: #44a02c;
+  color: var(--accent);
   border-radius: 3px;
   font-size: 0.6rem;
   font-weight: 700;
@@ -313,7 +313,7 @@
 .rp-role {
   font-size: 0.72rem;
   font-weight: 700;
-  color: #44a02c;
+  color: var(--accent);
   letter-spacing: 0.2em;
   text-transform: uppercase;
   margin-bottom: 0.9rem;
@@ -321,7 +321,7 @@
 
 .rp-header-line {
   height: 2px;
-  background: linear-gradient(90deg, #44a02c 0%, rgba(68,160,44,0.08) 100%);
+  background: linear-gradient(90deg, var(--accent) 0%, rgba(68,160,44,0.08) 100%);
   margin-bottom: 1rem;
 }
 
@@ -348,7 +348,7 @@
 .rp-sh::before {
   content: '';
   width: 12px; height: 2px;
-  background: #44a02c;
+  background: var(--accent);
   flex-shrink: 0;
 }
 
@@ -369,7 +369,7 @@
 }
 
 .rp-exp-block:hover {
-  border-left-color: #44a02c;
+  border-left-color: var(--accent);
   background: rgba(68,160,44,0.02);
 }
 
@@ -383,7 +383,7 @@
   transition: background 0.25s;
 }
 
-.rp-exp-block:hover::before { background: #44a02c; }
+.rp-exp-block:hover::before { background: var(--accent); }
 
 .rp-exp-top {
   display: flex;
@@ -402,7 +402,7 @@
 
 .rp-exp-period {
   font-size: 0.62rem;
-  color: #44a02c;
+  color: var(--accent);
   font-weight: 600;
   white-space: nowrap;
   background: rgba(68,160,44,0.08);
@@ -412,7 +412,7 @@
 
 .rp-exp-title {
   font-size: 0.68rem;
-  color: #44a02c;
+  color: var(--accent);
   font-weight: 700;
   margin-bottom: 0.55rem;
   text-transform: uppercase;
@@ -437,7 +437,7 @@
 
 .rp-bullets li::before {
   content: '▸';
-  color: #44a02c;
+  color: var(--accent);
   flex-shrink: 0;
   font-size: 0.55rem;
   margin-top: 0.25rem;
@@ -458,7 +458,7 @@
   padding: 0.6rem 0.8rem;
   background: #f8fafc;
   border: 1px solid #e2e8f0;
-  border-left: 3px solid #44a02c;
+  border-left: 3px solid var(--accent);
   border-radius: 0 5px 5px 0;
   transition: all 0.25s;
   cursor: default;
@@ -466,7 +466,7 @@
 
 .rp-ach-pill:hover {
   background: rgba(68,160,44,0.04);
-  border-color: #44a02c;
+  border-color: var(--accent);
   transform: translateX(3px);
 }
 

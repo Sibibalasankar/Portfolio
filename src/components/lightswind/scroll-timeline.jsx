@@ -1,210 +1,156 @@
-import React, { useRef, useState, useEffect } from "react";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import { Calendar } from "lucide-react";
+import React, { useRef, useLayoutEffect } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Briefcase, MapPin, Calendar, Terminal, Code } from "lucide-react";
 
+gsap.registerPlugin(ScrollTrigger);
+
+/**
+ * Snap-to-Release Horizontal Journey.
+ * This version releases the scroll INSTANTLY once the last card is fully in view.
+ * No trailing black space. No disappearance required.
+ */
 const ScrollTimeline = ({
   events,
   title,
   subtitle,
-  animationOrder = "staggered",
-  cardAlignment = "alternating",
-  progressIndicator = true,
-  revealAnimation = "fade",
-  parallaxIntensity = 0.12,
-  progressLineWidth = 2,
-  progressLineCap = "round",
   className = "",
 }) => {
-  const containerRef = useRef(null);
-  const [activeIndex, setActiveIndex] = useState(-1);
+  const componentRef = useRef(null);
+  const sliderRef = useRef(null);
+  const triggerRef = useRef(null);
 
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
-  });
+  useLayoutEffect(() => {
+    let ctx = gsap.context(() => {
+      // 1. Get the actual width of all cards combined
+      const cards = sliderRef.current.children;
+      const lastCard = cards[cards.length - 1];
+      
+      // Calculate how far we need to scroll so that the last card is fully visible.
+      // Distance = Total Width of Slider - Window Width
+      const totalWidth = sliderRef.current.scrollWidth;
+      const windowWidth = window.innerWidth;
+      const scrollDistance = totalWidth - windowWidth;
 
-  const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 90,
-    damping: 28,
-  });
+      if (scrollDistance <= 0) return;
 
-  const progressHeight = useTransform(
-    smoothProgress,
-    [0, 1],
-    ["0%", "100%"]
-  );
+      gsap.to(sliderRef.current, {
+        x: -scrollDistance,
+        ease: "none",
+        scrollTrigger: {
+          trigger: triggerRef.current,
+          pin: true,
+          scrub: 0.5, // Faster scrubbing for snappier feel
+          start: "top top",
+          // The duration of the pin is EXACTLY the distance of the scroll
+          end: () => `+=${scrollDistance}`,
+          invalidateOnRefresh: true,
+          onLeave: () => {
+             // Optional: ensure everything is perfectly aligned on exit
+          }
+        }
+      });
+    }, componentRef);
 
-  useEffect(() => {
-    const unsub = scrollYProgress.onChange((v) => {
-      const idx = Math.floor(v * events.length);
-      if (idx !== activeIndex) setActiveIndex(idx);
-    });
-    return () => unsub();
-  }, [scrollYProgress, events.length, activeIndex]);
+    return () => ctx.revert();
+  }, [events]);
 
   return (
-    <section
-      ref={containerRef}
-      className={`relative w-full bg-black text-white ${className}`}
-    >
-      {/* Header */}
-      <div className="text-center py-20 px-4">
-        <h2 className="text-4xl md:text-5xl font-bold mb-4">{title}</h2>
-        <p className="text-gray-400 max-w-xl mx-auto">{subtitle}</p>
-      </div>
-
-      {/* Timeline */}
-      <div className="relative max-w-6xl mx-auto px-4 pb-24">
-        {/* Center line */}
-        <div
-          className="absolute left-1/2 top-0 h-full"
-          style={{
-            width: progressLineWidth,
-            transform: "translateX(-50%)",
-            background: "linear-gradient(to bottom, transparent, rgba(255,255,255,0.3), transparent)",
-          }}
-        />
-
-        {/* Progress line + dot */}
-        {progressIndicator && (
-          <>
-            <motion.div
-              className="absolute left-1/2 top-0"
-              style={{
-                width: progressLineWidth,
-                height: progressHeight,
-                transform: "translateX(-50%)",
-                borderRadius: progressLineCap === "round" ? "999px" : "0",
-                background: "linear-gradient(to bottom, #ffffff, rgba(255,255,255,0.7))",
-                boxShadow: "0 0 8px rgba(255,255,255,0.5)",
-              }}
-            />
-
-            <motion.div
-              className="absolute left-1/2 z-20"
-              style={{
-                top: progressHeight,
-                transform: "translate(-50%, -50%)",
-              }}
-            >
-              <div className="w-4 h-4 rounded-full bg-white/95 backdrop-blur-sm shadow-[0_0_12px_2px_rgba(255,255,255,0.8)] ring-2 ring-white/40" />
-            </motion.div>
-          </>
-        )}
-
-        {/* Events */}
-        <div className="relative z-10">
-          {events.map((event, index) => {
-            const yOffset = useTransform(
-              smoothProgress,
-              [0, 1],
-              [parallaxIntensity * 70, -parallaxIntensity * 70]
-            );
-
-            // ✅ FIXED alignment + narrower cards
-            const desktopAlign =
-              cardAlignment === "alternating"
-                ? index % 2 === 0
-                  ? "lg:pr-12 lg:mr-[50%]"
-                  : "lg:pl-12 lg:ml-[50%]"
-                : cardAlignment === "left"
-                  ? "lg:pr-12 lg:mr-[50%]"
-                  : "lg:pl-12 lg:ml-[50%]";
-
-            return (
-              <motion.div
-                key={index}
-                initial={{
-                  opacity: 0,
-                  y: revealAnimation === "fade" ? 40 : 0,
-                }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 0.6,
-                  delay:
-                    animationOrder === "staggered"
-                      ? index * 0.15
-                      : 0,
-                }}
-                viewport={{ once: false }}
-                style={{ y: yOffset }}
-                className={`
-                  relative mb-14
-                  w-full
-                  lg:w-[38%]
-                  mx-auto
-                  ${desktopAlign}
-                `}
-              >
-                {/* Glassomorphic Card */}
-                <div className="
-                  relative
-                  bg-gradient-to-br from-white/10 to-white/5
-                  backdrop-blur-xl
-                  border border-white/20
-                  rounded-2xl
-                  p-5 md:p-6
-                  shadow-2xl
-                  shadow-black/30
-                  before:absolute before:inset-0
-                  before:bg-gradient-to-br before:from-white/5 before:to-transparent
-                  before:rounded-2xl
-                  before:-z-10
-                  hover:border-white/30
-                  transition-all duration-300
-                  hover:shadow-[0_8px_30px_rgba(255,255,255,0.1)]
-                  hover:-translate-y-1
-                ">
-                  {/* Inner glow effect */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent rounded-2xl pointer-events-none" />
-
-                  {/* Card content */}
-                  <div className="relative z-10">
-                    <div className="flex items-center gap-2 mb-3">
-                      <div className="p-1.5 rounded-lg bg-white/10 backdrop-blur-sm">
-                        <Calendar size={16} className="text-white/90" />
-                      </div>
-                      <span className="text-sm font-semibold text-white/95">
-                        {event.year}
-                      </span>
-                    </div>
-                    <h3
-                      className="timeline-shiny-title text-lg md:text-xl font-bold mb-1"
-                      data-text={event.title}
-                    >
-                      {event.title}
-                    </h3>
-
-
-                    {event.subtitle && (
-                      <p className="text-sm text-white/70 mb-3">
-                        {event.subtitle}
-                      </p>
-                    )}
-
-                    <p className="text-sm leading-relaxed text-white/80">
-                      {event.description}
-                    </p>
-                  </div>
-
-                  {/* Connection dot to timeline */}
-                  <div className={`
-                    absolute top-1/2 -translate-y-1/2
-                    w-3 h-3 rounded-full
-                    bg-white/90 backdrop-blur-sm
-                    shadow-[0_0_8px_rgba(255,255,255,0.6)]
-                    ${index % 2 === 0 ? 'right-0 translate-x-1/2' : 'left-0 -translate-x-1/2'}
-                    ${cardAlignment === 'left' ? 'right-0 translate-x-1/2' : ''}
-                    ${cardAlignment === 'right' ? 'left-0 -translate-x-1/2' : ''}
-                    hidden lg:block
-                  `} />
-                </div>
-              </motion.div>
-            );
-          })}
+    <div ref={componentRef} className={`w-full overflow-hidden ${className}`}>
+      <div 
+        ref={triggerRef} 
+        className="h-screen bg-[#050505] relative flex flex-col overflow-hidden"
+      >
+        
+        {/* Subtle Background */}
+        <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.03]">
+           <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-[#44a02c] rounded-full blur-[80px]" />
         </div>
+
+        {/* 1. Header Area */}
+        <div className="relative z-30 pt-16 px-8 md:px-24 flex flex-col items-start flex-shrink-0">
+             <div className="flex items-center gap-4 mb-2">
+                <div className="w-10 h-[1px] bg-[#44a02c]" />
+                <span className="text-[#44a02c] font-black tracking-[0.4em] text-[9px] uppercase">LOG_0x2AF</span>
+             </div>
+             <h2 className="text-4xl md:text-6xl font-black text-white italic tracking-tighter uppercase">
+                {title}
+             </h2>
+        </div>
+
+        {/* 2. Main Slider Track */}
+        <div className="relative flex-grow flex items-center z-10">
+            {/* 
+                CRITICAL: We remove any spacer/padding from the END of this track.
+                The scrollDistance will stop exactly when the last child hits the edge.
+            */}
+            <div 
+              ref={sliderRef} 
+              className="flex flex-nowrap items-center h-full"
+              style={{ width: "max-content" }}
+            >
+              {/* Only Lead-in Padding (to center the first card) */}
+              <div className="w-[10vw] flex-shrink-0" />
+
+              {events.map((event, index) => (
+                <div 
+                    key={index} 
+                    className="w-[85vw] md:w-[65vw] lg:w-[700px] flex-shrink-0 px-4 md:px-10"
+                >
+                  <div className="group relative bg-[#0b0b0b] border border-white/5 p-8 md:p-14 lg:p-16 rounded-[2rem] shadow-xl transition-all duration-300 hover:border-[#44a02c33]">
+                        
+                        <div className="absolute top-8 right-12 text-4xl font-black text-white/[0.02] italic select-none">
+                           {index + 1}
+                        </div>
+
+                        <div className="flex items-center justify-between mb-8 border-b border-white/5 pb-8">
+                           <div className="flex items-center gap-4">
+                              <span className="text-3xl md:text-5xl font-black text-[#44a02c] italic">{event.year}</span>
+                           </div>
+                           <span className="text-[9px] font-bold text-white/10 tracking-[0.3em] uppercase hidden md:block">
+                              {event.subtitle}
+                           </span>
+                        </div>
+
+                        <div className="space-y-4">
+                            <h3 className="text-2xl md:text-4xl lg:text-5xl font-black text-white leading-tight tracking-tight uppercase group-hover:text-[#44a02c] transition-colors duration-500">
+                               {event.title}
+                            </h3>
+                            <p className="text-gray-400 text-base md:text-xl lg:text-xl leading-relaxed font-light italic opacity-70 group-hover:opacity-100 transition-opacity">
+                               "{event.description}"
+                            </p>
+                        </div>
+
+                        {/* Bottom Tag */}
+                        <div className="mt-12 flex items-center gap-2">
+                             <div className="w-1.5 h-1.5 rounded-full bg-[#44a02c33]" />
+                             <span className="text-[8px] font-bold text-[#44a02c33] uppercase spacing-widest">{event.subtitle} // VERIFIED</span>
+                        </div>
+                  </div>
+                </div>
+              ))}
+
+              {/* 
+                 IMPORTANT: NO SPACER HERE. 
+                 The moment the last card's right edge touches the screen edge, the scroll ends.
+              */}
+            </div>
+        </div>
+
+        {/* 3. Footer Area */}
+        <div className="relative z-30 pb-12 px-8 md:px-24 flex items-center justify-between gap-8 flex-shrink-0">
+             <div className="flex items-center gap-4">
+                <span className="text-[9px] font-black text-[#44a02c] tracking-[0.5em] uppercase opacity-40">READY_FOR_NEXT_PHASE</span>
+                <div className="w-24 h-[1px] bg-[#44a02c] opacity-20" />
+             </div>
+             <div className="flex items-center gap-4 text-[#44a02c] text-[9px] font-black tracking-widest animate-pulse">
+                <span>EXIT_SCROLL</span>
+                <div className="text-xs">↓</div>
+             </div>
+        </div>
+
       </div>
-    </section>
+    </div>
   );
 };
 

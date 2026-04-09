@@ -161,6 +161,19 @@ const Resume = () => {
 
             <div className="rp-exp-block">
               <div className="rp-exp-top">
+                <span className="rp-exp-company">SelsoftInc</span>
+                <span className="rp-exp-period">2025 – Present · USA (Remote)</span>
+              </div>
+              <p className="rp-exp-title">Full Stack Intern</p>
+              <ul className="rp-bullets">
+                <li>Developing and maintaining enterprise-level web applications using MERN stack and modern cloud solutions.</li>
+                <li>Collaborating with cross-functional teams to implement scalable backend architectures and responsive frontend interfaces.</li>
+                <li>Optimizing application performance and ensuring high-quality code through rigorous testing and review.</li>
+              </ul>
+            </div>
+
+            <div className="rp-exp-block">
+              <div className="rp-exp-top">
                 <span className="rp-exp-company">Lakshmi Life Sciences</span>
                 <span className="rp-exp-period">2025 · Coimbatore</span>
               </div>
