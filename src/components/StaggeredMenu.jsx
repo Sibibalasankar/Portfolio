@@ -345,7 +345,8 @@ export const StaggeredMenu = ({
             <img
               src={logoUrl || '/src/assets/logos/reactbits-gh-white.svg'}
               alt="Logo"
-              className="sm-logo-img block h-8 w-auto object-contain"
+              className="sm-logo-img real-header-logo block h-8 w-auto object-contain"
+              style={{ opacity: 0 }}
               draggable={false}
               width={110}
               height={24} />

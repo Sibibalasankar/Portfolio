@@ -81,7 +81,7 @@ const Hero = () => {
             splitBy="characters"
             mainClassName="hero-rotating-text"
             splitLevelClassName="overflow-hidden"
-            elementLevelClassName="inline-block text-white"
+            elementLevelClassName="hero-shiny-keyword inline-block text-[#44a02c]"
           />
         </div>
 

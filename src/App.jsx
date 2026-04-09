@@ -8,6 +8,8 @@ const CustomCursor = lazy(() => import("./components/CustomCursor"));
 const Header = lazy(() => import("./components/Header"));
 const ScrollToTop = lazy(() => import("./components/ScrollToTop"));
 
+import AnimatedIntro from "./components/AnimatedIntro";
+
 /* pages & sections */
 const Hero = lazy(() => import("./components/Hero"));
 const About = lazy(() => import("./components/About"));
@@ -45,6 +47,10 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const location = useLocation();
 
+  // Pre-mount the heavy 3D canvases underneath the loading screen 
+  // as soon as raw assets hit 100%, avoiding main-thread freezes during the logo animation.
+  const isAppMounted = progress >= 100 || !isLoading;
+
   // Preload Lanyard Assets
   useEffect(() => {
     useGLTF.preload(cardGLB);
@@ -79,20 +85,13 @@ function App() {
     }
   }, [isLoading]);
 
-
-
   return (
     <div className="app">
-      {isLoading && (
-        <LoadingScreen 
-          progress={progress} 
-          onLoadingComplete={() => setIsLoading(false)} 
-        />
-      )}
-
-      {!isLoading && (
-        <Suspense fallback={null}>
+      {/* Heavy 3D app content pre-mounts behind the loader */}
+      {isAppMounted && (
+        <Suspense fallback={<div style={{ position: 'fixed', inset: 0, backgroundColor: '#0b0b0b', zIndex: -1 }} />}>
           <CustomCursor />
+          {!isLoading && <AnimatedIntro />}
           <Header />
 
           <Routes>
@@ -104,6 +103,14 @@ function App() {
 
           <ScrollToTop />
         </Suspense>
+      )}
+
+      {/* Loading Screen overlays everything until it's finished */}
+      {isLoading && (
+        <LoadingScreen 
+          progress={progress} 
+          onLoadingComplete={() => setIsLoading(false)} 
+        />
       )}
     </div>
   );

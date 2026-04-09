@@ -25,7 +25,7 @@ const Header = () => {
       <header className={`header ${isScrolled ? "scrolled" : ""}`}>
         <nav className="nav">
           <Link to="/" className="brand-link">
-            <img src="/title.png" alt="Logo" />
+            <img src="/title.png" alt="Logo" className="real-header-logo" style={{ opacity: 0 }} />
             <span>SIBI B S</span>
           </Link>
 

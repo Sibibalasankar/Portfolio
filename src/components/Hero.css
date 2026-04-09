@@ -7,7 +7,7 @@
   align-items: center;
   justify-content: space-between;
   position: relative;
-  padding: 0 4rem;
+  padding: 0;
   overflow: hidden;
   color: var(--white);
   background-color: #0b0b0b;
@@ -46,6 +46,7 @@
 .hero-content {
   z-index: 5;
   position: relative;
+  padding: 0 4rem; /* Moved from .hero */
 }
 
 .hero-left {
@@ -73,6 +74,23 @@
 .hero-rotating-text {
   font-weight: 900;
   letter-spacing: 0.02em;
+}
+
+.hero-shiny-keyword {
+  text-shadow: 0 0 15px rgba(45, 106, 31, 0.4), 0 0 30px rgba(45, 106, 31, 0.2);
+  filter: drop-shadow(0 0 5px rgba(45, 106, 31, 0.3));
+  background: linear-gradient(135deg, #2d6a1f 0%, #44a02c 50%, #2d6a1f 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3);
+  animation: shine-text 3s linear infinite;
+}
+
+@keyframes shine-text {
+  to {
+    background-position: 200% center;
+  }
 }
 
 /* =========================
@@ -206,6 +224,9 @@
 /* Tablet (768px - 1024px) */
 @media (max-width: 1024px) {
   .hero {
+    padding: 0;
+  }
+  .hero-content {
     padding: 0 2.5rem;
   }
   
@@ -226,7 +247,7 @@
 /* Mobile (481px - 767px) */
 @media (max-width: 768px) {
   .hero {
-    padding: 0 1.5rem;
+    padding: 0;
     flex-direction: column;
     justify-content: center;
     text-align: center;
@@ -238,6 +259,7 @@
     width: 100%;
     text-align: center;
     margin-top: 2rem;
+    padding: 0 1.5rem;
   }
   
   .hero-left {
@@ -257,7 +279,7 @@
   }
   
   .hero-rotating-text {
-    font-size: 3rem;
+    font-size: 2.6rem;
   }
   
   .hero-description {
@@ -369,8 +391,11 @@
 /* Small Mobile (320px - 480px) */
 @media (max-width: 480px) {
   .hero {
-    padding: 0 1rem;
+    padding: 0;
     min-height: 100svh; /* Use small viewport height for mobile */
+  }
+  .hero-content {
+    padding: 0 1rem;
   }
   
   .hero-rotating {
@@ -382,7 +407,7 @@
   }
   
   .hero-rotating-text {
-    font-size: 2.4rem;
+    font-size: 2.2rem;
   }
   
   .hero-description {
@@ -444,6 +469,9 @@
 /* Desktop large screens */
 @media (min-width: 1440px) {
   .hero {
+    padding: 0;
+  }
+  .hero-content {
     padding: 0 6rem;
   }
   

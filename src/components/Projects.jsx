@@ -133,8 +133,10 @@ const ProjectLink = ({ project }) => {
       <div>
         <motion.h3
           variants={{ initial: { x: 0 }, hover: { x: -16 } }}
+          whileTap={{ scale: 0.95 }}
           transition={{ type: "spring" }}
           className="project-title"
+          data-text={project.title}
         >
           {project.title}
         </motion.h3>

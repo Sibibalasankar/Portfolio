@@ -1,20 +1,18 @@
 // src/components/LoadingScreen.jsx
 import React, { useState, useEffect } from 'react';
+import { gsap } from 'gsap';
 import './LoadingScreen.css';
 
 const LoadingScreen = ({ onLoadingComplete, progress: assetProgress = 0 }) => {
   const [displayProgress, setDisplayProgress] = useState(0);
-  const [isComplete, setIsComplete] = useState(false);
 
   // Sync display progress with asset progress with smooth easing
-  // We've slowed down the lerping slightly for better visual feedback
   useEffect(() => {
     let animationFrame;
     const animate = () => {
       setDisplayProgress(prev => {
         const diff = assetProgress - prev;
         if (Math.abs(diff) < 0.1) return assetProgress;
-        // Slow down the progression even more to ensure the user can see the logo
         return prev + diff * 0.04; 
       });
       animationFrame = requestAnimationFrame(animate);
@@ -24,22 +22,27 @@ const LoadingScreen = ({ onLoadingComplete, progress: assetProgress = 0 }) => {
     return () => cancelAnimationFrame(animationFrame);
   }, [assetProgress]);
 
-  // Ensure minimum viewing time even if assets load instantly
   const startTimeRef = React.useRef(Date.now());
 
   useEffect(() => {
-    const minTime = 4000; // 4 seconds minimum
+    const minTime = 3000; // Let's keep it to 3s minimal loading
 
     const checkCompletion = setInterval(() => {
       const elapsed = Date.now() - startTimeRef.current;
       
-      // Complete only if assets are loaded, display caught up, AND min time passed
+      // When truly complete
       if (assetProgress === 100 && displayProgress > 99.5 && elapsed > minTime) {
-        setIsComplete(true);
         clearInterval(checkCompletion);
         
-        // Final reveal delay
-        setTimeout(onLoadingComplete, 1200);
+        // 1. Fade out the text indicators, leaving ONLY the spinning logo
+        gsap.to(".main-indicator, .minimal-progress-container", {
+           opacity: 0,
+           duration: 0.4,
+           onComplete: () => {
+              // 2. Erase the loading screen so the AnimatedIntro takes over perfectly
+              onLoadingComplete();
+           }
+        });
       }
     }, 100);
 
@@ -49,15 +52,15 @@ const LoadingScreen = ({ onLoadingComplete, progress: assetProgress = 0 }) => {
   const currentProgress = Math.floor(displayProgress);
 
   return (
-    <div className={`loading-screen ${isComplete ? 'complete' : ''}`}>
+    <div className="loading-screen">
       <div className="loading-content-simple">
-        {/* Spinning User Logo (Z-Axis) */}
+        {/* Spinning User Logo */}
         <div className="logo-spinner-container">
           <img src="/title.png" alt="Logo" className="logo-spinner" />
           <div className="logo-glow"></div>
         </div>
 
-        {/* Minimalist Progress Indicator (Centered Label) */}
+        {/* Minimalist Progress Indicator */}
         <div className="main-indicator">
           <div className="loading-label">INITIALIZING SIBI_SYSTEMS_ {currentProgress}%</div>
         </div>
@@ -70,9 +73,6 @@ const LoadingScreen = ({ onLoadingComplete, progress: assetProgress = 0 }) => {
           />
         </div>
       </div>
-
-      {/* Elegant Reveal Transition */}
-      <div className="reveal-curtain"></div>
     </div>
   );
 };

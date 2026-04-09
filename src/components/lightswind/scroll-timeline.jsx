@@ -95,36 +95,37 @@ const ScrollTimeline = ({
               {events.map((event, index) => (
                 <div 
                     key={index} 
-                    className="w-[85vw] md:w-[65vw] lg:w-[700px] flex-shrink-0 px-4 md:px-10"
+                    className="w-[80vw] md:w-[50vw] lg:w-[550px] h-[50vh] md:h-[420px] flex-shrink-0 px-3 md:px-6"
                 >
-                  <div className="group relative bg-[#0b0b0b] border border-white/5 p-8 md:p-14 lg:p-16 rounded-[2rem] shadow-xl transition-all duration-300 hover:border-[#44a02c33]">
-                        
-                        <div className="absolute top-8 right-12 text-4xl font-black text-white/[0.02] italic select-none">
-                           {index + 1}
-                        </div>
+                  <div className="group relative bg-[#0b0b0b] border border-white/5 p-6 md:p-10 lg:p-10 rounded-[1.5rem] shadow-xl transition-all duration-300 hover:border-[#44a02c33] h-full flex flex-col justify-between">
+                        <div>
+                          <div className="absolute top-6 right-8 text-3xl font-black text-white/[0.02] italic select-none">
+                             {index + 1}
+                          </div>
 
-                        <div className="flex items-center justify-between mb-8 border-b border-white/5 pb-8">
-                           <div className="flex items-center gap-4">
-                              <span className="text-3xl md:text-5xl font-black text-[#44a02c] italic">{event.year}</span>
-                           </div>
-                           <span className="text-[9px] font-bold text-white/10 tracking-[0.3em] uppercase hidden md:block">
-                              {event.subtitle}
-                           </span>
-                        </div>
+                          <div className="flex items-center justify-between mb-6 border-b border-white/5 pb-6">
+                             <div className="flex items-center gap-3">
+                                <span className="text-2xl md:text-3xl font-black text-[#44a02c] italic">{event.year}</span>
+                             </div>
+                             <span className="text-[8px] font-bold text-white/10 tracking-[0.2em] uppercase hidden md:block">
+                                {event.subtitle}
+                             </span>
+                          </div>
 
-                        <div className="space-y-4">
-                            <h3 className="text-2xl md:text-4xl lg:text-5xl font-black text-white leading-tight tracking-tight uppercase group-hover:text-[#44a02c] transition-colors duration-500">
-                               {event.title}
-                            </h3>
-                            <p className="text-gray-400 text-base md:text-xl lg:text-xl leading-relaxed font-light italic opacity-70 group-hover:opacity-100 transition-opacity">
-                               "{event.description}"
-                            </p>
+                          <div className="space-y-3">
+                              <h3 className="text-xl md:text-2xl lg:text-3xl font-black text-white leading-tight tracking-tight uppercase group-hover:text-[#44a02c] transition-colors duration-500">
+                                 {event.title}
+                              </h3>
+                              <p className="text-gray-400 text-sm md:text-base lg:text-base leading-relaxed font-light italic opacity-70 group-hover:opacity-100 transition-opacity">
+                                 "{event.description}"
+                              </p>
+                          </div>
                         </div>
 
                         {/* Bottom Tag */}
-                        <div className="mt-12 flex items-center gap-2">
-                             <div className="w-1.5 h-1.5 rounded-full bg-[#44a02c33]" />
-                             <span className="text-[8px] font-bold text-[#44a02c33] uppercase spacing-widest">{event.subtitle} // VERIFIED</span>
+                        <div className="mt-auto pt-6 flex items-center gap-2">
+                             <div className="w-1 h-1 rounded-full bg-[#44a02c33]" />
+                             <span className="text-[7px] font-bold text-[#44a02c33] uppercase spacing-widest">{event.subtitle} // VERIFIED</span>
                         </div>
                   </div>
                 </div>

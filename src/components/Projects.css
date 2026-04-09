@@ -51,6 +51,9 @@
   position: relative;
 
   transition: color 0.25s ease;
+  overflow-wrap: break-word; /* Prevent long titles from breaking layout */
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
 }
 
 /* Green shine layer */
@@ -88,8 +91,9 @@
     0 0 16px rgba(0, 255, 136, 0.15);
 }
 
-/* Hover = visible green shine sweep */
-.project-row:hover .project-title::after {
+/* Hover & Active (Mobile) = visible green shine sweep */
+.project-row:hover .project-title::after,
+.project-row:active .project-title::after {
   opacity: 1;
   animation: green-shine 0.9s ease forwards;
 }
@@ -129,8 +133,64 @@
 }
 
 /* =========================
-   SHINE ANIMATION
+   RESPONSIVE DESIGN
 ========================= */
+@media (max-width: 1024px) {
+  .project-title {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .projects {
+    padding: 4rem 1.5rem;
+  }
+
+  .projects-list {
+    width: 100%;
+  }
+
+  .project-row {
+    padding: 1.5rem 0;
+  }
+
+  .project-title {
+    font-size: 1.8rem;
+    color: var(--text-white); /* Always bright on mobile */
+  }
+
+  .project-preview {
+    font-size: 0.9rem;
+    max-width: 100%;
+  }
+
+  .project-arrow {
+    font-size: 1.8rem;
+  }
+
+  /* Disable hover images on mobile to prevent clutter */
+  .project-hover-img {
+    display: none !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .project-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .project-title {
+    font-size: 1.5rem;
+    white-space: normal;
+  }
+
+  .project-arrow {
+    align-self: flex-end;
+  }
+}
+
 @keyframes green-shine {
   from {
     background-position: -150% center;
