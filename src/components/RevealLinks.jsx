@@ -45,7 +45,7 @@ const FlipLink = ({ children, href }) => {
         {children.split("").map((char, i) => (
           <motion.span
             key={i}
-            className="inline-block"
+            className="inline-block text-[#44a02c] drop-shadow-[0_0_8px_rgba(68,160,44,0.5)]"
             variants={{
               initial: { y: "100%" },
               hovered: { y: 0 },
