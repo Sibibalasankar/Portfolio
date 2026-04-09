@@ -1,21 +1,15 @@
 import React from 'react';
+import Projects from '../components/Projects';
 import './Pages.css';
 
 const WorksPage = () => {
   return (
-    <div className="page-container">
-      <div className="page-content">
-        <h1 className="page-title">Works</h1>
-        <p className="page-description">
-          Coming soon - A curated collection of my best projects in web development, 
-          blockchain, and AI applications.
-        </p>
-        <div className="page-placeholder">
-          <div className="placeholder-card"></div>
-          <div className="placeholder-card"></div>
-          <div className="placeholder-card"></div>
-        </div>
+    <div className="page-wrapper works-page">
+      <div className="page-header">
+        <h1 className="page-title">Selected Works</h1>
+        <p className="page-subtitle">A collection of projects built with passion and precision.</p>
       </div>
+      <Projects />
     </div>
   );
 };

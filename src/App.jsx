@@ -1,5 +1,5 @@
 import { useState, useEffect, Suspense, lazy } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { useProgress, useGLTF, useTexture } from "@react-three/drei";
 
 /* components */
@@ -43,12 +43,30 @@ const Home = () => (
 function App() {
   const { progress } = useProgress();
   const [isLoading, setIsLoading] = useState(true);
+  const location = useLocation();
 
   // Preload Lanyard Assets
   useEffect(() => {
     useGLTF.preload(cardGLB);
     useTexture.preload(lanyardTexture);
   }, []);
+
+  // Handle Scroll to Hash and Page Top
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (!isLoading) {
+      if (hash) {
+        setTimeout(() => {
+          const element = document.getElementById(hash.substring(1));
+          if (element) {
+            element.scrollIntoView({ behavior: "smooth" });
+          }
+        }, 500);
+      } else {
+        window.scrollTo(0, 0);
+      }
+    }
+  }, [location, isLoading]);
 
   // Handle GSAP refresh when loading is done
   useEffect(() => {

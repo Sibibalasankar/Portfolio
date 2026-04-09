@@ -10,31 +10,35 @@ const Hero = () => {
   const heroRef = useRef(null);
 
   useEffect(() => {
-    const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
 
-    tl.fromTo(
-      ".hero-rotating",
-      { y: 30, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1.5, delay: 0.5 }
-    )
-      .fromTo(
-        ".hero-description",
-        { y: 20, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1 },
-        "-=1.2"
+      tl.fromTo(
+        ".hero-rotating",
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1.5, delay: 0.5 }
       )
-      .fromTo(
-        ".hero-buttons a",
-        { y: 15, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1, stagger: 0.15 },
-        "-=0.8"
-      )
-      .fromTo(
-        ".hero-lanyard-overlay",
-        { opacity: 0, scale: 0.95 },
-        { opacity: 1, scale: 1, duration: 2 },
-        "-=1.5"
-      );
+        .fromTo(
+          ".hero-description",
+          { y: 20, opacity: 0 },
+          { y: 0, opacity: 1, duration: 1 },
+          "-=1.2"
+        )
+        .fromTo(
+          ".hero-buttons a",
+          { y: 15, opacity: 0 },
+          { y: 0, opacity: 1, duration: 1, stagger: 0.15 },
+          "-=0.8"
+        )
+        .fromTo(
+          ".hero-lanyard-overlay",
+          { opacity: 0, scale: 0.95 },
+          { opacity: 1, scale: 1, duration: 2 },
+          "-=1.5"
+        );
+    }, heroRef);
+
+    return () => ctx.revert();
   }, []);
 
 

@@ -177,6 +177,11 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }) {
       rot.copy(card.current.rotation());
       card.current.setAngvel({ x: ang.x, y: ang.y - rot.y * 0.25, z: ang.z });
     }
+
+    // Update resolution dynamicallly
+    if (band.current) {
+      band.current.material.resolution.set(state.size.width, state.size.height);
+    }
   });
 
   curve.curveType = 'chordal';
@@ -227,8 +232,7 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }) {
         <meshLineGeometry />
         <meshLineMaterial
           color="white"
-          depthTest={false}
-          resolution={isMobile ? [640, 640] : [1000, 1000]}
+          depthTest={true}
           useMap
           map={texture}
           repeat={[-4, 1]}

@@ -25,12 +25,13 @@ const LoadingScreen = ({ onLoadingComplete, progress: assetProgress = 0 }) => {
   }, [assetProgress]);
 
   // Ensure minimum viewing time even if assets load instantly
+  const startTimeRef = React.useRef(Date.now());
+
   useEffect(() => {
     const minTime = 4000; // 4 seconds minimum
-    const startTime = Date.now();
 
     const checkCompletion = setInterval(() => {
-      const elapsed = Date.now() - startTime;
+      const elapsed = Date.now() - startTimeRef.current;
       
       // Complete only if assets are loaded, display caught up, AND min time passed
       if (assetProgress === 100 && displayProgress > 99.5 && elapsed > minTime) {

@@ -1,9 +1,16 @@
 /* Pages.css */
-.page-container {
+.page-container, .page-wrapper {
   min-height: 100vh;
   padding: 120px 2rem 4rem;
   background: #0b0b0b;
   color: white;
+  overflow-x: hidden;
+}
+
+.page-header {
+  max-width: 1200px;
+  margin: 0 auto 4rem;
+  text-align: left;
 }
 
 .page-content {
@@ -12,19 +19,20 @@
 }
 
 .page-title {
-  font-size: 3.5rem;
-  margin-bottom: 1.5rem;
-  background: linear-gradient(135deg, #4E31AA 0%, #3A1078 100%);
+  font-size: 4rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #44a02c 0%, #2d6a1f 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  letter-spacing: -0.02em;
 }
 
-.page-description {
-  font-size: 1.2rem;
-  color: rgba(255, 255, 255, 0.7);
+.page-subtitle, .page-description {
+  font-size: 1.25rem;
+  color: rgba(255, 255, 255, 0.6);
   max-width: 600px;
-  margin-bottom: 4rem;
   line-height: 1.6;
 }
 
