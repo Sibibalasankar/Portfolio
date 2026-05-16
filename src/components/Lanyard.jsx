@@ -132,13 +132,20 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }) {
   
   const [dragged, drag] = useState(false);
   const [hovered, hover] = useState(false);
+  const [isReady, setIsReady] = useState(false);
+
+  // Initialize lerped values eagerly to avoid (0,0,0) jump
+  useEffect(() => {
+    const timer = setTimeout(() => setIsReady(true), 150);
+    return () => clearTimeout(timer);
+  }, []);
 
   useRopeJoint(fixed, j1, [[0, 0, 0], [0, 0, 0], 1]);
   useRopeJoint(j1, j2, [[0, 0, 0], [0, 0, 0], 1]);
   useRopeJoint(j2, j3, [[0, 0, 0], [0, 0, 0], 1]);
   useSphericalJoint(j3, card, [
     [0, 0, 0],
-    [0, 1.5, 0]
+    [0, 1.45, 0]
   ]);
 
   useEffect(() => {
@@ -159,10 +166,16 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }) {
     
     if (fixed.current) {
       [j1, j2].forEach(ref => {
-        if (!ref.current.lerped) ref.current.lerped = new THREE.Vector3().copy(ref.current.translation());
-        const clampedDistance = Math.max(0.1, Math.min(1, ref.current.lerped.distanceTo(ref.current.translation())));
+        if (!ref.current) return;
+        if (!ref.current.lerped) {
+          ref.current.lerped = new THREE.Vector3().copy(ref.current.translation());
+        }
+        
+        const currentPos = ref.current.translation();
+        const clampedDistance = Math.max(0.1, Math.min(1, ref.current.lerped.distanceTo(currentPos)));
+        
         ref.current.lerped.lerp(
-          ref.current.translation(),
+          currentPos,
           delta * (minSpeed + clampedDistance * (maxSpeed - minSpeed))
         );
       });
@@ -171,16 +184,23 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }) {
       curve.points[1].copy(j2.current.lerped);
       curve.points[2].copy(j1.current.lerped);
       curve.points[3].copy(fixed.current.translation());
-      band.current.geometry.setPoints(curve.getPoints(isMobile ? 12 : 24));
+      
+      // Only update points if we're ready and have valid translations
+      if (isReady) {
+        band.current.geometry.setPoints(curve.getPoints(isMobile ? 12 : 24));
+      }
       
       ang.copy(card.current.angvel());
       rot.copy(card.current.rotation());
       card.current.setAngvel({ x: ang.x, y: ang.y - rot.y * 0.25, z: ang.z });
     }
 
-    // Update resolution dynamicallly
-    if (band.current) {
-      band.current.material.resolution.set(state.size.width, state.size.height);
+    // Update resolution dynamicallly with a safety check
+    if (band.current && band.current.material) {
+      const { width, height } = state.size;
+      if (band.current.material.resolution.x !== width || band.current.material.resolution.y !== height) {
+        band.current.material.resolution.set(width, height);
+      }
     }
   });
 
@@ -191,16 +211,16 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }) {
     <>
       <group position={[0, 4, 0]}>
         <RigidBody ref={fixed} {...segmentProps} type="fixed" />
-        <RigidBody position={[0.5, 0, 0]} ref={j1} {...segmentProps}>
+        <RigidBody position={[1, 0, 0]} ref={j1} {...segmentProps}>
           <BallCollider args={[0.1]} />
         </RigidBody>
-        <RigidBody position={[1, 0, 0]} ref={j2} {...segmentProps}>
+        <RigidBody position={[2, 0, 0]} ref={j2} {...segmentProps}>
           <BallCollider args={[0.1]} />
         </RigidBody>
-        <RigidBody position={[1.5, 0, 0]} ref={j3} {...segmentProps}>
+        <RigidBody position={[3, 0, 0]} ref={j3} {...segmentProps}>
           <BallCollider args={[0.1]} />
         </RigidBody>
-        <RigidBody position={[2, 0, 0]} ref={card} {...segmentProps} type={dragged ? 'kinematicPosition' : 'dynamic'}>
+        <RigidBody position={[4, 0, 0]} ref={card} {...segmentProps} type={dragged ? 'kinematicPosition' : 'dynamic'}>
           <CuboidCollider args={[0.8, 1.125, 0.01]} />
           <group
             scale={2.25}
@@ -228,15 +248,19 @@ function Band({ maxSpeed = 50, minSpeed = 0, isMobile = false }) {
           </group>
         </RigidBody>
       </group>
-      <mesh ref={band}>
+      <mesh ref={band} frustumCulled={false}>
         <meshLineGeometry />
         <meshLineMaterial
           color="white"
           depthTest={true}
+          depthWrite={false}
+          transparent={true}
           useMap
           map={texture}
           repeat={[-4, 1]}
           lineWidth={0.5}
+          alphaTest={0.01}
+          opacity={isReady ? 1 : 0}
         />
       </mesh>
     </>

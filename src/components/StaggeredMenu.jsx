@@ -393,6 +393,7 @@ export const StaggeredMenu = ({
                     <a
                       className="sm-panel-item relative text-black font-semibold text-[4rem] cursor-pointer leading-none tracking-[-2px] uppercase transition-[background,color] duration-150 ease-linear inline-block no-underline pr-[1.4em]"
                       href={it.link}
+                      onClick={() => closeMenu()}
                       aria-label={it.ariaLabel}
                       data-index={idx + 1}>
                       <span
@@ -450,6 +451,7 @@ export const StaggeredMenu = ({
   width: 100%;
   height: 100%;
   z-index: 9999;
+  pointer-events: none;
 }
 
 .sm-scope .staggered-menu-wrapper {

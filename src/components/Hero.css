@@ -128,6 +128,7 @@
   cursor: pointer;
   display: inline-block;
   overflow: hidden;
+  white-space: nowrap;
 }
 
 .btn-primary {
@@ -230,36 +231,65 @@
     padding: 0 2.5rem;
   }
   
+  .hero-left {
+    max-width: 480px;
+  }
+  
   .hero-rotating {
-    font-size: 3.2rem;
+    font-size: 2.8rem;
+    gap: 0.8rem;
+  }
+  
+  .hero-static {
+    font-size: 2.4rem;
   }
   
   .hero-description {
-    font-size: 1.1rem;
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .hero-buttons {
+    gap: 1rem;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    padding: 0.8rem 1.6rem;
+    font-size: 0.85rem;
   }
   
   .hero-lanyard-overlay {
-    width: 50vw;
-    height: 70vh;
+    width: 45vw;
+    height: 80vh;
+    right: 0;
+  }
+
+  .hero-content {
+    padding: 0 3rem;
   }
 }
 
-/* Mobile (481px - 767px) */
-@media (max-width: 768px) {
+/* Mobile Breakpoint - Changed from 768px to 600px */
+@media (max-width: 600px) {
   .hero {
     padding: 0;
     flex-direction: column;
     justify-content: center;
     text-align: center;
     min-height: 100vh;
-    overflow-y: auto;
   }
   
   .hero-content {
     width: 100%;
     text-align: center;
-    margin-top: 2rem;
+    margin-top: 0;
     padding: 0 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
   }
   
   .hero-left {
@@ -267,44 +297,44 @@
   }
   
   .hero-rotating {
-    font-size: 2.8rem;
+    font-size: 2.2rem;
     justify-content: center;
     flex-direction: column;
-    gap: 0.5rem;
-    margin-bottom: 1.5rem;
+    gap: 0.3rem;
+    margin-bottom: 1.2rem;
   }
   
   .hero-static {
-    font-size: 2.2rem;
+    font-size: 1.8rem;
   }
   
   .hero-rotating-text {
-    font-size: 2.6rem;
+    font-size: 2.1rem;
   }
   
   .hero-description {
-    font-size: 1.05rem;
-    line-height: 1.7;
-    margin-bottom: 2.5rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
     padding: 0 0.5rem;
   }
   
-  /* Enhanced mobile buttons */
+  /* Reduced button sizes for mobile */
   .hero-buttons {
     flex-direction: column;
-    gap: 1.2rem;
+    gap: 1rem;
     align-items: center;
     width: 100%;
   }
   
   .btn-primary,
   .btn-secondary {
-    padding: 1.4rem 3rem;
-    width: 100%;
-    max-width: 280px;
-    font-size: 1rem;
-    border-radius: 50px;
-    position: relative;
+    padding: 0.75rem 1.4rem;
+    width: auto;
+    min-width: 160px;
+    max-width: none;
+    font-size: 0.8rem;
+    border-radius: 40px;
   }
   
   /* Cool button effects for mobile */
@@ -332,17 +362,19 @@
     transform: translateY(0);
   }
   
-  /* Enable canvas on mobile but adjust positioning */
+  /* Hide ID card on mobile as requested */
   .hero-lanyard-overlay {
-    display: block;
-    position: relative;
-    right: 0;
-    top: 0;
-    transform: none;
-    width: 100%;
-    height: 40vh; /* Give it some space on mobile */
-    margin-top: 2rem;
-    order: -1; /* Place it above text on mobile for better visual flow */
+    display: none;
+  }
+
+  .hero-content {
+    margin-top: 0;
+    padding: 0 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
   }
 
   /* Fallback styles for non-WebGL devices */

@@ -14,8 +14,8 @@ const Header = () => {
   }, []);
 
   const menuItems = [
-    { label: "Certifications", ariaLabel: "View works", link: "/works" },
-    { label: "Gallery", ariaLabel: "View gallery", link: "/gallery" },
+    { label: "Works", ariaLabel: "View works", link: "/#projects" },
+    { label: "Contact", ariaLabel: "Contact me", link: "/#contact" },
     { label: "Resume", ariaLabel: "View resume", link: "/resume" },
   ];
 
